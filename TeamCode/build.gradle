@@ -17,6 +17,9 @@ apply from: '../build.dependencies.gradle'
 
 android {
     namespace = 'org.firstinspires.ftc.teamcode'
+    buildFeatures {
+        mlModelBinding true
+    }
 
     packagingOptions {
         jniLibs.useLegacyPackaging true
@@ -31,6 +34,7 @@ repositories {
 
 dependencies {
     implementation project(':FtcRobotController')
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
     annotationProcessor files('lib/OpModeAnnotationProcessor.jar')
 
     implementation "com.acmerobotics.roadrunner:ftc:0.1.6"
