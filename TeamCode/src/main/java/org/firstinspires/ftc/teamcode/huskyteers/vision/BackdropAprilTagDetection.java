@@ -5,16 +5,15 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-public class AprilTagDetector {
+public class BackdropAprilTagDetection {
     // Backdrop April Tag IDs
     // Blue Left: 1, Blue Center: 2, Blue Right: 3
     // Red Left: 4, Red Center 5, Red Right: 6
 
     public AprilTagProcessor aprilTag;
 
-    public AprilTagDetector() {
+    public BackdropAprilTagDetection() {
         aprilTag = new AprilTagProcessor.Builder().setDrawTagOutline(true).build();
     }
 
@@ -51,12 +50,5 @@ public class AprilTagDetector {
         return Optional.empty();
     }
 
-    public List<AprilTagDetection> getWallAprilTags() {
-        return aprilTag.getDetections().stream().filter(detection -> detection.metadata.name.contains("Wall")).collect(Collectors.toList());
-    }
-
-    public List<AprilTagDetection> getBackdropAprilTags() {
-        return aprilTag.getDetections().stream().filter(detection -> detection.metadata.name.contains("Alliance")).collect(Collectors.toList());
-    }
 }
 
