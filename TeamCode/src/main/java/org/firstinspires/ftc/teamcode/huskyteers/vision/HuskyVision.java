@@ -16,13 +16,13 @@ import java.util.concurrent.TimeUnit;
 
 public class HuskyVision {
 
-    public BackdropAprilTagDetection backdropAprilTagDetection;
+    public AprilTagDetector aprilTagDetector;
     public PixelDetection pixelDetection;
     public VisionPortal visionPortal;
     public TensorflowDetection tensorflowdetection;
 
     public HuskyVision(HardwareMap hwMap) {
-        backdropAprilTagDetection = new BackdropAprilTagDetection();
+        aprilTagDetector = new AprilTagDetector();
         pixelDetection = new PixelDetection();
         tensorflowdetection =  new TensorflowDetection();
         tensorflowdetection.initTfod();
