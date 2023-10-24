@@ -25,13 +25,13 @@ public class HuskyVision {
         backdropAprilTagDetection = new BackdropAprilTagDetection();
         pixelDetection = new PixelDetection();
         tensorflowdetection =  new TensorflowDetection();
+        tensorflowdetection.initTfod();
         visionPortal = new VisionPortal.Builder()
                 .setCamera(hwMap.get(WebcamName.class, "Webcam 1"))
                 .setCameraResolution(new Size(640, 480))
                 .enableLiveView(true)
                 .addProcessors(backdropAprilTagDetection.aprilTag, pixelDetection.tfodProcessor,tensorflowdetection.tfod)
                 .build();
-        tensorflowdetection.initTfod();
         // Manually set the camera gain and exposure.
         // ExposureControl exposureControl = visionPortal.getCameraControl(ExposureControl.class);
         // exposureControl.setExposure((long)6, TimeUnit.MILLISECONDS);
