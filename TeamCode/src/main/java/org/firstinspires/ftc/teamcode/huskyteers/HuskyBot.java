@@ -107,8 +107,8 @@ public class HuskyBot {
     public void driveRobot(double drive, double strafe, double turn, double speed) {
         PoseVelocity2d pw = new PoseVelocity2d(
                 new Vector2d(
-                        -drive * speed,
-                        strafe * speed
+                        strafe * speed,
+                        drive * speed
                 ), turn * speed
         );
 
