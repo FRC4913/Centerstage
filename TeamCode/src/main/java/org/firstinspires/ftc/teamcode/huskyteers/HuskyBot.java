@@ -64,8 +64,10 @@ import java.util.Optional;
  */
 
 @Config
-public abstract class HuskyBot extends LinearOpMode {
+public class HuskyBot {
 
+    /* Declare OpMode members. */
+    private final LinearOpMode myOpMode;   // gain access to methods in the calling OpMode.
 
     // Define hardware objects.
 
@@ -87,19 +89,27 @@ public abstract class HuskyBot extends LinearOpMode {
     public static double MAX_AUTO_STRAFE = 0.5;
 
     // Define a constructor that allows the OpMode to pass a reference to itself.
-    public HuskyBot() {
-        TelemetryUtils.telemetry = telemetry;
+    public HuskyBot(LinearOpMode opMode) {
+        myOpMode = opMode;
+        TelemetryUtils.telemetry = opMode.telemetry;
     }
 
-    public void initializeHardware() {
+    public void init() {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
-        drive = new MecanumDrive(hardwareMap, INITIAL_POSE);
-        claw = new Claw(hardwareMap);
-        huskyVision = new HuskyVision(hardwareMap);
+        drive = new MecanumDrive(myOpMode.hardwareMap, INITIAL_POSE);
+        claw = new Claw(myOpMode.hardwareMap);
+        huskyVision = new HuskyVision(myOpMode.hardwareMap);
         huskyVision.setExposure();
 
-        telemetry.addData(">", "Hardware Initialized");
-        telemetry.update();
+        myOpMode.telemetry.addData(">", "Hardware Initialized");
+        myOpMode.telemetry.update();
+    }
+
+    public void setMotorPowers(float leftBack, float leftFront, float rightBack, float rightFront) {
+        this.drive.leftBack.setPower(leftBack);
+        this.drive.leftFront.setPower(leftFront);
+        this.drive.rightBack.setPower(rightBack);
+        this.drive.rightFront.setPower(rightFront);
     }
 
     public void updateDrivePoseEstimate() {
@@ -163,6 +173,24 @@ public abstract class HuskyBot extends LinearOpMode {
         this.drive.pose = new Pose2d(this.drive.pose.position, Rotation2d.exp(0));
     }
 
+    public PoseVelocity2d alignWithAprilTag(int aprilTagID) {
+        Optional<AprilTagDetection> desiredTag = huskyVision.AprilTagDetector.getAprilTagById(aprilTagID);
+        if (!desiredTag.isPresent()) {
+            return new PoseVelocity2d(new Vector2d(0, 0), 0);
+        }
+        AprilTagDetection tag = desiredTag.get();
+        double SPEED_GAIN = 0.02;
+        double STRAFE_GAIN = 0.01;
+        double TURN_GAIN = 0.04;
+
+        double MAX_AUTO_SPEED = 0.5;
+        double MAX_AUTO_TURN = 0.3;
+        double MAX_AUTO_STRAFE = 0.5;
+
+        double rangeError = (tag.ftcPose.range - DESIRED_DISTANCE_FROM_APRILTAG);
+        double headingError = tag.ftcPose.bearing;
+        double yawError = tag.ftcPose.yaw;
+
 
     public PoseVelocity2d errorsToPoseVelocity2d(double rangeError, double headingError, double yawError) {
         double drive = Range.clip(rangeError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
@@ -170,19 +198,5 @@ public abstract class HuskyBot extends LinearOpMode {
         double strafe = -Range.clip(-yawError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
 
         return new PoseVelocity2d(new Vector2d(strafe, drive), turn);
-    }
-
-    public PoseVelocity2d alignWithAprilTag(int aprilTagID) {
-        Optional<AprilTagDetection> desiredTag = huskyVision.AprilTagDetector.getAprilTagById(aprilTagID);
-        if (!desiredTag.isPresent()) {
-            return new PoseVelocity2d(new Vector2d(0, 0), 0);
-        }
-        AprilTagDetection tag = desiredTag.get();
-
-        double rangeError = (tag.ftcPose.range - DESIRED_DISTANCE_FROM_APRILTAG);
-        double headingError = tag.ftcPose.bearing;
-        double yawError = tag.ftcPose.yaw;
-
-        return errorsToPoseVelocity2d(rangeError, headingError, yawError);
     }
 }
