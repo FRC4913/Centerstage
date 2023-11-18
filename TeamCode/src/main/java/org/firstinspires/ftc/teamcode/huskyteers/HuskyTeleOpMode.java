@@ -52,7 +52,11 @@ public class HuskyTeleOpMode extends LinearOpMode {
                     huskyBot.huskyVision.AprilTagDetector.getAprilTagById(583).isPresent()) {
                 PoseVelocity2d pw = huskyBot.alignWithAprilTag(583);
                 TelemetryUtils.PoseVelocity2d(pw);
-                huskyBot.driveRobot(pw.component1().y, pw.component1().x, pw.component2(), 1.0);
+                huskyBot.driveRobot(
+                        pw.component1().y,
+                        pw.component1().x,
+                        pw.component2(),
+                        1.0);
             }
             /*
             * If not LEFT BUMPER, use:
