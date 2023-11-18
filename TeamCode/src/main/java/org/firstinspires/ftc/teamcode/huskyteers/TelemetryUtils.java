@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.huskyteers;
 
 import android.annotation.SuppressLint;
 
+import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
@@ -12,9 +13,15 @@ public class TelemetryUtils {
     public static Telemetry telemetry;
 
     static void PoseVelocity2d(PoseVelocity2d pw) {
-        telemetry.addData("drive", pw.component1().y);
-        telemetry.addData("strafe", pw.component1().x);
-        telemetry.addData("turn", pw.component2());
+        telemetry.addData("Drive: ", pw.component1().y);
+        telemetry.addData("Strafe: ", pw.component1().x);
+        telemetry.addData("Turn: ", pw.component2());
+    }
+
+    static void DrivePos2d(HuskyBot huskyBot) {
+        Pose2d pose = huskyBot.getDrivePoseEstimate();
+        telemetry.addData("Robot X: ", pose.component1().x);
+        telemetry.addData("Robot Y: ", pose.component1().y);
     }
 
     @SuppressLint("DefaultLocale")
@@ -32,8 +39,8 @@ public class TelemetryUtils {
 
     @SuppressLint("DefaultLocale")
     static void Gamepad(Gamepad gamepad) {
-        telemetry.addLine(String.format("Left Stick X: %.2f %.2f", gamepad.left_stick_x, gamepad.left_stick_y));
-        telemetry.addLine(String.format("Right Stick X: %.2f %.2f", gamepad.right_stick_x, gamepad.right_stick_y));
+        telemetry.addLine(String.format("Left Stick: %.2f %.2f", gamepad.left_stick_x, gamepad.left_stick_y));
+        telemetry.addLine(String.format("Right Stick: %.2f %.2f", gamepad.right_stick_x, gamepad.right_stick_y));
     }
 
 }

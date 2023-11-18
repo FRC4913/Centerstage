@@ -72,7 +72,7 @@ public class HuskyBot {
     // Define hardware objects.
 
     private MecanumDrive drive = null;
-    private Claw claw = null;
+    // private Claw claw = null;
     public HuskyVision huskyVision = null;
 
 
@@ -97,7 +97,7 @@ public class HuskyBot {
     public void init() {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
         drive = new MecanumDrive(myOpMode.hardwareMap, INITIAL_POSE);
-        claw = new Claw(myOpMode.hardwareMap);
+        // claw = new Claw(myOpMode.hardwareMap);
         huskyVision = new HuskyVision(myOpMode.hardwareMap);
         huskyVision.setExposure();
 
@@ -114,6 +114,10 @@ public class HuskyBot {
 
     public void updateDrivePoseEstimate() {
         this.drive.updatePoseEstimate();
+    }
+
+    public Pose2d getDrivePoseEstimate() {
+        return this.drive.pose;
     }
 
     public void driveRobot(double drive, double strafe, double turn, double speed) {
