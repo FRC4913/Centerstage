@@ -89,7 +89,13 @@ public class HuskyTeleOpMode extends LinearOpMode {
 
             // region DRONE LAUNCHER
             if (currentGamepad1.dpad_up) {
-                huskyBot.launchDrone();
+                huskyBot.setDroneLauncherPower(HuskyBot.DRONE_LAUNCHER_POWER);
+            }
+            else if (currentGamepad1.dpad_down) {
+                huskyBot.setDroneLauncherPower(-HuskyBot.DRONE_LAUNCHER_POWER);
+            }
+            else {
+                huskyBot.setDroneLauncherPower(0);
             }
             // endregion
 
@@ -98,7 +104,6 @@ public class HuskyTeleOpMode extends LinearOpMode {
                     TelemetryUtils::AprilTagDetection);
             TelemetryUtils.Gamepad(currentGamepad1);
             TelemetryUtils.DrivePos2d(huskyBot);
-            telemetry.addLine(String.format("Drone Launcher Set Position: %.2f", huskyBot.getDroneLauncherSetPos()));
             telemetry.update();
             // endregion
         }

@@ -36,8 +36,6 @@ import com.acmerobotics.roadrunner.Rotation2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.configuration.annotations.ServoType;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.huskyteers.vision.HuskyVision;
@@ -76,7 +74,7 @@ public class HuskyBot {
 
     private MecanumDrive drive = null;
     // private Claw claw = null;
-    private Servo droneLauncher = null;
+    private CRServo droneLauncher = null;
     public HuskyVision huskyVision = null;
 
 
@@ -84,7 +82,7 @@ public class HuskyBot {
     private final Pose2d INITIAL_POSE = new Pose2d(0, 0, 0);
     public static double DESIRED_DISTANCE_FROM_APRILTAG = 12.0;
     
-    public static double DRONE_LAUNCHER_RELEASE_POS = 0.5;
+    public static double DRONE_LAUNCHER_POWER = 0.5;
 
     public static double SPEED_GAIN = 0.02;
     public static double STRAFE_GAIN = 0.01;
@@ -104,7 +102,7 @@ public class HuskyBot {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
         drive = new MecanumDrive(myOpMode.hardwareMap, INITIAL_POSE);
         // claw = new Claw(myOpMode.hardwareMap);
-        droneLauncher = myOpMode.hardwareMap.get(Servo.class, "drone_launcher");
+        droneLauncher = myOpMode.hardwareMap.get(CRServo.class, "drone_launcher");
         huskyVision = new HuskyVision(myOpMode.hardwareMap);
         huskyVision.setExposure();
 
@@ -206,11 +204,8 @@ public class HuskyBot {
         return new PoseVelocity2d(new Vector2d(strafe, drive), turn);
     }
 
-    public void launchDrone() {
-        droneLauncher.setPosition(DRONE_LAUNCHER_RELEASE_POS);
+    public void setDroneLauncherPower(double power) {
+        droneLauncher.setPower(power);
     }
 
-    public double getDroneLauncherSetPos() {
-        return droneLauncher.getPosition();
-    }
 }
