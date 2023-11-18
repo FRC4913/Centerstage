@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.huskyteers;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.teamcode.huskyteers.vision.HuskyVision;
@@ -11,8 +12,9 @@ import java.util.Optional;
 
 @Config
 @Autonomous(name = "Husky Auto", group = "Auto")
-public class HuskyAuto extends HuskyBot {
+public class HuskyAuto extends LinearOpMode {
     public static int MAX_TRIES = 20;
+    HuskyBot huskyBot;
 
     /**
      * Let's arbitrarily assign numbers to each side it could be based on the location relative
@@ -31,7 +33,7 @@ public class HuskyAuto extends HuskyBot {
         // TODO: Change this to maybe be in seconds, instead of number of tries which could be different every time.
         int tries = 0;
         do {
-            List<Recognition> recognitions = huskyVision.tensorflowdetection.tfod.getRecognitions();
+            List<Recognition> recognitions = huskyBot.huskyVision.tensorflowdetection.tfod.getRecognitions();
             Optional<Recognition> likelyRecognition = recognitions.stream().filter(recognition -> recognition.getLabel().equals("HuskyProp")).findAny();
             if (likelyRecognition.isPresent()) {
                 Recognition recognition = likelyRecognition.get();
@@ -63,22 +65,24 @@ public class HuskyAuto extends HuskyBot {
 
     @Override
     public void runOpMode() {
-        super.initializeHardware();
+        huskyBot = new HuskyBot(this);
+        huskyBot.init();
 
         waitForStart();
         if (isStopRequested()) return;
+
         while (opModeIsActive() && !isStopRequested()) {
             int teamPropLocation = detectTeamPropLocation();
             if (teamPropLocation != -1) {
                 // Put down purple pixel
                 navigateToTeamPropLocation(teamPropLocation);
-                moveClawToBottom();
-                openClaw();
+                huskyBot.moveClawToBottom();
+                huskyBot.openClaw();
                 // TODO: Pick up yellow pixel
                 // Put yellow pixel on backdrop
-                alignWithAprilTag(locationToAprilTag(teamPropLocation));
-                moveClawToBackdropPosition();
-                openClaw();
+                huskyBot.alignWithAprilTag(locationToAprilTag(teamPropLocation));
+                huskyBot.moveClawToBackdropPosition();
+                huskyBot.openClaw();
                 parkInBackstage();
             }
         }

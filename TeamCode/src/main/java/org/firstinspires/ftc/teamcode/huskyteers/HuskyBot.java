@@ -179,17 +179,13 @@ public class HuskyBot {
             return new PoseVelocity2d(new Vector2d(0, 0), 0);
         }
         AprilTagDetection tag = desiredTag.get();
-        double SPEED_GAIN = 0.02;
-        double STRAFE_GAIN = 0.01;
-        double TURN_GAIN = 0.04;
-
-        double MAX_AUTO_SPEED = 0.5;
-        double MAX_AUTO_TURN = 0.3;
-        double MAX_AUTO_STRAFE = 0.5;
 
         double rangeError = (tag.ftcPose.range - DESIRED_DISTANCE_FROM_APRILTAG);
         double headingError = tag.ftcPose.bearing;
         double yawError = tag.ftcPose.yaw;
+
+        return errorsToPoseVelocity2d(rangeError, headingError, yawError);
+    }
 
 
     public PoseVelocity2d errorsToPoseVelocity2d(double rangeError, double headingError, double yawError) {
