@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.huskyteers;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.teamcode.huskyteers.vision.HuskyVision;
+import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,8 +48,19 @@ public class HuskyAuto extends LinearOpMode {
     }
 
     public void navigateToTeamPropLocation(int location) {
-        // TODO: Implement navigating to the team prop location
-        throw new UnsupportedOperationException();
+        switch (location) {
+            case 0:
+                huskyBot.drive.actionBuilder(huskyBot.drive.pose).lineToX(48).lineToY(-12).build().run(new TelemetryPacket());
+                break;
+            case 1:
+                huskyBot.drive.actionBuilder(huskyBot.drive.pose).lineToX(48).build().run(new TelemetryPacket());
+                break;
+            case 2:
+                huskyBot.drive.actionBuilder(huskyBot.drive.pose).lineToX(48).lineToY(12).build().run(new TelemetryPacket());
+                break;
+            default:
+                break;
+        }
     }
 
     public int locationToAprilTag(int location) {
@@ -76,14 +89,14 @@ public class HuskyAuto extends LinearOpMode {
             if (teamPropLocation != -1) {
                 // Put down purple pixel
                 navigateToTeamPropLocation(teamPropLocation);
-                huskyBot.moveClawToBottom();
-                huskyBot.openClaw();
+//                huskyBot.moveClawToBottom();
+//                huskyBot.openClaw();
                 // TODO: Pick up yellow pixel
                 // Put yellow pixel on backdrop
-                huskyBot.alignWithAprilTag(locationToAprilTag(teamPropLocation));
-                huskyBot.moveClawToBackdropPosition();
-                huskyBot.openClaw();
-                parkInBackstage();
+//                huskyBot.alignWithAprilTag(locationToAprilTag(teamPropLocation));
+//                huskyBot.moveClawToBackdropPosition();
+//                huskyBot.openClaw();
+//                parkInBackstage();
             }
         }
     }

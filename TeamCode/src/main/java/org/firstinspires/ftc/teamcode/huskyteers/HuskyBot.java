@@ -72,7 +72,7 @@ public class HuskyBot {
 
     // Define hardware objects.
 
-    private MecanumDrive drive = null;
+    public MecanumDrive drive = null;
     // private Claw claw = null;
     private CRServo droneLauncher = null;
     public HuskyVision huskyVision = null;
