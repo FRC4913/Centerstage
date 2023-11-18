@@ -12,16 +12,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class HuskyTeleOpMode extends LinearOpMode {
     @Override
     public void runOpMode() {
+
         // region INITIALIZATION
         HuskyBot huskyBot = new HuskyBot(this);
-        GamepadUtils gamepadUtils = new GamepadUtils();
         huskyBot.init();
 
-
-
-        waitForStart();
-        if (isStopRequested()) return;
-        // endregion
+        GamepadUtils gamepadUtils = new GamepadUtils();
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad currentGamepad2 = new Gamepad();
 
@@ -31,12 +27,20 @@ public class HuskyTeleOpMode extends LinearOpMode {
             gamepad1.runRumbleEffect(new Gamepad.RumbleEffect.Builder().addStep(1, 1, 200).build());
         });
 
-        // region TELEOP LOOP
+        waitForStart();
+        if (isStopRequested()) return;
+        // endregion
+
+        // region TELEOP MODE
         while (opModeIsActive() && !isStopRequested()) {
+
+            // region GAMEPAD CONTROL
             currentGamepad1.copy(gamepad1);
             currentGamepad2.copy(gamepad2);
             gamepadUtils.processUpdates(currentGamepad1);
+            // endregion
 
+            // region DRIVE CONTROL
             if (currentGamepad1.start) {
                 huskyBot.setCurrentHeadingAsForward();
             }
@@ -63,12 +67,15 @@ public class HuskyTeleOpMode extends LinearOpMode {
                             (0.35 + 0.5 * currentGamepad1.left_trigger));
                 }
             }
+            // endregion
 
+            // region TELEMETRY
             huskyBot.huskyVision.AprilTagDetector.getAprilTagById(583).ifPresent(
                     TelemetryUtils::AprilTagDetection);
             TelemetryUtils.Gamepad(currentGamepad1);
             telemetry.update();
+            // endregion
         }
+        // endregion
     }
-    // endregion
 }
