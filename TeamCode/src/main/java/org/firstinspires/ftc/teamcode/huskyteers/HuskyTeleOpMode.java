@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.huskyteers;
 
+import android.annotation.SuppressLint;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -10,6 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Config
 @TeleOp(name = "Husky TeleOp Mode", group = "Teleop")
 public class HuskyTeleOpMode extends LinearOpMode {
+    @SuppressLint("DefaultLocale")
     @Override
     public void runOpMode() {
 
@@ -84,11 +87,18 @@ public class HuskyTeleOpMode extends LinearOpMode {
             }
             // endregion
 
+            // region DRONE LAUNCHER
+            if (currentGamepad1.dpad_up) {
+                huskyBot.launchDrone();
+            }
+            // endregion
+
             // region TELEMETRY
             huskyBot.huskyVision.AprilTagDetector.getAprilTagById(583).ifPresent(
                     TelemetryUtils::AprilTagDetection);
             TelemetryUtils.Gamepad(currentGamepad1);
             TelemetryUtils.DrivePos2d(huskyBot);
+            telemetry.addLine(String.format("Drone Launcher Set Position: %.2f", huskyBot.getDroneLauncherSetPos()));
             telemetry.update();
             // endregion
         }
