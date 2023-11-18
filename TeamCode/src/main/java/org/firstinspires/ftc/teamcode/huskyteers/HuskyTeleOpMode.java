@@ -88,10 +88,10 @@ public class HuskyTeleOpMode extends LinearOpMode {
             // endregion
 
             // region DRONE LAUNCHER
-            if (currentGamepad1.dpad_up) {
+            if (currentGamepad2.dpad_up) {
                 huskyBot.setDroneLauncherPower(HuskyBot.DRONE_LAUNCHER_POWER);
             }
-            else if (currentGamepad1.dpad_down) {
+            else if (currentGamepad2.dpad_down) {
                 huskyBot.setDroneLauncherPower(-HuskyBot.DRONE_LAUNCHER_POWER);
             }
             else {

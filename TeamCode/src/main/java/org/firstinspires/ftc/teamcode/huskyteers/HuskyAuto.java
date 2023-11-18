@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode.huskyteers;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -41,6 +44,9 @@ public class HuskyAuto extends LinearOpMode {
                 Recognition recognition = likelyRecognition.get();
                 // TODO: Better recognition algorithm, currently classifying based on the 1/3 of the screen that it is found in.
                 return (int) (HuskyVision.WIDTH / (recognition.getLeft() + recognition.getRight()) / 2);
+
+
+
             }
             // TODO: Add some code maybe to move the robot a little to improve chances of finding team prop instead of trying same thing 20 times
         } while (++tries <= MAX_TRIES);
@@ -48,19 +54,23 @@ public class HuskyAuto extends LinearOpMode {
     }
 
     public void navigateToTeamPropLocation(int location) {
-        switch (location) {
-            case 0:
-                huskyBot.drive.actionBuilder(huskyBot.drive.pose).lineToX(48).lineToY(-12).build().run(new TelemetryPacket());
-                break;
-            case 1:
-                huskyBot.drive.actionBuilder(huskyBot.drive.pose).lineToX(48).build().run(new TelemetryPacket());
-                break;
-            case 2:
-                huskyBot.drive.actionBuilder(huskyBot.drive.pose).lineToX(48).lineToY(12).build().run(new TelemetryPacket());
-                break;
-            default:
-                break;
-        }
+        telemetry.addData("Going to location:", location);
+        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).lineToX(32).build());
+//        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(24, 0)).build());
+
+//        switch (location) {
+//            case 0:
+//                huskyBot.drive.actionBuilder(huskyBot.drive.pose).lineToX(-48).build().run(new TelemetryPacket());
+//                break;
+//            case 1:
+//                huskyBot.drive.actionBuilder(huskyBot.drive.pose).lineToX(-48).build().run(new TelemetryPacket());
+//                break;
+//            case 2:
+//                huskyBot.drive.actionBuilder(huskyBot.drive.pose).lineToX(-48).build().run(new TelemetryPacket());
+//                break;
+//            default:
+//                break;
+//      }
     }
 
     public int locationToAprilTag(int location) {
@@ -84,20 +94,18 @@ public class HuskyAuto extends LinearOpMode {
         waitForStart();
         if (isStopRequested()) return;
 
-        while (opModeIsActive() && !isStopRequested()) {
-            int teamPropLocation = detectTeamPropLocation();
-            if (teamPropLocation != -1) {
-                // Put down purple pixel
-                navigateToTeamPropLocation(teamPropLocation);
+        int teamPropLocation = detectTeamPropLocation();
+        if (teamPropLocation != -1 || true) {
+            // Put down purple pixel
+            navigateToTeamPropLocation(teamPropLocation);
 //                huskyBot.moveClawToBottom();
 //                huskyBot.openClaw();
-                // TODO: Pick up yellow pixel
-                // Put yellow pixel on backdrop
+            // TODO: Pick up yellow pixel
+            // Put yellow pixel on backdrop
 //                huskyBot.alignWithAprilTag(locationToAprilTag(teamPropLocation));
 //                huskyBot.moveClawToBackdropPosition();
 //                huskyBot.openClaw();
 //                parkInBackstage();
-            }
         }
     }
 }
