@@ -13,20 +13,20 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 public class TelemetryUtils {
     public static Telemetry telemetry;
 
-    static void PoseVelocity2d(PoseVelocity2d pw) {
+    public static void PoseVelocity2d(PoseVelocity2d pw) {
         telemetry.addData("Drive: ", pw.component1().y);
         telemetry.addData("Strafe: ", pw.component1().x);
         telemetry.addData("Turn: ", pw.component2());
     }
 
-    static void DrivePos2d(HuskyBot huskyBot) {
+    public static void DrivePos2d(HuskyBot huskyBot) {
         Pose2d pose = huskyBot.getDrivePoseEstimate();
         telemetry.addData("Robot X: ", pose.component1().x);
         telemetry.addData("Robot Y: ", pose.component1().y);
     }
 
     @SuppressLint("DefaultLocale")
-    static void AprilTagDetection(AprilTagDetection detection) {
+    public static void AprilTagDetection(AprilTagDetection detection) {
         if (detection.metadata != null) {
             telemetry.addLine(String.format("\n==== (ID %d) %s", detection.id, detection.metadata.name));
             telemetry.addLine(String.format("XYZ %6.1f %6.1f %6.1f  (inch)", detection.ftcPose.x, detection.ftcPose.y, detection.ftcPose.z));
@@ -39,7 +39,7 @@ public class TelemetryUtils {
     }
 
     @SuppressLint("DefaultLocale")
-    static void Gamepad(Gamepad gamepad) {
+    public static void Gamepad(Gamepad gamepad) {
         telemetry.addLine(String.format("Left Stick: %.2f %.2f", gamepad.left_stick_x, gamepad.left_stick_y));
         telemetry.addLine(String.format("Right Stick: %.2f %.2f", gamepad.right_stick_x, gamepad.right_stick_y));
     }

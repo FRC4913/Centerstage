@@ -24,7 +24,7 @@ public class GamepadUtils {
     private final List<Detector> risingEdgeDetectors;
     private final List<Detector> fallingEdgeDetectors;
 
-    GamepadUtils() {
+    public GamepadUtils() {
         this.risingEdgeDetectors = new ArrayList<Detector>();
         this.fallingEdgeDetectors = new ArrayList<Detector>();
     }
