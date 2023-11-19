@@ -81,7 +81,7 @@ public class HuskyBot {
     // Define Drive constants.
     private final Pose2d INITIAL_POSE = new Pose2d(0, 0, 0);
     public static double DESIRED_DISTANCE_FROM_APRILTAG = 12.0;
-    
+
     public static double DRONE_LAUNCHER_POWER = 0.5;
 
     public static double SPEED_GAIN = 0.02;
@@ -134,36 +134,6 @@ public class HuskyBot {
         );
 
         this.drive.setDrivePowers(pw);
-    }
-
-    public void moveClawToBottom() {
-        throw new UnsupportedOperationException();
-        // TODO: Set position of the claw to the bottom
-        // this.claw.clawRotator.setPosition(0);
-    }
-
-    public void moveClawToTop() {
-        throw new UnsupportedOperationException();
-        // TODO: Set position of the claw to the top
-        // this.claw.clawRotator.setPosition(1);
-    }
-
-    public void moveClawToBackdropPosition() {
-        throw new UnsupportedOperationException();
-        // TODO: Set position of the claw to the backdrop position, possibly with sensor.
-        // this.claw.clawRotator.setPosition(0.5);
-    }
-
-    public void openClaw() {
-        throw new UnsupportedOperationException();
-        // TODO: Open claw
-        // this.claw.clawGrabber.setPosition(0);
-    }
-
-    public void closeClaw() {
-        throw new UnsupportedOperationException();
-        // TODO: Close claw
-        // this.claw.clawGrabber.setPosition(1);
     }
 
     public void fieldCentricDriveRobot(double gamepadLeftStickY, double gamepadLeftStickX, double gamepadRightStickX, double speed) {

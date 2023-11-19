@@ -7,9 +7,12 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.teamcode.huskyteers.HuskyBotConfig;
 import org.firstinspires.ftc.vision.VisionPortal;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class HuskyVision {
@@ -20,6 +23,7 @@ public class HuskyVision {
     public TensorflowDetection tensorflowdetection;
     public final static int WIDTH = 640;
     public final static int HEIGHT = 480;
+    public final static int MAX_TRIES = 20;
 
 
     public HuskyVision(HardwareMap hwMap) {
@@ -40,6 +44,37 @@ public class HuskyVision {
         // exposureControl.setExposure((long)6, TimeUnit.MILLISECONDS);
         // GainControl gainControl = visionPortal.getCameraControl(GainControl.class);
         // gainControl.setGain(250);
+    }
+
+    /**
+     * Let's arbitrarily assign numbers to each side it could be based on the location relative
+     * to the robot's starting position.
+     * <pre>
+     *      1
+     *    ______
+     * 0 |     |  2
+     *   |     |
+     *    robot start
+     *  </pre>
+     *
+     * @return Location of team prop, or -1 if not found
+     */
+    public int detectTeamPropLocation() {
+        // TODO: Change this to maybe be in seconds, instead of number of tries which could be different every time.
+        int tries = 0;
+        do {
+            List<Recognition> recognitions = tensorflowdetection.tfod.getRecognitions();
+            Optional<Recognition> likelyRecognition = recognitions.stream().filter(recognition -> recognition.getLabel().equals("HuskyProp")).findAny();
+            if (likelyRecognition.isPresent()) {
+                Recognition recognition = likelyRecognition.get();
+                // TODO: Better recognition algorithm, currently classifying based on the 1/3 of the screen that it is found in.
+                return (int) (HuskyVision.WIDTH / (recognition.getLeft() + recognition.getRight()) / 2);
+
+
+            }
+            // TODO: Add some code maybe to move the robot a little to improve chances of finding team prop instead of trying same thing 20 times
+        } while (++tries <= MAX_TRIES);
+        return -1;
     }
 
     public void setExposure() {
