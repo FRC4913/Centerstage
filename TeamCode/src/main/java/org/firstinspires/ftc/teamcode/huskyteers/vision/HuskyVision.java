@@ -23,7 +23,7 @@ public class HuskyVision {
     public TensorflowDetection tensorflowdetection;
     public final static int WIDTH = 640;
     public final static int HEIGHT = 480;
-    public final static int MAX_TRIES = 20;
+    public final static int MAX_TIME = 4000;
 
 
     public HuskyVision(HardwareMap hwMap) {
@@ -60,22 +60,33 @@ public class HuskyVision {
      * @return Location of team prop, or -1 if not found
      */
     public int detectTeamPropLocation() {
-        // TODO: Change this to maybe be in seconds, instead of number of tries which could be different every time.
-        int tries = 0;
-        do {
+
+        long startTime = System.currentTimeMillis();
+
+        while (System.currentTimeMillis() - startTime < MAX_TIME) {
             List<Recognition> recognitions = tensorflowdetection.tfod.getRecognitions();
-            Optional<Recognition> likelyRecognition = recognitions.stream().filter(recognition -> recognition.getLabel().equals("HuskyProp")).findAny();
+            Optional<Recognition> likelyRecognition = recognitions.stream()
+                    .filter(recognition -> recognition.getLabel().equals("HuskyProp"))
+                    .findAny();
             if (likelyRecognition.isPresent()) {
                 Recognition recognition = likelyRecognition.get();
-                // TODO: Better recognition algorithm, currently classifying based on the 1/3 of the screen that it is found in.
+
                 return (int) (HuskyVision.WIDTH / (recognition.getLeft() + recognition.getRight()) / 2);
+            }
+            // TODO: Better recognition algorithm, currently classifying based on the 1/3 of the screen that it is found in.
 
-
+            try {
+                Thread.sleep(100); // Sleep for a short duration before retrying
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return -1; // Handle interrupted exception
             }
             // TODO: Add some code maybe to move the robot a little to improve chances of finding team prop instead of trying same thing 20 times
-        } while (++tries <= MAX_TRIES);
-        return -1;
+        }
+
+        return -1; // Return -1 if the prop is not found within the time limit
     }
+
 
     public void setExposure() {
         while (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {
