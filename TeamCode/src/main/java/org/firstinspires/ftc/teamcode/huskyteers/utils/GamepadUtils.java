@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.huskyteers;
+package org.firstinspires.ftc.teamcode.huskyteers.utils;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 

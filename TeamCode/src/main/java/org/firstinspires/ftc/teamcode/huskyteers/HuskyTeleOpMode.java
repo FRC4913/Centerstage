@@ -7,6 +7,10 @@ import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
+
+import org.firstinspires.ftc.teamcode.huskyteers.utils.GamepadUtils;
+import org.firstinspires.ftc.teamcode.huskyteers.utils.TelemetryUtils;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Config
@@ -62,12 +66,12 @@ public class HuskyTeleOpMode extends LinearOpMode {
                         1.0);
             }
             /*
-            * If not LEFT BUMPER, use:
-            *  - A to toggle between field-centric and robot-centric drive.
-            *  - LEFT STICK for movement.
-            *  - RIGHT STICK for rotation.
-            *  - LEFT TRIGGER to increase speed.
-            */
+             * If not LEFT BUMPER, use:
+             *  - A to toggle between field-centric and robot-centric drive.
+             *  - LEFT STICK for movement.
+             *  - RIGHT STICK for rotation.
+             *  - LEFT TRIGGER to increase speed.
+             */
             else {
                 if (usingFieldCentric.get()) {
                     telemetry.addLine("Currently using field centric");
@@ -90,11 +94,9 @@ public class HuskyTeleOpMode extends LinearOpMode {
             // region DRONE LAUNCHER
             if (currentGamepad2.dpad_up) {
                 huskyBot.setDroneLauncherPower(HuskyBot.DRONE_LAUNCHER_POWER);
-            }
-            else if (currentGamepad2.dpad_down) {
+            } else if (currentGamepad2.dpad_down) {
                 huskyBot.setDroneLauncherPower(-HuskyBot.DRONE_LAUNCHER_POWER);
-            }
-            else {
+            } else {
                 huskyBot.setDroneLauncherPower(0);
             }
             // endregion

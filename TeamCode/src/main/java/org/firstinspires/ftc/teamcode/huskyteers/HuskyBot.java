@@ -38,6 +38,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.teamcode.huskyteers.utils.TelemetryUtils;
 import org.firstinspires.ftc.teamcode.huskyteers.vision.HuskyVision;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -73,7 +74,6 @@ public class HuskyBot {
     // Define hardware objects.
 
     public MecanumDrive drive = null;
-    // private Claw claw = null;
     private CRServo droneLauncher = null;
     public HuskyVision huskyVision = null;
 

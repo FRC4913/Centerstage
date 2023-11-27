@@ -55,7 +55,7 @@ public class HuskyAuto extends LinearOpMode {
         if (isStopRequested()) return;
 
         int teamPropLocation = huskyBot.huskyVision.detectTeamPropLocation();
-        if (teamPropLocation != -1 || true) {
+        if (teamPropLocation != -1) {
             // Put down purple pixel
             navigateToTeamPropLocation(teamPropLocation);
 //                huskyBot.moveClawToBottom();
