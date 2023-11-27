@@ -9,6 +9,8 @@ public class TensorflowDetection {
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
     // this is only used for Android Studio when using models in Assets.
     private static final String TFOD_MODEL_ASSET = "model_20231019_154144.tflite";
+    private static final String TFOD_Blue_MODEL_ASSET = "Blue.tflite";
+    private static final String TFOD_Red_MODEL_ASSET = "Red.tflite";
     // TFOD_MODEL_FILE points to a model file stored onboard the Robot Controller's storage,
     // this is used when uploading models directly to the RC using the model upload interface.
 //    private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/model_20231019_154144.tflite";
@@ -21,6 +23,8 @@ public class TensorflowDetection {
      * The variable to store our instance of the TensorFlow Object Detection processor.
      */
     public TfodProcessor tfod;
+    public TfodProcessor tfodBlue;
+    public TfodProcessor tfodRed;
 
     /**
      * The variable to store our instance of the vision portal.
@@ -53,7 +57,15 @@ public class TensorflowDetection {
                 //.setModelAspectRatio(16.0 / 9.0)
 
                 .build();
+        tfodBlue = new TfodProcessor.Builder()
+                .setModelAssetName(TFOD_Blue_MODEL_ASSET)
+                .setModelLabels(LABELS)
+                .build();
 
+        tfodRed = new TfodProcessor.Builder()
+                .setModelAssetName(TFOD_Red_MODEL_ASSET)
+                .setModelLabels(LABELS)
+                .build();
         // Create the vision portal by using a builder.
 
 
@@ -73,7 +85,9 @@ public class TensorflowDetection {
 
 
         // Set confidence threshold for TFOD recognitions, at any time.
-        tfod.setMinResultConfidence(0.6f);
+        tfod.setMinResultConfidence(0.7f);
+        tfodBlue.setMinResultConfidence(0.7f);
+        tfodRed.setMinResultConfidence(0.7f);
 
         // Disable or re-enable the TFOD processor at any time.
         //visionPortal.setProcessorEnabled(tfod, true);
