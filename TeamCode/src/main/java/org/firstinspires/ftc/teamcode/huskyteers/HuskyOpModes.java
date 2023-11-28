@@ -16,8 +16,6 @@ public class HuskyOpModes {
         for (Position p : Position.values()) {
             manager.register(metaForAutoClass(HuskyAuto.class, splitCamelCase(p.toString())), new HuskyAuto(p));
         }
-
-        manager.register(metaForTeleOpClass(HuskyTeleOpMode.class), HuskyTeleOpMode.class);
     }
 
     static String splitCamelCase(String s) {
@@ -31,20 +29,24 @@ public class HuskyOpModes {
         );
     }
 
+    static String splitSnakeCase(String s) {
+        StringBuilder titleCase = new StringBuilder();
+        String[] words = s.split("_");
+
+        for (String word : words) {
+            String capitalizedWord = word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+            titleCase.append(capitalizedWord).append(" ");
+        }
+        return titleCase.toString().trim();
+    }
+
     private static OpModeMeta metaForAutoClass(Class<? extends OpMode> cls, String info) {
         return new OpModeMeta.Builder()
-                .setName(splitCamelCase(cls.getSimpleName()) + ": " + info)
+                .setName(splitCamelCase(cls.getSimpleName()) + ": " + splitSnakeCase(info))
                 .setGroup("Huskyteers")
                 .setFlavor(OpModeMeta.Flavor.AUTONOMOUS)
                 .setTransitionTarget(TELEOP)
                 .build();
     }
 
-    private static OpModeMeta metaForTeleOpClass(Class<? extends OpMode> cls) {
-        return new OpModeMeta.Builder()
-                .setName(splitCamelCase(cls.getSimpleName()))
-                .setGroup("Huskyteers")
-                .setFlavor(OpModeMeta.Flavor.TELEOP)
-                .build();
-    }
 }

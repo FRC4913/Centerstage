@@ -6,6 +6,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.huskyteers.utils.GamepadUtils;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.teamcode.huskyteers.utils.TelemetryUtils;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Config
+@TeleOp(name = "Husky TeleOp Mode", group = "Huskyteers")
 public class HuskyTeleOpMode extends LinearOpMode {
     @SuppressLint("DefaultLocale")
     @Override
@@ -96,8 +98,6 @@ public class HuskyTeleOpMode extends LinearOpMode {
             // endregion
 
             // region TELEMETRY
-            huskyBot.huskyVision.AprilTagDetector.getAprilTagById(583).ifPresent(
-                    TelemetryUtils::AprilTagDetection);
             TelemetryUtils.Gamepad(currentGamepad1);
             TelemetryUtils.DrivePos2d(huskyBot);
             telemetry.update();
