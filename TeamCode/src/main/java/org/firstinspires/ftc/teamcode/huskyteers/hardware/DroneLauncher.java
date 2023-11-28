@@ -10,7 +10,7 @@ public class DroneLauncher {
     public static double LAUNCHER_POWER = 0.5;
     public static double LAUNCHER_DISTANCE = 10;
 
-    private final CRServo servo;
+    public final CRServo servo;
 
     public DroneLauncher(HardwareMap hardwareMap) {
         servo = hardwareMap.get(CRServo.class, "drone_launcher");

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
@@ -31,6 +32,11 @@ public class HuskyTeleOpMode extends LinearOpMode {
             usingFieldCentric.set(!usingFieldCentric.get());
             gamepad1.runRumbleEffect(new Gamepad.RumbleEffect.Builder().addStep(1, 1, 200).build());
         });
+        // region DRONE LAUNCHER
+        gamepadUtils.addRisingEdge("dpad_up", d -> {
+            Actions.runBlocking(huskyBot.droneLauncher.shootDrone());
+        });
+        // endregion
 
         waitForStart();
         if (isStopRequested()) return;
@@ -86,16 +92,6 @@ public class HuskyTeleOpMode extends LinearOpMode {
                             -currentGamepad1.right_stick_x,
                             (0.35 + 0.5 * currentGamepad1.left_trigger));
                 }
-            }
-            // endregion
-
-            // region DRONE LAUNCHER
-            if (currentGamepad2.dpad_up) {
-                huskyBot.setDroneLauncherPower(HuskyBot.DRONE_LAUNCHER_POWER);
-            } else if (currentGamepad2.dpad_down) {
-                huskyBot.setDroneLauncherPower(-HuskyBot.DRONE_LAUNCHER_POWER);
-            } else {
-                huskyBot.setDroneLauncherPower(0);
             }
             // endregion
 
