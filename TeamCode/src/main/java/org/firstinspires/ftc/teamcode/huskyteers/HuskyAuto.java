@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.huskyteers;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -22,21 +23,21 @@ public class HuskyAuto extends LinearOpMode {
     public void navigateToTeamPropLocation(int location) {
         telemetry.addData("Going to location:", location);
         Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).lineToX(32).build());
-//        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(24, 0)).build());
 
-//        switch (location) {
-//            case 0:
-//                huskyBot.drive.actionBuilder(huskyBot.drive.pose).lineToX(-48).build().run(new TelemetryPacket());
-//                break;
-//            case 1:
-//                huskyBot.drive.actionBuilder(huskyBot.drive.pose).lineToX(-48).build().run(new TelemetryPacket());
-//                break;
-//            case 2:
-//                huskyBot.drive.actionBuilder(huskyBot.drive.pose).lineToX(-48).build().run(new TelemetryPacket());
-//                break;
-//            default:
-//                break;
-//      }
+
+        switch (location) {
+            case 0:
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(32, 0, 0)).strafeTo(new Vector2d(32,-30)).build());
+                break;
+            case 1:
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(32, 0, 0)).build());
+                break;
+            case 2:
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(32, 0, 0)).strafeTo(new Vector2d(32,30)).build());
+                break;
+            default:
+                break;
+      }
     }
 
     public int locationToAprilTag(int location) {
