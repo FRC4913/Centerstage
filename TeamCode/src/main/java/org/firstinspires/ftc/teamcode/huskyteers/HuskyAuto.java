@@ -3,14 +3,20 @@ package org.firstinspires.ftc.teamcode.huskyteers;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.huskyteers.utils.Position;
+
 @Config
-@Autonomous(name = "Husky Auto", group = "Auto")
 public class HuskyAuto extends LinearOpMode {
     public static int MAX_TRIES = 20;
     HuskyBot huskyBot;
+
+    final Position position;
+
+    public HuskyAuto(Position p) {
+        position = p;
+    }
 
 
     public void navigateToTeamPropLocation(int location) {

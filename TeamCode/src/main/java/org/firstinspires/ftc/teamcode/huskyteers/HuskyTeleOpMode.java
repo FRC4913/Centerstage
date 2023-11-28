@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.huskyteers.utils.GamepadUtils;
@@ -14,7 +13,6 @@ import org.firstinspires.ftc.teamcode.huskyteers.utils.TelemetryUtils;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Config
-@TeleOp(name = "Husky TeleOp Mode", group = "Teleop")
 public class HuskyTeleOpMode extends LinearOpMode {
     @SuppressLint("DefaultLocale")
     @Override
