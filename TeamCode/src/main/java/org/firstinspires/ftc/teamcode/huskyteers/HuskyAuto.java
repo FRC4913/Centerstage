@@ -27,17 +27,17 @@ public class HuskyAuto extends LinearOpMode {
 
         switch (location) {
             case 0:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(32, 0, 0)).strafeTo(new Vector2d(32,-30)).build());
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(32, 0, 0)).strafeTo(new Vector2d(32, -30)).build());
                 break;
             case 1:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(32, 0, 0)).build());
                 break;
             case 2:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(32, 0, 0)).strafeTo(new Vector2d(32,30)).build());
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(32, 0, 0)).strafeTo(new Vector2d(32, 30)).build());
                 break;
             default:
                 break;
-      }
+        }
     }
 
     public int locationToAprilTag(int location) {
