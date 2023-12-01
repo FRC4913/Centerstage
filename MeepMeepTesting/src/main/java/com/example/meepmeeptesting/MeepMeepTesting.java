@@ -15,8 +15,20 @@ public class MeepMeepTesting {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(70, 0, 0))
-                .strafeTo(new Vector2d(32, -30)).build());
+        int location = 0;
+        switch (location) {
+            case 0:
+                myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(32, 10)).build());
+                break;
+            case 1:
+                myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(32, 0)).build());
+                break;
+            case 2:
+                myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(32, -10)).build());
+                break;
+            default:
+                myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(0, 32)).build());
+        }
 
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)

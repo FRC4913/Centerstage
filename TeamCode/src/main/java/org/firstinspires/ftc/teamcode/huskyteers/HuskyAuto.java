@@ -10,33 +10,32 @@ import org.firstinspires.ftc.teamcode.huskyteers.utils.Position;
 
 @Config
 public class HuskyAuto extends LinearOpMode {
-    public static int MAX_TRIES = 20;
     HuskyBot huskyBot;
-
+    public static double ROBOT_THICKNESS = 17;
     final Position position;
 
     public HuskyAuto(Position p) {
         position = p;
     }
 
-
     public void navigateToTeamPropLocation(int location) {
         telemetry.addData("Going to location:", location);
-        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).lineToX(32).build());
+//        Pose2d startPose = FieldInfo.getStartPose(position)
+//        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).lineToX(32).build());
 
 
         switch (location) {
             case 0:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(32, 0, 0)).strafeTo(new Vector2d(32, -30)).build());
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, 24)).build());
                 break;
             case 1:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(32, 0, 0)).build());
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, 0)).build());
                 break;
             case 2:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(32, 0, 0)).strafeTo(new Vector2d(32, 30)).build());
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, -24)).build());
                 break;
             default:
-                break;
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, 24)).build());
         }
     }
 
@@ -62,7 +61,7 @@ public class HuskyAuto extends LinearOpMode {
         if (isStopRequested()) return;
 
         int teamPropLocation = huskyBot.huskyVision.detectTeamPropLocation();
-        if (teamPropLocation != -1) {
+        if (teamPropLocation != -1 || true) {
             // Put down purple pixel
             navigateToTeamPropLocation(teamPropLocation);
 //                huskyBot.moveClawToBottom();

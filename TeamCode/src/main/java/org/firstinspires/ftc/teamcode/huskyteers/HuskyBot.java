@@ -79,7 +79,6 @@ public class HuskyBot {
 
 
     // Define Drive constants.
-    private final Pose2d INITIAL_POSE = new Pose2d(0, 0, 0);
     public static double DESIRED_DISTANCE_FROM_APRILTAG = 12.0;
 
     public static double DRONE_LAUNCHER_POWER = 0.5;
@@ -100,7 +99,7 @@ public class HuskyBot {
 
     public void init() {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
-        drive = new MecanumDrive(myOpMode.hardwareMap, INITIAL_POSE);
+        drive = new MecanumDrive(myOpMode.hardwareMap, new Pose2d(0, 0, 0));
         // claw = new Claw(myOpMode.hardwareMap);
         droneLauncher = new DroneLauncher(myOpMode.hardwareMap);
         huskyVision = new HuskyVision(myOpMode.hardwareMap);
