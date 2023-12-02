@@ -45,6 +45,8 @@ public class HuskyAuto extends LinearOpMode {
             default:
                 break;
         }
+
+        //TODO: YELLOW PIXEL (CHECK FOR WHICH SIDE ARE WE)
     }
 
     public int locationToAprilTag(int location) {
