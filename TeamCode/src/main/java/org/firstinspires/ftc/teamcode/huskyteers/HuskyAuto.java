@@ -66,26 +66,26 @@ public class HuskyAuto extends LinearOpMode {
         switch (location) {
             case 0:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                        .strafeTo(new Vector2d(36, 0))
-                        .strafeTo(new Vector2d(36, 24))
+                        .strafeTo(new Vector2d(24, 0))
+                        .strafeTo(new Vector2d(24, 19))
                         .build());
                 break;
             case 1:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                        .strafeTo(new Vector2d(36, 0))
-                        .strafeTo(new Vector2d(36, 0))
+                        .strafeTo(new Vector2d(28, 0))
+                        .strafeTo(new Vector2d(28, 0))
                         .build());
                 break;
             case 2:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                        .strafeTo(new Vector2d(36, 0))
-                        .strafeTo(new Vector2d(36, -24))
+                        .strafeTo(new Vector2d(24, 0))
+                        .strafeTo(new Vector2d(24, -19))
                         .build());
                 break;
             default:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                        .strafeTo(new Vector2d(36, 0))
-                        .strafeTo(new Vector2d(36, 24))
+                        .strafeTo(new Vector2d(24, 0))
+                        .strafeTo(new Vector2d(24, 19))
                         .build());
         }
     }
@@ -95,26 +95,28 @@ public class HuskyAuto extends LinearOpMode {
 
         switch (location) {
             case 0:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 24, 0))
-                        .strafeTo(new Vector2d(0, 24))
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(24, 19, 0))
+                        .strafeTo(new Vector2d(18, 15))
+                        .strafeTo(new Vector2d(18, 3))
                         .strafeTo(new Vector2d(0, 0))
                         .build());
                 break;
             case 1:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 0, 0))
-                        .strafeTo(new Vector2d(0, 0))
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(28, 0, 0))
                         .strafeTo(new Vector2d(0, 0))
                         .build());
                 break;
             case 2:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, -24, 0))
-                        .strafeTo(new Vector2d(0, -24))
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(24, -19, 0))
+                        .strafeTo(new Vector2d(18, -15))
+                        .strafeTo(new Vector2d(18, -3))
                         .strafeTo(new Vector2d(0, 0))
                         .build());
                 break;
             default:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 24, 0))
-                        .strafeTo(new Vector2d(0, 24))
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(24, 19, 0))
+                        .strafeTo(new Vector2d(18, 15))
+                        .strafeTo(new Vector2d(18, 3))
                         .strafeTo(new Vector2d(0, 0))
                         .build());
         }

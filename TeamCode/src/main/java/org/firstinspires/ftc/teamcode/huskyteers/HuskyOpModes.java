@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.internal.opmode.OpModeMeta;
 import org.firstinspires.ftc.teamcode.huskyteers.utils.Position;
 
 public class HuskyOpModes {
-    final static String TELEOP = "Husky Tele Op Mode";
+    final static String TELEOP = "Husky TeleOp Mode";
 
     @OpModeRegistrar
     public static void register(OpModeManager manager) {

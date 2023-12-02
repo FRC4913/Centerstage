@@ -9,8 +9,8 @@ public class TensorflowDetection {
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
     // this is only used for Android Studio when using models in Assets.
     private static final String TFOD_MODEL_ASSET = "model_20231019_154144.tflite";
-    private static final String TFOD_Blue_MODEL_ASSET = "Blue.tflite";
-    private static final String TFOD_Red_MODEL_ASSET = "Red.tflite";
+    private static final String TFOD_Blue_MODEL_ASSET = "Meet1Blue.tflite";
+    private static final String TFOD_Red_MODEL_ASSET = "Meet1Red.tflite";
     // TFOD_MODEL_FILE points to a model file stored onboard the Robot Controller's storage,
     // this is used when uploading models directly to the RC using the model upload interface.
 //    private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/model_20231019_154144.tflite";
