@@ -19,8 +19,13 @@ public class DroneLauncher {
     public Action shootDrone() {
         double start = servo.getController().getServoPosition(servo.getPortNumber());
         return packet -> {
-            servo.setPower(0.5);
-            return servo.getController().getServoPosition(servo.getPortNumber()) > start + LAUNCHER_DISTANCE;
+            if (servo.getController().getServoPosition(servo.getPortNumber()) > start + LAUNCHER_DISTANCE) {
+                servo.setPower(0);
+                return false;
+            } else{
+                servo.setPower(0.5);
+                return true;
+            }
         };
     }
 }
