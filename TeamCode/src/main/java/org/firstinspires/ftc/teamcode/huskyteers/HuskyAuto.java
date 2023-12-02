@@ -14,6 +14,7 @@ public class HuskyAuto extends LinearOpMode {
     public static double ROBOT_THICKNESS = 17;
     final Position position;
 
+
     public HuskyAuto(Position p) {
         position = p;
     }
@@ -36,6 +37,26 @@ public class HuskyAuto extends LinearOpMode {
                 break;
             default:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, 24)).build());
+        }
+    }
+    public void navigateBackToInitialLoc(int location) {
+        telemetry.addData("Going back to start location:", location);
+//        Pose2d startPose = FieldInfo.getStartPose(position)
+//        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).lineToX(32).build());
+
+
+        switch (location) {
+            case 0:
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 24, 0)).strafeTo(new Vector2d(0, 0)).build());
+                break;
+            case 1:
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 0, 0)).strafeTo(new Vector2d(0, 0)).build());
+                break;
+            case 2:
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, -24, 0)).strafeTo(new Vector2d(0, 0)).build());
+                break;
+            default:
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 24, 0)).strafeTo(new Vector2d(0, 0)).build());
         }
     }
 
@@ -61,9 +82,13 @@ public class HuskyAuto extends LinearOpMode {
         if (isStopRequested()) return;
 
         int teamPropLocation = huskyBot.huskyVision.detectTeamPropLocation();
+
         if (teamPropLocation != -1 || true) {
             // Put down purple pixel
             navigateToTeamPropLocation(teamPropLocation);
+            navigateBackToInitialLoc(teamPropLocation);
+
+
 //                huskyBot.moveClawToBottom();
 //                huskyBot.openClaw();
             // TODO: Pick up yellow pixel
