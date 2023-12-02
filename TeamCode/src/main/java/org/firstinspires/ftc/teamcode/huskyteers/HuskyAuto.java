@@ -88,6 +88,7 @@ public class HuskyAuto extends LinearOpMode {
             navigateToTeamPropLocation(teamPropLocation);
             if (position.equals(Position.BLUE_LEFT_STAGE) || position.equals(Position.RED_RIGHT_STAGE)){
                 navigateBackToInitialLoc(teamPropLocation);
+                parkInBackstage();
             }
 
 
