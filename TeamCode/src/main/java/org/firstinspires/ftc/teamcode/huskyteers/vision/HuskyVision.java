@@ -9,6 +9,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.Exposur
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.teamcode.huskyteers.HuskyBotConfig;
+import org.firstinspires.ftc.teamcode.huskyteers.OpenCv;
 import org.firstinspires.ftc.vision.VisionPortal;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class HuskyVision {
                 .setCamera(hwMap.get(WebcamName.class, "Webcam 1"))
                 .setCameraResolution(new Size(WIDTH, HEIGHT))
                 .enableLiveView(true)
-                .addProcessors(AprilTagDetector.aprilTag, tensorflowdetection.tfod, new VisionProcessor())
+                .addProcessors(AprilTagDetector.aprilTag, new OpenCv())
                 .build();
 
 
