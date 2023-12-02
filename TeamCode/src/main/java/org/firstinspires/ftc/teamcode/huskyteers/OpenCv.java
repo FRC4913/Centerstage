@@ -13,7 +13,7 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 public class OpenCv implements VisionProcessor {
-    private int mostRedPart = 0;
+    private int propLocation = 0;
 
     @Override
     public void init(int width, int height, CameraCalibration calibration) {
@@ -46,7 +46,7 @@ public class OpenCv implements VisionProcessor {
         double redSaturation2 = Core.sumElems(mask2).val[0];
         double redSaturation3 = Core.sumElems(mask3).val[0];
 
-        this.mostRedPart = (redSaturation1 > redSaturation2) ?
+        this.propLocation = (redSaturation1 > redSaturation2) ?
                 ((redSaturation1 > redSaturation3) ? 1 : 3) :
                 ((redSaturation2 > redSaturation3) ? 2 : 3);
 
@@ -78,9 +78,28 @@ public class OpenCv implements VisionProcessor {
             canvas.drawRect(left, 0, left + partWidth, onscreenHeight, rectPaint);
         }
 
-        if (this.mostRedPart > 0) {
-            int labelXPosition = (this.mostRedPart - 1) * partWidth + 10;
-            canvas.drawText("Most Red: Part " + this.mostRedPart, labelXPosition, 30, textPaint);
+        if (this.propLocation > 0) {
+            int labelXPosition = (this.propLocation - 1) * partWidth + 10;
+            canvas.drawText("Most Red: Part " + this.propLocation, labelXPosition, 30, textPaint);
         }
+    }
+
+    /**
+     * Let's arbitrarily assign numbers to each side it could be based on the location relative
+     * to the robot's starting position.
+     *
+     *      2
+     *    ______
+     * 1 |     |  3
+     *   |     |
+     *    robot start
+     *
+     * NOTE: In this implementation, there is no such a thing "prop not found"
+     *    - The method will always return a location that has the most red/blue color on it.
+     *
+     * @return Location of team prop
+     */
+    public int getPropLocation(){
+        return propLocation;
     }
 }
