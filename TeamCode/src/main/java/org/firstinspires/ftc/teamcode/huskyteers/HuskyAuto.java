@@ -75,7 +75,6 @@ public class HuskyAuto extends LinearOpMode {
             case 1:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
                         .strafeTo(new Vector2d(28, 0))
-                        .strafeTo(new Vector2d(28, 0))
                         .build());
                 break;
             case 2:
@@ -97,6 +96,7 @@ public class HuskyAuto extends LinearOpMode {
 
         // If an adjustment needed for purple pixel's end position, change the first lineToY() methods in each runblock
         //
+        switch(location) {
             case 0:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(24, 19, 0))
                         .strafeTo(new Vector2d(18, 15))
@@ -159,6 +159,11 @@ public class HuskyAuto extends LinearOpMode {
 
             // Put down purple pixel
             navigateToTeamPropLocation(teamPropLocation);
+            if(position== Position.BLUE_LEFT_STAGE  || position == Position.RED_RIGHT_STAGE) {
+                navigateBackToInitialLoc(teamPropLocation);
+                parkInBackstage();
+            }
+
 
             // TODO: Pick up yellow pixel
             // Put yellow pixel on backdrop

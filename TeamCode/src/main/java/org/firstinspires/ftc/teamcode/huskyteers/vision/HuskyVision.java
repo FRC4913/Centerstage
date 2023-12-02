@@ -30,8 +30,7 @@ public class HuskyVision {
 
     public HuskyVision(HardwareMap hwMap) {
         AprilTagDetector = new AprilTagDetector();
-        tensorflowdetection = new TensorflowDetection();
-        tensorflowdetection.initTfod();
+
 
         visionProcessor = new OpenCv();
 
