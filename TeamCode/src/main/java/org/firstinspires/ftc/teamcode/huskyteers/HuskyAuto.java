@@ -34,7 +34,9 @@ public class HuskyAuto extends LinearOpMode {
                 break;
             case 2:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                        .strafeTo(new Vector2d(30, 0)).build());
+                        .strafeTo(new Vector2d(30, 0))
+                        .strafeTo(new Vector2d(0, 0))
+                        .build());
                 break;
             case 3:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
