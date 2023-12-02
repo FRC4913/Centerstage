@@ -62,6 +62,8 @@ public class HuskyAuto extends LinearOpMode {
 
     public void navigateToTeamPropLocation(int location) {
         telemetry.addData("Going to location:", location);
+        telemetry.addData("Position X", huskyBot.drive.pose.position.x);
+        telemetry.addData("Position Y", huskyBot.drive.pose.position.y);
 
         switch (location) {
             case 0:
@@ -93,7 +95,8 @@ public class HuskyAuto extends LinearOpMode {
     public void navigateBackToInitialLoc(int location) {
         telemetry.addData("Going back to start location:", location);
 
-        switch (location) {
+        // If an adjustment needed for purple pixel's end position, change the first lineToY() methods in each runblock
+        //
             case 0:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(24, 19, 0))
                         .strafeTo(new Vector2d(18, 15))
@@ -120,6 +123,8 @@ public class HuskyAuto extends LinearOpMode {
                         .strafeTo(new Vector2d(0, 0))
                         .build());
         }
+
+        //TODO: YELLOW PIXEL (CHECK FOR WHICH SIDE ARE WE)
     }
 
 
@@ -150,25 +155,16 @@ public class HuskyAuto extends LinearOpMode {
         waitForStart();
         if (isStopRequested()) return;
 
-        int teamPropLocation = huskyBot.huskyVision.detectTeamPropLocation();
+        int teamPropLocation = huskyBot.huskyVision.visionProcessor.getPropLocation();
 
-        if (teamPropLocation != -1 || true) {
             // Put down purple pixel
             navigateToTeamPropLocation(teamPropLocation);
-            if (position.equals(Position.BLUE_LEFT_STAGE) || position.equals(Position.RED_RIGHT_STAGE)){
-                navigateBackToInitialLoc(teamPropLocation);
-                parkInBackstage();
-            }
 
-
-//                huskyBot.moveClawToBottom();
-//                huskyBot.openClaw();
             // TODO: Pick up yellow pixel
             // Put yellow pixel on backdrop
 //                huskyBot.alignWithAprilTag(locationToAprilTag(teamPropLocation));
 //                huskyBot.moveClawToBackdropPosition();
 //                huskyBot.openClaw();
 //                parkInBackstage();
-        }
     }
 }
