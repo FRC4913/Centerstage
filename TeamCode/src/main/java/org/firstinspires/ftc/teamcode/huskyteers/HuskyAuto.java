@@ -70,7 +70,7 @@ public class HuskyAuto extends LinearOpMode {
 
     public void parkInBackstage() {
         // TODO: Only supports when next to backstage
-        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(0, 24 * 1.5)).build());
+        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(0, 24 * 2)).build());
     }
 
     @Override
