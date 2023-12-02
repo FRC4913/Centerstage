@@ -19,46 +19,107 @@ public class HuskyAuto extends LinearOpMode {
         position = p;
     }
 
+//    public void navigateToTeamPropLocation(int location) {
+//        telemetry.addData("Going to location:", location);
+////        Pose2d startPose = FieldInfo.getStartPose(position)
+////        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).lineToX(32).build());
+//
+//
+//        switch (location) {
+//            case 0:
+//                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, 24)).build());
+//                break;
+//            case 1:
+//                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, 0)).build());
+//                break;
+//            case 2:
+//                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, -24)).build());
+//                break;
+//            default:
+//                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, 24)).build());
+//        }
+//    }
+//    public void navigateBackToInitialLoc(int location) {
+//        telemetry.addData("Going back to start location:", location);
+////        Pose2d startPose = FieldInfo.getStartPose(position)
+////        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).lineToX(32).build());
+//
+//
+//        switch (location) {
+//            case 0:
+//                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 24, 0)).strafeTo(new Vector2d(0, 0)).build());
+//                break;
+//            case 1:
+//                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 0, 0)).strafeTo(new Vector2d(0, 0)).build());
+//                break;
+//            case 2:
+//                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, -24, 0)).strafeTo(new Vector2d(0, 0)).build());
+//                break;
+//            default:
+//                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 24, 0)).strafeTo(new Vector2d(0, 0)).build());
+//        }
+//    }
+
     public void navigateToTeamPropLocation(int location) {
         telemetry.addData("Going to location:", location);
-//        Pose2d startPose = FieldInfo.getStartPose(position)
-//        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).lineToX(32).build());
-
 
         switch (location) {
             case 0:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, 24)).build());
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
+                        .strafeTo(new Vector2d(36, 0))
+                        .strafeTo(new Vector2d(36, 24))
+                        .build());
                 break;
             case 1:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, 0)).build());
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
+                        .strafeTo(new Vector2d(36, 0))
+                        .strafeTo(new Vector2d(36, 0))
+                        .build());
                 break;
             case 2:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, -24)).build());
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
+                        .strafeTo(new Vector2d(36, 0))
+                        .strafeTo(new Vector2d(36, -24))
+                        .build());
                 break;
             default:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, 24)).build());
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
+                        .strafeTo(new Vector2d(36, 0))
+                        .strafeTo(new Vector2d(36, 24))
+                        .build());
         }
     }
+
     public void navigateBackToInitialLoc(int location) {
         telemetry.addData("Going back to start location:", location);
-//        Pose2d startPose = FieldInfo.getStartPose(position)
-//        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).lineToX(32).build());
-
 
         switch (location) {
             case 0:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 24, 0)).strafeTo(new Vector2d(0, 0)).build());
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 24, 0))
+                        .strafeTo(new Vector2d(0, 24))
+                        .strafeTo(new Vector2d(0, 0))
+                        .build());
                 break;
             case 1:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 0, 0)).strafeTo(new Vector2d(0, 0)).build());
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 0, 0))
+                        .strafeTo(new Vector2d(0, 0))
+                        .strafeTo(new Vector2d(0, 0))
+                        .build());
                 break;
             case 2:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, -24, 0)).strafeTo(new Vector2d(0, 0)).build());
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, -24, 0))
+                        .strafeTo(new Vector2d(0, -24))
+                        .strafeTo(new Vector2d(0, 0))
+                        .build());
                 break;
             default:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 24, 0)).strafeTo(new Vector2d(0, 0)).build());
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 24, 0))
+                        .strafeTo(new Vector2d(0, 24))
+                        .strafeTo(new Vector2d(0, 0))
+                        .build());
         }
     }
+
 
     public int locationToAprilTag(int location) {
         if (location == 0) {
@@ -70,7 +131,13 @@ public class HuskyAuto extends LinearOpMode {
 
     public void parkInBackstage() {
         // TODO: Only supports when next to backstage
-        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(0, 24 * 2)).build());
+        if (position.equals(Position.BLUE_LEFT_STAGE)) {
+
+            Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(0, 24 * 2)).build());
+        } else {
+            Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(0, - 24 * 2)).build());
+
+        }
     }
 
     @Override
