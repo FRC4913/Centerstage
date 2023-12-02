@@ -69,8 +69,8 @@ public class HuskyAuto extends LinearOpMode {
     }
 
     public void parkInBackstage() {
-        // TODO: Implement navigating to backstage
-        throw new UnsupportedOperationException();
+        // TODO: Only supports when next to backstage
+        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(0, 24 * 1.5)));
     }
 
     @Override
@@ -86,7 +86,9 @@ public class HuskyAuto extends LinearOpMode {
         if (teamPropLocation != -1 || true) {
             // Put down purple pixel
             navigateToTeamPropLocation(teamPropLocation);
-            navigateBackToInitialLoc(teamPropLocation);
+            if (position.equals(Position.BLUE_LEFT_STAGE) || position.equals(Position.RED_RIGHT_STAGE)){
+                navigateBackToInitialLoc(teamPropLocation);
+            }
 
 
 //                huskyBot.moveClawToBottom();
