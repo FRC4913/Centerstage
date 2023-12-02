@@ -25,17 +25,18 @@ public class HuskyTeleOpMode extends LinearOpMode {
         HuskyBot huskyBot = new HuskyBot(this);
         huskyBot.init();
 
-        GamepadUtils gamepadUtils = new GamepadUtils();
+        GamepadUtils gamepad1Utils = new GamepadUtils();
+        GamepadUtils gamepad2Utils = new GamepadUtils();
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad currentGamepad2 = new Gamepad();
 
         AtomicBoolean usingFieldCentric = new AtomicBoolean(true);
-        gamepadUtils.addRisingEdge("a", d -> {
+        gamepad1Utils.addRisingEdge("a", d -> {
             usingFieldCentric.set(!usingFieldCentric.get());
             gamepad1.runRumbleEffect(new Gamepad.RumbleEffect.Builder().addStep(1, 1, 200).build());
         });
         // region DRONE LAUNCHER
-        gamepadUtils.addRisingEdge("dpad_up", d -> {
+        gamepad2Utils.addRisingEdge("dpad_up", d -> {
             Actions.runBlocking(huskyBot.droneLauncher.shootDrone());
         });
         // endregion
@@ -50,7 +51,8 @@ public class HuskyTeleOpMode extends LinearOpMode {
             // region GAMEPAD CONTROL
             currentGamepad1.copy(gamepad1);
             currentGamepad2.copy(gamepad2);
-            gamepadUtils.processUpdates(currentGamepad1);
+            gamepad1Utils.processUpdates(currentGamepad1);
+            gamepad2Utils.processUpdates(currentGamepad2);
             // endregion
 
             // region DRIVE CONTROL
