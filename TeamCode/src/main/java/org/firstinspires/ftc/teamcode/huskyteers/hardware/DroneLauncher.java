@@ -16,16 +16,7 @@ public class DroneLauncher {
         servo = hardwareMap.get(CRServo.class, "drone_launcher");
     }
 
-    public Action shootDrone() {
-        double start = servo.getController().getServoPosition(servo.getPortNumber());
-        return packet -> {
-            if (servo.getController().getServoPosition(servo.getPortNumber()) > start + LAUNCHER_DISTANCE) {
-                servo.setPower(0);
-                return false;
-            } else{
-                servo.setPower(0.5);
-                return true;
-            }
-        };
+    public void shootDrone() {
+        servo.setPower(0.5);
     }
 }

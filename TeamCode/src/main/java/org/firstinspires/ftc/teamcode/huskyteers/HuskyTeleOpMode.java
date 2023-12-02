@@ -37,7 +37,7 @@ public class HuskyTeleOpMode extends LinearOpMode {
         });
         // region DRONE LAUNCHER
         gamepad2Utils.addRisingEdge("dpad_up", d -> {
-            Actions.runBlocking(huskyBot.droneLauncher.shootDrone());
+            huskyBot.droneLauncher.shootDrone();
         });
         // endregion
 

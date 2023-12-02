@@ -7,13 +7,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
-import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.teamcode.huskyteers.HuskyBotConfig;
-import org.firstinspires.ftc.teamcode.huskyteers.OpenCv;
 import org.firstinspires.ftc.vision.VisionPortal;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class HuskyVision {
@@ -47,10 +43,6 @@ public class HuskyVision {
         // exposureControl.setExposure((long)6, TimeUnit.MILLISECONDS);
         // GainControl gainControl = visionPortal.getCameraControl(GainControl.class);
         // gainControl.setGain(250);
-    }
-
-    public int detectTeamPropLocation() {
-        return visionProcessor.getPropLocation();
     }
 
     public void setExposure() {
