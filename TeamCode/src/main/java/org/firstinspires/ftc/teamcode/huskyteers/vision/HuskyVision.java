@@ -35,7 +35,7 @@ public class HuskyVision {
                 .setCamera(hwMap.get(WebcamName.class, "Webcam 1"))
                 .setCameraResolution(new Size(WIDTH, HEIGHT))
                 .enableLiveView(true)
-                .addProcessors(AprilTagDetector.aprilTag, tensorflowdetection.tfod, new VisionProcessor())
+                .addProcessors(AprilTagDetector.aprilTag, tensorflowdetection.tfodBlue, tensorflowdetection.tfodRed, new VisionProcessor())
                 .build();
 
 
