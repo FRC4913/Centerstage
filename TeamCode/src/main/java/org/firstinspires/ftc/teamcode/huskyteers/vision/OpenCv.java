@@ -34,8 +34,11 @@ public class OpenCv implements VisionProcessor {
         // this is for the red scala in HSV
         Scalar lowerRed = new Scalar(0, 100, 20);
         Scalar upperRed = new Scalar(0, 255, 255);
-        Scalar lowerBlue = new Scalar(128, 255, 255);
-        Scalar upperBlue = new Scalar(90, 50, 70);
+//        Scalar lowerBlue = new Scalar(128, 255, 255);
+//        Scalar upperBlue = new Scalar(90, 50, 70);
+        //TODO: I changed the hsv values, so we need to test the new value.
+        Scalar lowerBlue = new Scalar(110, 50, 50);    // Lower bound for blue
+        Scalar upperBlue = new Scalar(130, 255, 255);
         int partWidth = frame.width() / 3;
         Mat part1 = hsvFrame.submat(new Rect(0, 0, partWidth, frame.height()));
         Mat part2 = hsvFrame.submat(new Rect(partWidth, 0, partWidth, frame.height()));
