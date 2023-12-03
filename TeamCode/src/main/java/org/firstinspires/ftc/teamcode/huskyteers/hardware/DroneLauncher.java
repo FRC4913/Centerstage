@@ -17,6 +17,13 @@ public class DroneLauncher {
     }
 
     public void shootDrone() {
-        servo.setPower(0.5);
+        try {
+            servo.setPower(0.5);
+            Thread.sleep(2000);
+            servo.setPower(0.0);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // Restore the interrupted status
+        }
     }
+
 }
