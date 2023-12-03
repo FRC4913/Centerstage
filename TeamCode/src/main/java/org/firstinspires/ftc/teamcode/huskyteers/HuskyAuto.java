@@ -61,71 +61,36 @@ public class HuskyAuto extends LinearOpMode {
 //    }
 
     public void navigateToTeamPropLocation(int location) {
-        telemetry.addData("Going to location:", location);
-        telemetry.addData("Position X", huskyBot.drive.pose.position.x);
-        telemetry.addData("Position Y", huskyBot.drive.pose.position.y);
+            telemetry.addData("Going to location:", location);
+            telemetry.addData("Position X", huskyBot.drive.pose.position.x);
+            telemetry.addData("Position Y", huskyBot.drive.pose.position.y);
 
-        switch (location) {
-            case 0:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                        .strafeTo(new Vector2d(26, 0))
-                        .strafeTo(new Vector2d(26, 19))
-                        .build());
-                break;
-            case 1:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                        .strafeTo(new Vector2d(28, 0))
-                        .build());
-                break;
-            case 2:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                        .strafeTo(new Vector2d(26, 0))
-                        .strafeTo(new Vector2d(26, -19))
-                        .build());
-                break;
-            default:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                        .strafeTo(new Vector2d(26, 0))
-                        .strafeTo(new Vector2d(26, 19))
-                        .build());
+            // If an adjustment needed for purple pixel's end position, change the first lineToY() methods in each runblock
+            switch (location) {
+                case 0:
+                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
+                            .lineToX(28).turnTo(Math.toRadians(90)).lineToY(3)
+                            .waitSeconds(1)
+                            .lineToY(-3).turnTo(Math.toRadians(0)).strafeTo(new Vector2d(0, 0)).build());
+                    break;
+                case 1:
+                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
+                            .strafeTo(new Vector2d(30, 0))
+                            .strafeTo(new Vector2d(0, 0))
+                            .build());
+                    break;
+                case 2:
+                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
+                            .lineToX(28).turnTo(Math.toRadians(-90)).lineToY(-2)
+                            .waitSeconds(1)
+                            .lineToY(3).turnTo(Math.toRadians(0)).strafeTo(new Vector2d(0, 0)).build());
+                    break;
+                default:
+                    break;
+            }
+
+            //TODO: YELLOW PIXEL (CHECK FOR WHICH SIDE ARE WE)
         }
-    }
-
-    public void navigateBackToInitialLoc(int location) {
-        telemetry.addData("Going back to start location:", location);
-
-        // If an adjustment needed for purple pixel's end position, change the first lineToY() methods in each runblock
-        //
-        switch (location) {
-            case 0:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(26, 19, 0))
-                        .strafeTo(new Vector2d(20, 15))
-                        .strafeTo(new Vector2d(20, 3))
-                        .strafeTo(new Vector2d(0, 0))
-                        .build());
-                break;
-            case 1:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(28, 0, 0))
-                        .strafeTo(new Vector2d(0, 0))
-                        .build());
-                break;
-            case 2:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(26, -19, 0))
-                        .strafeTo(new Vector2d(20, -15))
-                        .strafeTo(new Vector2d(20, -3))
-                        .strafeTo(new Vector2d(0, 0))
-                        .build());
-                break;
-            default:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(26, 19, 0))
-                        .strafeTo(new Vector2d(20, 15))
-                        .strafeTo(new Vector2d(20, 3))
-                        .strafeTo(new Vector2d(0, 0))
-                        .build());
-        }
-
-        //TODO: YELLOW PIXEL (CHECK FOR WHICH SIDE ARE WE)
-    }
 
 
     public int locationToAprilTag(int location) {
@@ -155,14 +120,14 @@ public class HuskyAuto extends LinearOpMode {
             throw new RuntimeException(e);
         }
         if (position.equals(Position.RED_LEFT_STAGE) || position.equals(Position.RED_RIGHT_STAGE)) {
-            if (huskyBot.huskyVision.visionProcessor.redPropLocation().isPresent()) {
+            if (huskyBot.huskyVision.openCv.redPropLocation().isPresent()) {
 
-            return huskyBot.huskyVision.visionProcessor.redPropLocation().get() - 1;
+            return huskyBot.huskyVision.openCv.redPropLocation().get() - 1;
             }
             return -1;
         } else {
-            if (huskyBot.huskyVision.visionProcessor.bluePropLocation().isPresent()) {
-                return huskyBot.huskyVision.visionProcessor.bluePropLocation().get() - 1;
+            if (huskyBot.huskyVision.openCv.bluePropLocation().isPresent()) {
+                return huskyBot.huskyVision.openCv.bluePropLocation().get() - 1;
             }
             return -1;
         }
@@ -181,7 +146,6 @@ public class HuskyAuto extends LinearOpMode {
         // Put down purple pixel
         navigateToTeamPropLocation(teamPropLocation);
         if (position == Position.BLUE_LEFT_STAGE || position == Position.RED_RIGHT_STAGE) {
-            navigateBackToInitialLoc(teamPropLocation);
             parkInBackstage();
         }
 

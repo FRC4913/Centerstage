@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class HuskyVision {
 
     public AprilTagDetector AprilTagDetector;
-    public OpenCv visionProcessor;
+    public OpenCv openCv;
     public VisionPortal visionPortal;
 
     public TensorflowDetection tensorflowdetection;
@@ -28,13 +28,13 @@ public class HuskyVision {
         AprilTagDetector = new AprilTagDetector();
 
 
-        visionProcessor = new OpenCv();
+        openCv = new OpenCv();
 
         visionPortal = new VisionPortal.Builder()
                 .setCamera(hwMap.get(WebcamName.class, "Webcam 1"))
                 .setCameraResolution(new Size(WIDTH, HEIGHT))
                 .enableLiveView(true)
-                .addProcessors(AprilTagDetector.aprilTag, visionProcessor)
+                .addProcessors(AprilTagDetector.aprilTag, openCv)
                 .build();
 
 

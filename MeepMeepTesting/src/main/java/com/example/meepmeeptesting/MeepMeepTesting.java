@@ -14,11 +14,11 @@ public class MeepMeepTesting {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(36, -24, 0))
-                .strafeTo(new Vector2d(30, -24))
-                .strafeTo(new Vector2d(30, 0))
-                .strafeTo(new Vector2d(0, 0))
-                .build());
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0))
+                .lineToX(28).turnTo(Math.toRadians(-90)).lineToY(-2)
+                .waitSeconds(1)
+                .lineToY(3).turnTo(Math.toRadians(0)).strafeTo(new Vector2d(0, 0)).build());
+
 
 //        int location = 0;
 //        switch (location) {

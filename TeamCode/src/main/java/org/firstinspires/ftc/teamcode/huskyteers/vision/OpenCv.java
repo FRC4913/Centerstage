@@ -17,6 +17,9 @@ import java.util.Optional;
 public class OpenCv implements VisionProcessor {
     private int redPropLocation;
     private int bluePropLocation;
+    private double val1;
+    private double val2;
+    private double val3;
 
     @Override
     public void init(int width, int height, CameraCalibration calibration) {
@@ -61,6 +64,9 @@ public class OpenCv implements VisionProcessor {
         double blueSaturation1 = Core.sumElems(blueMask1).val[0];
         double blueSaturation2 = Core.sumElems(blueMask2).val[0];
         double blueSaturation3 = Core.sumElems(blueMask3).val[0];
+        val1 = blueSaturation1;
+        val2 = blueSaturation2;
+        val3 = blueSaturation3;
 
 
         this.redPropLocation = (redSaturation1 > redSaturation2) ?
@@ -110,6 +116,7 @@ public class OpenCv implements VisionProcessor {
         if (this.bluePropLocation > 0) {
             int labelXPosition = (this.bluePropLocation - 1) * partWidth + 10;
             canvas.drawText("Most Blue: Part " + this.bluePropLocation, labelXPosition, 60, textPaint);
+            canvas.drawText("val1: " + val1 + "val2: " + val2 + "val3: " + val3, labelXPosition, 90, textPaint);
         }
     }
 
