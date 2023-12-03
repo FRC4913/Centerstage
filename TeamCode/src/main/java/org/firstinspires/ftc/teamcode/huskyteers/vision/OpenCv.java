@@ -37,7 +37,7 @@ public class OpenCv implements VisionProcessor {
 //        Scalar lowerBlue = new Scalar(128, 255, 255);
 //        Scalar upperBlue = new Scalar(90, 50, 70);
         //TODO: I changed the hsv values, so we need to test the new value.
-        Scalar lowerBlue = new Scalar(110, 50, 50);    // Lower bound for blue
+        Scalar lowerBlue = new Scalar(100, 50, 50);    // Lower bound for blue
         Scalar upperBlue = new Scalar(130, 255, 255);
         int partWidth = frame.width() / 3;
         Mat part1 = hsvFrame.submat(new Rect(0, 0, partWidth, frame.height()));
@@ -64,9 +64,9 @@ public class OpenCv implements VisionProcessor {
         Core.inRange(part2, lowerBlue, upperBlue, blueMask2);
         Core.inRange(part3, lowerBlue, upperBlue, blueMask3);
 
-        double blueSaturation1 = Core.sumElems(blueMask1).val[0];
-        double blueSaturation2 = Core.sumElems(blueMask2).val[0];
-        double blueSaturation3 = Core.sumElems(blueMask3).val[0];
+            double blueSaturation1 = Core.sumElems(blueMask1).val[0];
+            double blueSaturation2 = Core.sumElems(blueMask2).val[0];
+            double blueSaturation3 = Core.sumElems(blueMask3).val[0];
         val1 = blueSaturation1;
         val2 = blueSaturation2;
         val3 = blueSaturation3;
