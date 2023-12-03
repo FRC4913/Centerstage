@@ -33,7 +33,7 @@ public class OpenCv implements VisionProcessor {
 
         // this is for the red scala in HSV
         Scalar lowerRed = new Scalar(0, 100, 20);
-        Scalar upperRed = new Scalar(0, 255, 255);
+        Scalar upperRed = new Scalar(10, 255, 255);
 //        Scalar lowerBlue = new Scalar(128, 255, 255);
 //        Scalar upperBlue = new Scalar(90, 50, 70);
         //TODO: I changed the hsv values, so we need to test the new value.
