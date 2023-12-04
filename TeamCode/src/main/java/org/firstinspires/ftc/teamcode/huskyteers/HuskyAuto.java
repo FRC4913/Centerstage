@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.huskyteers.utils.Position;
 @Config
 public class HuskyAuto extends LinearOpMode {
     HuskyBot huskyBot;
-    public static double ROBOT_THICKNESS = 17;
+
     final Position position;
 
 
@@ -19,53 +19,9 @@ public class HuskyAuto extends LinearOpMode {
         position = p;
     }
 
-//    public void navigateToTeamPropLocation(int location) {
-//        telemetry.addData("Going to location:", location);
-////        Pose2d startPose = FieldInfo.getStartPose(position)
-////        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).lineToX(32).build());
-//
-//
-//        switch (location) {
-//            case 0:
-//                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, 24)).build());
-//                break;
-//            case 1:
-//                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, 0)).build());
-//                break;
-//            case 2:
-//                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, -24)).build());
-//                break;
-//            default:
-//                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(36, 24)).build());
-//        }
-//    }
-//    public void navigateBackToInitialLoc(int location) {
-//        telemetry.addData("Going back to start location:", location);
-////        Pose2d startPose = FieldInfo.getStartPose(position)
-////        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).lineToX(32).build());
-//
-//
-//        switch (location) {
-//            case 0:
-//                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 24, 0)).strafeTo(new Vector2d(0, 0)).build());
-//                break;
-//            case 1:
-//                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 0, 0)).strafeTo(new Vector2d(0, 0)).build());
-//                break;
-//            case 2:
-//                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, -24, 0)).strafeTo(new Vector2d(0, 0)).build());
-//                break;
-//            default:
-//                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(36, 24, 0)).strafeTo(new Vector2d(0, 0)).build());
-//        }
-//    }
-
     public void navigateToTeamPropLocation(int location) {
             telemetry.addData("Going to location:", location);
-            telemetry.addData("Position X", huskyBot.drive.pose.position.x);
-            telemetry.addData("Position Y", huskyBot.drive.pose.position.y);
 
-            // If an adjustment needed for purple pixel's end position, change the first lineToY() methods in each runblock
             switch (location) {
                 case 0:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
@@ -88,8 +44,6 @@ public class HuskyAuto extends LinearOpMode {
                 default:
                     break;
             }
-
-            //TODO: YELLOW PIXEL (CHECK FOR WHICH SIDE ARE WE)
         }
 
 
@@ -102,13 +56,13 @@ public class HuskyAuto extends LinearOpMode {
     }
 
     public void parkInBackstage() {
-        // TODO: Only supports when next to backstage
+        // TODO: Only supports when next to backstage. Decide on a strategy for the other side.
         if (position.equals(Position.BLUE_LEFT_STAGE)) {
-
-            Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(0, 24 * 2)).build());
+            Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
+                    .strafeTo(new Vector2d(0, 24 * 2)).build());
         } else {
-            Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(0, -24 * 2)).build());
-
+            Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
+                    .strafeTo(new Vector2d(0, -24 * 2)).build());
         }
     }
 
@@ -119,18 +73,17 @@ public class HuskyAuto extends LinearOpMode {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        if (position.equals(Position.RED_LEFT_STAGE) || position.equals(Position.RED_RIGHT_STAGE)) {
+        if(position.equals(Position.RED_LEFT_STAGE) || position.equals(Position.RED_RIGHT_STAGE)) {
             if (huskyBot.huskyVision.openCv.redPropLocation().isPresent()) {
 
             return huskyBot.huskyVision.openCv.redPropLocation().get() - 1;
             }
-            return -1;
         } else {
             if (huskyBot.huskyVision.openCv.bluePropLocation().isPresent()) {
                 return huskyBot.huskyVision.openCv.bluePropLocation().get() - 1;
             }
-            return -1;
         }
+        return -1;
     }
 
     @Override
