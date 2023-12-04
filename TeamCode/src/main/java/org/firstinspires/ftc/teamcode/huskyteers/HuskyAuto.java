@@ -55,7 +55,7 @@ public class HuskyAuto extends LinearOpMode {
         return -1;
     }
 
-    public void parkInBackstage() {
+    public void parkInBackstageBack() {
         // TODO: Only supports when next to backstage. Decide on a strategy for the other side.
         if (position.equals(Position.BLUE_LEFT_STAGE)) {
             Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
@@ -64,6 +64,9 @@ public class HuskyAuto extends LinearOpMode {
             Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
                     .strafeTo(new Vector2d(0, -24 * 2)).build());
         }
+    }
+    public void parkInBackstageFront(){
+
     }
 
     public int getPropLocation() {
@@ -88,7 +91,10 @@ public class HuskyAuto extends LinearOpMode {
         // Put down purple pixel
         navigateToTeamPropLocation(teamPropLocation);
         if (position == Position.BLUE_LEFT_STAGE || position == Position.RED_RIGHT_STAGE) {
-            parkInBackstage();
+            parkInBackstageBack();
+        }
+        if(position == Position.BLUE_RIGHT_STAGE || position==Position.RED_LEFT_STAGE){
+
         }
 
 
