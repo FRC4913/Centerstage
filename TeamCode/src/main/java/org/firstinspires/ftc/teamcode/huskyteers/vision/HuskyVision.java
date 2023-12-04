@@ -13,21 +13,16 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import java.util.concurrent.TimeUnit;
 
 public class HuskyVision {
-
     public AprilTagDetector AprilTagDetector;
     public OpenCv openCv;
     public VisionPortal visionPortal;
 
-    public TensorflowDetection tensorflowdetection;
     public final static int WIDTH = 640;
     public final static int HEIGHT = 480;
-    public final static int MAX_TIME = 4000;
 
 
     public HuskyVision(HardwareMap hwMap) {
         AprilTagDetector = new AprilTagDetector();
-
-
         openCv = new OpenCv();
 
         visionPortal = new VisionPortal.Builder()

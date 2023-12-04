@@ -21,6 +21,20 @@ public class OpenCv implements VisionProcessor {
     private double val2;
     private double val3;
 
+    Scalar lowerRed = new Scalar(0, 100, 20);
+    Scalar upperRed = new Scalar(10, 255, 255);
+
+    Scalar lowerBlue = new Scalar(100, 50, 50);
+    Scalar upperBlue = new Scalar(130, 255, 255);
+
+    private final Mat redMask1 = new Mat();
+    private final Mat redMask2 = new Mat();
+    private final Mat redMask3 = new Mat();
+
+    private final Mat blueMask1 = new Mat();
+    private final Mat blueMask2 = new Mat();
+    private final Mat blueMask3 = new Mat();
+
     @Override
     public void init(int width, int height, CameraCalibration calibration) {
         // no need
@@ -31,22 +45,10 @@ public class OpenCv implements VisionProcessor {
         Mat hsvFrame = new Mat();
         Imgproc.cvtColor(frame, hsvFrame, Imgproc.COLOR_RGB2HSV);
 
-        // this is for the red scala in HSV
-        Scalar lowerRed = new Scalar(0, 100, 20);
-        Scalar upperRed = new Scalar(10, 255, 255);
-//        Scalar lowerBlue = new Scalar(128, 255, 255);
-//        Scalar upperBlue = new Scalar(90, 50, 70);
-        //TODO: I changed the hsv values, so we need to test the new value.
-        Scalar lowerBlue = new Scalar(100, 50, 50);    // Lower bound for blue
-        Scalar upperBlue = new Scalar(130, 255, 255);
         int partWidth = frame.width() / 3;
         Mat part1 = hsvFrame.submat(new Rect(0, 0, partWidth, frame.height()));
         Mat part2 = hsvFrame.submat(new Rect(partWidth, 0, partWidth, frame.height()));
         Mat part3 = hsvFrame.submat(new Rect(2 * partWidth, 0, partWidth, frame.height()));
-
-        Mat redMask1 = new Mat();
-        Mat redMask2 = new Mat();
-        Mat redMask3 = new Mat();
 
         Core.inRange(part1, lowerRed, upperRed, redMask1);
         Core.inRange(part2, lowerRed, upperRed, redMask2);
@@ -56,41 +58,31 @@ public class OpenCv implements VisionProcessor {
         double redSaturation2 = Core.sumElems(redMask2).val[0];
         double redSaturation3 = Core.sumElems(redMask3).val[0];
 
-        Mat blueMask1 = new Mat();
-        Mat blueMask2 = new Mat();
-        Mat blueMask3 = new Mat();
-
         Core.inRange(part1, lowerBlue, upperBlue, blueMask1);
         Core.inRange(part2, lowerBlue, upperBlue, blueMask2);
         Core.inRange(part3, lowerBlue, upperBlue, blueMask3);
 
-            double blueSaturation1 = Core.sumElems(blueMask1).val[0];
-            double blueSaturation2 = Core.sumElems(blueMask2).val[0];
-            double blueSaturation3 = Core.sumElems(blueMask3).val[0];
+        double blueSaturation1 = Core.sumElems(blueMask1).val[0];
+        double blueSaturation2 = Core.sumElems(blueMask2).val[0];
+        double blueSaturation3 = Core.sumElems(blueMask3).val[0];
+
         val1 = blueSaturation1;
         val2 = blueSaturation2;
         val3 = blueSaturation3;
 
-
         this.redPropLocation = (redSaturation1 > redSaturation2) ?
-                ((redSaturation1 > redSaturation3) ? 1 : 3) :
-                ((redSaturation2 > redSaturation3) ? 2 : 3);
+                ((redSaturation1 > redSaturation3) ? 0 : 2) :
+                ((redSaturation2 > redSaturation3) ? 1 : 2);
 
         this.bluePropLocation = (blueSaturation1 > blueSaturation2) ?
-                ((blueSaturation1 > blueSaturation3) ? 1 : 3) :
-                ((blueSaturation2 > blueSaturation3) ? 2 : 3);
+                ((blueSaturation1 > blueSaturation3) ? 0 : 2) :
+                ((blueSaturation2 > blueSaturation3) ? 1 : 2);
 
 
         hsvFrame.release();
         part1.release();
         part2.release();
         part3.release();
-        redMask1.release();
-        redMask2.release();
-        redMask3.release();
-        blueMask1.release();
-        blueMask2.release();
-        blueMask3.release();
 
         return null;
     }
@@ -127,9 +119,9 @@ public class OpenCv implements VisionProcessor {
      * Let's arbitrarily assign numbers to each side it could be based on the location relative
      * to the robot's starting position.
      *
-     *      2
+     *      1
      *    ______
-     * 1 |     |  3
+     * 0 |     |  2
      *   |     |
      *    robot start
      *
@@ -138,10 +130,7 @@ public class OpenCv implements VisionProcessor {
      *
      * @return Location of team prop
      */
-    public Optional<Integer> redPropLocation(){
-        return Optional.ofNullable(redPropLocation);
-    }
-    public Optional<Integer> bluePropLocation(){
-        return Optional.ofNullable(bluePropLocation);
-    }
+    public int redPropLocation(){ return redPropLocation; }
+
+    public int bluePropLocation(){ return bluePropLocation; }
 }

@@ -68,22 +68,11 @@ public class HuskyAuto extends LinearOpMode {
 
     public int getPropLocation() {
         // uses 0, 1, 2
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         if(position.equals(Position.RED_LEFT_STAGE) || position.equals(Position.RED_RIGHT_STAGE)) {
-            if (huskyBot.huskyVision.openCv.redPropLocation().isPresent()) {
-
-            return huskyBot.huskyVision.openCv.redPropLocation().get() - 1;
-            }
+            return huskyBot.huskyVision.openCv.redPropLocation();
         } else {
-            if (huskyBot.huskyVision.openCv.bluePropLocation().isPresent()) {
-                return huskyBot.huskyVision.openCv.bluePropLocation().get() - 1;
-            }
+            return huskyBot.huskyVision.openCv.bluePropLocation();
         }
-        return -1;
     }
 
     @Override
