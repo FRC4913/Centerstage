@@ -14,27 +14,151 @@ public class MeepMeepTesting {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0))
-                .lineToX(28).turnTo(Math.toRadians(90)).lineToY(3)
-                .waitSeconds(1).lineToY(-3).turnTo(Math.toRadians(0)).lineToX(56).turnTo(Math.toRadians(90)).lineToY(-150).build());
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-36, -72 + 9, Math.toRadians(90)))
+                .strafeTo(new Vector2d(-36, -72+9 + 30))
+                .strafeToLinearHeading(new Vector2d(-36 - 18, -72+9+30), 0)
+                .waitSeconds(5)
+                .setTangent(Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-36-18, -72+9+30 + 6), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-36-18 + 78, -72+9+30+6 + 15), 0)
+                .splineToConstantHeading(new Vector2d(-36-18+78 + 36, -72+9+30+6+15), 0)
+                .build());
 
+// region Red Left Stage
+        /* RED_LEFT_STAGE. LOCATION 0.
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-36, -72 + 9, Math.toRadians(90)))
+                .strafeTo(new Vector2d(-36, -72+9 + 28))
+                .strafeToLinearHeading(new Vector2d(-36 + 3, -72+9+28), 0)
+                .strafeTo(new Vector2d(-36, -72+9+28))
+                .waitSeconds(5)
+                .setTangent(Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-36, -72+9+30 + 6), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-36 + 60, -72+9+30+6 + 15), 0)
+                .splineToConstantHeading(new Vector2d(-36+60 + 36, -72+9+30+6+15), 0)
+                .build());
+         */
 
+        /* RED_LEFT_STAGE. LOCATION 1.
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-36, -72 + 9, Math.toRadians(90)))
+                .strafeTo(new Vector2d(-36, -72+9 + 30))
+                .strafeToLinearHeading(new Vector2d(-36 - 18, -72+9+30), 0)
+                .waitSeconds(5)
+                .setTangent(Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-36-18, -72+9+30 + 6), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-36-18 + 78, -72+9+30+6 + 15), 0)
+                .splineToConstantHeading(new Vector2d(-36-18+78 + 36, -72+9+30+6+15), 0)
+                .build());
+         */
 
-//        int location = 0;
-//        switch (location) {
-//            case 0:
-//                myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(32, 10)).build());
-//                break;
-//            case 1:
-//                myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(32, 0)).build());
-//                break;
-//            case 2:
-//                myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(32, -10)).build());
-//                break;
-//            default:
-//                myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(0, 32)).build());
-//        }
+        /* RED_LEFT_STAGE. LOCATION 2.
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-36, -72 + 9, Math.toRadians(90)))
+                .strafeTo(new Vector2d(-36, -72+9 + 28))
+                .strafeToLinearHeading(new Vector2d(-36 + 3, -72+9+28), 0)
+                .strafeToLinearHeading(new Vector2d(-36 - 18, -72+9+28), 0)
+                .waitSeconds(5)
+                .setTangent(Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-36-18, -72+9+30 + 6), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-36-18 + 78, -72+9+30+6 + 15), 0)
+                .splineToConstantHeading(new Vector2d(-36-18+78 + 36, -72+9+30+6+15), 0)
+                .build());
+         */
+// endregion
 
+// region Blue Right Stage
+        /* BLUE_RIGHT_STAGE. LOCATION 0.
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-36, 72 - 9, Math.toRadians(-90)))
+                .strafeTo(new Vector2d(-36, 72-9 - 28))
+                .strafeToLinearHeading(new Vector2d(-36 + 3, 72-9-28), 0)
+                .strafeToLinearHeading(new Vector2d(-36 - 18, 72-9-28), 0)
+                .waitSeconds(5)
+                .setTangent(Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-36-18, 72-9-30 - 6), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-36-18 + 78, 72-9-30-6 - 15), 0)
+                .splineToConstantHeading(new Vector2d(-36-18+78 + 36, 72-9-30-6-15), 0)
+                .build());
+         */
+
+        /* BLUE_RIGHT_STAGE. LOCATION 1.
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-36, 72 - 9, Math.toRadians(-90)))
+                .strafeTo(new Vector2d(-36, 72-9 - 30))
+                .strafeToLinearHeading(new Vector2d(-36 - 18, 72-9-30), 0)
+                .waitSeconds(5)
+                .setTangent(Math.toRadians(270))
+                .splineToConstantHeading(new Vector2d(-36-18, 72-9-30 - 6), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-36-18 + 78, 72-9-30-6 - 15), 0)
+                .splineToConstantHeading(new Vector2d(-36-18+78 + 36, 72-9-30-6-15), 0)
+                .build());
+         */
+
+        /* BLUE_RIGHT_STAGE. LOCATION 2.
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-36, 72 - 9, Math.toRadians(-90)))
+                .strafeTo(new Vector2d(-36, 72-9 - 28))
+                .strafeToLinearHeading(new Vector2d(-36 - 3, 72-9-28), Math.toRadians(180))
+                .strafeTo(new Vector2d(-36, 72-9-28))
+                .waitSeconds(5)
+                .setTangent(Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-36, 72-9-30 - 6), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-36 + 60, 72-9-30-6 - 15), 0)
+                .splineToConstantHeading(new Vector2d(-36+60 + 36, 72-9-30-6-15), 0)
+                .build());
+         */
+// endregion
+
+// region Red Right Stage
+        /* RED_RIGHT_STAGE. LOCATION 0.
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(12, -72 + 9, Math.toRadians(90)))
+            .strafeTo(new Vector2d(12, -72+9 + 28))
+            .strafeToLinearHeading(new Vector2d(12 - 3, -72+9+28), Math.toRadians(180))
+            .setReversed(true)
+            .splineToConstantHeading(new Vector2d(12 + 48, -72+9), 0)
+            .build());
+         */
+
+        /* RED_RIGHT_STAGE. LOCATION 1.
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(12, -72 + 9, Math.toRadians(90)))
+            .strafeTo(new Vector2d(12, -72+9 + 30))
+            .setReversed(true)
+            .splineToConstantHeading(new Vector2d(12 + 48, -72+9), 0)
+            .build());
+         */
+
+        /* RED_RIGHT_STAGE. LOCATION 2.
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(12, -72 + 9, Math.toRadians(90)))
+            .strafeTo(new Vector2d(12, -72+9 + 28))
+            .strafeToSplineHeading(new Vector2d(12 + 3, -72+9+28), Math.toRadians(0))
+            .setReversed(true)
+            .splineToConstantHeading(new Vector2d(12 + 48, -72+9), 0)
+            .build());
+         */
+// endregion
+
+//region Blue Left Stage
+        /* BLUE_LEFT_STAGE. LOCATION 0.
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(12, 72 - 9, Math.toRadians(-90)))
+                .strafeTo(new Vector2d(12, 72-9 - 28))
+                .strafeToSplineHeading(new Vector2d(12 + 3, 72-9-28), Math.toRadians(0))
+                .setReversed(true)
+                .splineToConstantHeading(new Vector2d(12 + 48, 72-9), 0)
+                .build());
+         */
+
+        /* BLUE_LEFT_STAGE. LOCATION 1.
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(12, 72 - 9, Math.toRadians(-90)))
+                .strafeTo(new Vector2d(12, 72-9 - 30))
+                .setReversed(true)
+                .splineToConstantHeading(new Vector2d(12 + 48, 72-9), 0)
+                .build());
+         */
+
+        /* BLUE_LEFT_STAGE. LOCATION 2.
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(12, 72 - 9, Math.toRadians(-90)))
+                .strafeTo(new Vector2d(12, 72-9 - 28))
+                .strafeToSplineHeading(new Vector2d(12 - 3, 72-9-28), Math.toRadians(180))
+                .setReversed(true)
+                .splineToConstantHeading(new Vector2d(12 + 48, 72-9), 0)
+                .build());
+         */
+// endregion
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
                 .setDarkMode(true)
