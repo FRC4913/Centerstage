@@ -26,25 +26,52 @@ public class HuskyAuto extends LinearOpMode {
                 case 0:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
                             .lineToX(28).turnTo(Math.toRadians(90)).lineToY(3)
-                            .waitSeconds(1)
-                            .lineToY(-3).turnTo(Math.toRadians(0)).strafeTo(new Vector2d(0, 0)).build());
+                            .waitSeconds(1).lineToY(-3).build());
+//                            .lineToY(-3).turnTo(Math.toRadians(0)).strafeTo(new Vector2d(0, 0)).build());
                     break;
                 case 1:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .strafeTo(new Vector2d(30, 0))
-                            .strafeTo(new Vector2d(0, 0))
-                            .build());
+                            .strafeTo(new Vector2d(30, 0)).build());
+//                            .strafeTo(new Vector2d(0, 0))
+//                            .build());
                     break;
                 case 2:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
                             .lineToX(28).turnTo(Math.toRadians(-90)).lineToY(-2)
-                            .waitSeconds(1)
-                            .lineToY(3).turnTo(Math.toRadians(0)).strafeTo(new Vector2d(0, 0)).build());
+                            .waitSeconds(1).lineToY(3).build());
+//                            .lineToY(3).turnTo(Math.toRadians(0)).strafeTo(new Vector2d(0, 0)).build());
                     break;
                 default:
                     break;
             }
         }
+    public void navigateToInitialLocation(int location) {
+        telemetry.addData("Going to location:", location);
+
+        switch (location) {
+            case 0:
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(28, 0, 90))
+//                        .lineToX(28).turnTo(Math.toRadians(90)).lineToY(3)
+//                        .waitSeconds(1)
+                        .turnTo(Math.toRadians(0)).strafeTo(new Vector2d(0, 0)).build());
+                break;
+            case 1:
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(30, 0, 0))
+//                        .strafeTo(new Vector2d(30, 0))
+                        .strafeTo(new Vector2d(0, 0))
+                        .build());
+                break;
+            case 2:
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(28, 1, -90))
+//                        .lineToX(28).turnTo(Math.toRadians(-90)).lineToY(-2)
+//                        .waitSeconds(1)
+                        .turnTo(Math.toRadians(0)).strafeTo(new Vector2d(0, 0)).build());
+                break;
+            default:
+                break;
+        }
+    }
+
 
 
     public int locationToAprilTag(int location) {
@@ -55,7 +82,7 @@ public class HuskyAuto extends LinearOpMode {
         return -1;
     }
 
-    public void parkInBackstageBack() {
+    public void parkInBackstageCloseBack() {
         // TODO: Only supports when next to backstage. Decide on a strategy for the other side.
         if (position.equals(Position.BLUE_LEFT_STAGE)) {
             Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
@@ -65,9 +92,37 @@ public class HuskyAuto extends LinearOpMode {
                     .strafeTo(new Vector2d(0, -24 * 2)).build());
         }
     }
-    public void parkInBackstageFront(){
+    public void parkInBackstageFarFront(int location) {
+        if (position == Position.RED_LEFT_STAGE) {
+            switch (location){
+                case 0:
+                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
+                            .lineToX(28).lineToY(-150).build());
+                case 1:
+                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
+                            .lineToX(-3).lineToY(36).lineToX(31).lineToY(-180).build());
+                case 2:
+                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0,0,0))
+                            .lineToX(28).lineToY(-150).build());
+            }
+        }
+        else if(position == Position.BLUE_RIGHT_STAGE) {
+            switch (location){
+                case 0:
+                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
+                            .lineToX(28).lineToY(150).build());
+                case 1:
+                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
+                            .lineToX(-3).lineToY(-36).lineToX(31).lineToY(180).build());
+                case 2:
+                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0,0,0))
+                            .lineToX(28).lineToY(150).build());
+
+            }
+        }
 
     }
+
 
     public int getPropLocation() {
         // uses 0, 1, 2
@@ -91,9 +146,12 @@ public class HuskyAuto extends LinearOpMode {
         // Put down purple pixel
         navigateToTeamPropLocation(teamPropLocation);
         if (position == Position.BLUE_LEFT_STAGE || position == Position.RED_RIGHT_STAGE) {
-            parkInBackstageBack();
+            navigateToInitialLocation(teamPropLocation);
+            parkInBackstageCloseBack();
         }
         if(position == Position.BLUE_RIGHT_STAGE || position==Position.RED_LEFT_STAGE){
+            navigateToTeamPropLocation(teamPropLocation);
+            parkInBackstageFarFront(teamPropLocation);
 
         }
 
