@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.huskyteers;
+package org.firstinspires.ftc.teamcode.huskyteers.opmodes;
 
 
 import com.acmerobotics.dashboard.config.Config;
@@ -8,9 +8,9 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.huskyteers.utils.Position;
+import org.firstinspires.ftc.teamcode.huskyteers.HuskyBot;
 
-@Autonomous(name = "POV: Our Auto Doesn't Work", group="Huskyteers", preselectTeleOp = "Husky TeleOp Mode")
+@Autonomous(name = "POV: Our Auto Doesn't Work", group = "Huskyteers", preselectTeleOp = "Husky TeleOp Mode")
 @Config
 public class EmergencyAuto extends LinearOpMode {
     HuskyBot huskyBot;
@@ -23,6 +23,7 @@ public class EmergencyAuto extends LinearOpMode {
         waitForStart();
         if (isStopRequested()) return;
 
-        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(24, 0)).build());    }
+        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(24, 0)).build());
+    }
 }
 

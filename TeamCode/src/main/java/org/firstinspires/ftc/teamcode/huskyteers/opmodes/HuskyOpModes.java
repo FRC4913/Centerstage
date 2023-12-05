@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.huskyteers;
+package org.firstinspires.ftc.teamcode.huskyteers.opmodes;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;

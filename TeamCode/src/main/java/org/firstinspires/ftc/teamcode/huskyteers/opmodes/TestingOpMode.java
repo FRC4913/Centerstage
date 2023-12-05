@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.huskyteers;
+package org.firstinspires.ftc.teamcode.huskyteers.opmodes;
 
 import android.annotation.SuppressLint;
 
@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.huskyteers.HuskyBot;
 import org.firstinspires.ftc.teamcode.huskyteers.utils.GamepadUtils;
 import org.firstinspires.ftc.teamcode.huskyteers.utils.TelemetryUtils;
 

@@ -5,16 +5,14 @@ import android.graphics.Paint;
 
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
 import org.firstinspires.ftc.vision.VisionProcessor;
-
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
-import java.util.Optional;
-
 public class OpenCv implements VisionProcessor {
+    public long time;
     private int redPropLocation;
     private int bluePropLocation;
     private double val1;
@@ -42,6 +40,7 @@ public class OpenCv implements VisionProcessor {
 
     @Override
     public Object processFrame(Mat frame, long captureTimeNanos) {
+        long startTime = System.nanoTime();
         Mat hsvFrame = new Mat();
         Imgproc.cvtColor(frame, hsvFrame, Imgproc.COLOR_RGB2HSV);
 
@@ -84,6 +83,7 @@ public class OpenCv implements VisionProcessor {
         part2.release();
         part3.release();
 
+        time = System.nanoTime() - startTime;
         return null;
     }
 
@@ -104,33 +104,30 @@ public class OpenCv implements VisionProcessor {
             canvas.drawRect(left, 0, left + partWidth, onscreenHeight, rectPaint);
         }
 
-        if (this.redPropLocation > 0) {
-            int labelXPosition = (this.redPropLocation - 1) * partWidth + 10;
-            canvas.drawText("Most Red: Part " + this.redPropLocation, labelXPosition, 30, textPaint);
-        }
-        if (this.bluePropLocation > 0) {
-            int labelXPosition = (this.bluePropLocation - 1) * partWidth + 10;
-            canvas.drawText("Most Blue: Part " + this.bluePropLocation, labelXPosition, 60, textPaint);
-            canvas.drawText("val1: " + val1 + "val2: " + val2 + "val3: " + val3, labelXPosition, 90, textPaint);
-        }
+        canvas.drawText("Most Red: Part " + this.redPropLocation, (this.redPropLocation) * partWidth + 10, 30, textPaint);
+        canvas.drawText("Most Blue: Part " + this.bluePropLocation, (this.bluePropLocation) * partWidth + 10, 60, textPaint);
     }
 
     /**
      * Let's arbitrarily assign numbers to each side it could be based on the location relative
      * to the robot's starting position.
-     *
+     * <pre>
      *      1
      *    ______
      * 0 |     |  2
      *   |     |
-     *    robot start
-     *
+     * robot start
+     * </pre>
      * NOTE: In this implementation, there is no such a thing "prop not found"
-     *    - The method will always return a location that has the most red/blue color on it.
+     * - The method will always return a location that has the most red/blue color on it.
      *
      * @return Location of team prop
      */
-    public int redPropLocation(){ return redPropLocation; }
+    public int redPropLocation() {
+        return redPropLocation;
+    }
 
-    public int bluePropLocation(){ return bluePropLocation; }
+    public int bluePropLocation() {
+        return bluePropLocation;
+    }
 }
