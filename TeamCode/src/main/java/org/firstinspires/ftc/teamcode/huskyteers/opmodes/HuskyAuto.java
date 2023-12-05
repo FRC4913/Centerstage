@@ -26,21 +26,26 @@ public class HuskyAuto extends LinearOpMode {
             switch (location) {
                 case 0:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .lineToX(28).turnTo(Math.toRadians(90)).lineToY(3)
-                            .waitSeconds(1).lineToY(-3).build());
-//                            .lineToY(-3).turnTo(Math.toRadians(0)).strafeTo(new Vector2d(0, 0)).build());
+                            .lineToX(28)
+                            .turnTo(Math.toRadians(90))
+                            .lineToY(3)
+                            .waitSeconds(1)
+                            .lineToY(-3)
+                            .build());
                     break;
                 case 1:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .strafeTo(new Vector2d(30, 0)).build());
-//                            .strafeTo(new Vector2d(0, 0))
-//                            .build());
+                            .strafeTo(new Vector2d(30, 0))
+                            .build());
                     break;
                 case 2:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .lineToX(28).turnTo(Math.toRadians(-90)).lineToY(-2)
-                            .waitSeconds(1).lineToY(3).build());
-//                            .lineToY(3).turnTo(Math.toRadians(0)).strafeTo(new Vector2d(0, 0)).build());
+                            .lineToX(28)
+                            .turnTo(Math.toRadians(-90))
+                            .lineToY(-2)
+                            .waitSeconds(1)
+                            .lineToY(3)
+                            .build());
                     break;
                 default:
                     break;
@@ -52,21 +57,20 @@ public class HuskyAuto extends LinearOpMode {
         switch (location) {
             case 0:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(28, 0, 90))
-//                        .lineToX(28).turnTo(Math.toRadians(90)).lineToY(3)
-//                        .waitSeconds(1)
-                        .turnTo(Math.toRadians(0)).strafeTo(new Vector2d(0, 0)).build());
+                        .turnTo(Math.toRadians(0))
+                        .strafeTo(new Vector2d(0, 0))
+                        .build());
                 break;
             case 1:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(30, 0, 0))
-//                        .strafeTo(new Vector2d(30, 0))
                         .strafeTo(new Vector2d(0, 0))
                         .build());
                 break;
             case 2:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(28, 1, -90))
-//                        .lineToX(28).turnTo(Math.toRadians(-90)).lineToY(-2)
-//                        .waitSeconds(1)
-                        .turnTo(Math.toRadians(0)).strafeTo(new Vector2d(0, 0)).build());
+                        .turnTo(Math.toRadians(0))
+                        .strafeTo(new Vector2d(0, 0))
+                        .build());
                 break;
             default:
                 break;
@@ -87,10 +91,12 @@ public class HuskyAuto extends LinearOpMode {
         // TODO: Only supports when next to backstage. Decide on a strategy for the other side.
         if (position.equals(Position.BLUE_LEFT_STAGE)) {
             Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                    .strafeTo(new Vector2d(0, 24 * 2)).build());
+                    .strafeTo(new Vector2d(0, 24 * 2))
+                    .build());
         } else {
             Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                    .strafeTo(new Vector2d(0, -24 * 2)).build());
+                    .strafeTo(new Vector2d(0, -24 * 2))
+                    .build());
         }
     }
     public void parkInBackstageFarFront(int location) {
@@ -98,26 +104,42 @@ public class HuskyAuto extends LinearOpMode {
             switch (location){
                 case 0:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .lineToX(28).lineToY(-150).build());
+                            .lineToX(28)
+                            .lineToY(-150)
+                            .build());
                 case 1:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .lineToX(-3).lineToY(36).lineToX(31).lineToY(-180).build());
+                            .lineToX(-3)
+                            .lineToY(36)
+                            .lineToX(31)
+                            .lineToY(-180)
+                            .build());
                 case 2:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0,0,0))
-                            .lineToX(28).lineToY(-150).build());
+                            .lineToX(28)
+                            .lineToY(-150)
+                            .build());
             }
         }
         else if(position == Position.BLUE_RIGHT_STAGE) {
             switch (location){
                 case 0:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .lineToX(28).lineToY(150).build());
+                            .lineToX(28)
+                            .lineToY(150)
+                            .build());
                 case 1:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .lineToX(-3).lineToY(-36).lineToX(31).lineToY(180).build());
+                            .lineToX(-3)
+                            .lineToY(-36)
+                            .lineToX(31)
+                            .lineToY(180)
+                            .build());
                 case 2:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0,0,0))
-                            .lineToX(28).lineToY(150).build());
+                            .lineToX(28)
+                            .lineToY(150)
+                            .build());
 
             }
         }
