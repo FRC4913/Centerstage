@@ -109,8 +109,9 @@ public class HuskyAuto extends LinearOpMode {
                             .build());
                 case 1:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .lineToX(-3)
-                            .lineToY(36)
+                            .strafeToLinearHeading(new Vector2d(-3,36),Math.toRadians(90))
+                            .waitSeconds(5)
+                            //Todo: finish these as a spline
                             .lineToX(31)
                             .lineToY(-180)
                             .build());
@@ -175,7 +176,6 @@ public class HuskyAuto extends LinearOpMode {
         if(position == Position.BLUE_RIGHT_STAGE || position==Position.RED_LEFT_STAGE){
             navigateToTeamPropLocation(teamPropLocation);
             parkInBackstageFarFront(teamPropLocation);
-
         }
 
 
