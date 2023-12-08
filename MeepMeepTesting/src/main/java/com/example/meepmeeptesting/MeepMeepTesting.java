@@ -15,10 +15,14 @@ public class MeepMeepTesting {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
         myBot.runAction(myBot.getDrive().actionBuilder(
-                new Pose2d(12, -72 + 9, Math.toRadians(90)))
-                .strafeTo(new Vector2d(12, -72+9 + 30))
-                .setReversed(true)
-                .splineToConstantHeading(new Vector2d(12 + 48, -72+9), 0)
+                        new Pose2d(-36, -72 + 9, Math.toRadians(90)))
+                .strafeTo(new Vector2d(-36, -72+9 + 30))
+                .strafeToSplineHeading(new Vector2d(-36 - 18, -72+9+30), 0)
+                .waitSeconds(5)
+                .setTangent(Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-36-18, -72+9+30 + 13), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-36-18 + 78, -72+9+30+13 + 8), 0)
+                .splineToConstantHeading(new Vector2d(-36-18+78 + 36, -72+9+30+13+8), 0)
                 .build());
 
 // region Red Left Stage
@@ -30,9 +34,9 @@ public class MeepMeepTesting {
             .strafeTo(new Vector2d(-36, -72+9+28))
             .waitSeconds(5)
             .setTangent(Math.toRadians(90))
-            .splineToConstantHeading(new Vector2d(-36, -72+9+30 + 6), Math.toRadians(90))
-            .splineToConstantHeading(new Vector2d(-36 + 60, -72+9+30+6 + 15), 0)
-            .splineToConstantHeading(new Vector2d(-36+60 + 36, -72+9+30+6+15), 0)
+            .splineToConstantHeading(new Vector2d(-36, -72+9+30 + 13), Math.toRadians(90))
+            .splineToConstantHeading(new Vector2d(-36 + 60, -72+9+30+13 + 8), 0)
+            .splineToConstantHeading(new Vector2d(-36+60 + 36, -72+9+30+13+8), 0)
             .build());
          */
 
@@ -43,9 +47,9 @@ public class MeepMeepTesting {
             .strafeToLinearHeading(new Vector2d(-36 - 18, -72+9+30), 0)
             .waitSeconds(5)
             .setTangent(Math.toRadians(90))
-            .splineToConstantHeading(new Vector2d(-36-18, -72+9+30 + 6), Math.toRadians(90))
-            .splineToConstantHeading(new Vector2d(-36-18 + 78, -72+9+30+6 + 15), 0)
-            .splineToConstantHeading(new Vector2d(-36-18+78 + 36, -72+9+30+6+15), 0)
+            .splineToConstantHeading(new Vector2d(-36-18, -72+9+30 + 13), Math.toRadians(90))
+            .splineToConstantHeading(new Vector2d(-36-18 + 78, -72+9+30+13 + 8), 0)
+            .splineToConstantHeading(new Vector2d(-36-18+78 + 36, -72+9+30+13+8), 0)
             .build());
          */
 
@@ -57,9 +61,9 @@ public class MeepMeepTesting {
             .strafeToLinearHeading(new Vector2d(-36 - 18, -72+9+28), 0)
             .waitSeconds(5)
             .setTangent(Math.toRadians(90))
-            .splineToConstantHeading(new Vector2d(-36-18, -72+9+30 + 6), Math.toRadians(90))
-            .splineToConstantHeading(new Vector2d(-36-18 + 78, -72+9+30+6 + 15), 0)
-            .splineToConstantHeading(new Vector2d(-36-18+78 + 36, -72+9+30+6+15), 0)
+            .splineToConstantHeading(new Vector2d(-36-18, -72+9+30 + 13), Math.toRadians(90))
+            .splineToConstantHeading(new Vector2d(-36-18 + 78, -72+9+30+13 + 8), 0)
+            .splineToConstantHeading(new Vector2d(-36-18+78 + 36, -72+9+30+13+8), 0)
             .build());
          */
 // endregion
@@ -73,9 +77,9 @@ public class MeepMeepTesting {
             .strafeToLinearHeading(new Vector2d(-36 - 18, 72-9-28), 0)
             .waitSeconds(5)
             .setTangent(Math.toRadians(-90))
-            .splineToConstantHeading(new Vector2d(-36-18, 72-9-30 - 6), Math.toRadians(-90))
-            .splineToConstantHeading(new Vector2d(-36-18 + 78, 72-9-30-6 - 15), 0)
-            .splineToConstantHeading(new Vector2d(-36-18+78 + 36, 72-9-30-6-15), 0)
+            .splineToConstantHeading(new Vector2d(-36-18, 72-9-30 - 13), Math.toRadians(-90))
+            .splineToConstantHeading(new Vector2d(-36-18 + 78, 72-9-30-13 - 8), 0)
+            .splineToConstantHeading(new Vector2d(-36-18+78 + 36, 72-9-30-13-8), 0)
             .build());
          */
 
@@ -86,9 +90,9 @@ public class MeepMeepTesting {
             .strafeToLinearHeading(new Vector2d(-36 - 18, 72-9-30), 0)
             .waitSeconds(5)
             .setTangent(Math.toRadians(270))
-            .splineToConstantHeading(new Vector2d(-36-18, 72-9-30 - 6), Math.toRadians(-90))
-            .splineToConstantHeading(new Vector2d(-36-18 + 78, 72-9-30-6 - 15), 0)
-            .splineToConstantHeading(new Vector2d(-36-18+78 + 36, 72-9-30-6-15), 0)
+            .splineToConstantHeading(new Vector2d(-36-18, 72-9-30 - 13), Math.toRadians(-90))
+            .splineToConstantHeading(new Vector2d(-36-18 + 78, 72-9-30-13 - 8), 0)
+            .splineToConstantHeading(new Vector2d(-36-18+78 + 36, 72-9-30-13-8), 0)
             .build());
          */
 
@@ -100,9 +104,9 @@ public class MeepMeepTesting {
             .strafeTo(new Vector2d(-36, 72-9-28))
             .waitSeconds(5)
             .setTangent(Math.toRadians(-90))
-            .splineToConstantHeading(new Vector2d(-36, 72-9-30 - 6), Math.toRadians(-90))
-            .splineToConstantHeading(new Vector2d(-36 + 60, 72-9-30-6 - 15), 0)
-            .splineToConstantHeading(new Vector2d(-36+60 + 36, 72-9-30-6-15), 0)
+            .splineToConstantHeading(new Vector2d(-36, 72-9-30 - 13), Math.toRadians(-90))
+            .splineToConstantHeading(new Vector2d(-36 + 60, 72-9-30-13 - 8), 0)
+            .splineToConstantHeading(new Vector2d(-36+60 + 36, 72-9-30-13-8), 0)
             .build());
          */
 // endregion
