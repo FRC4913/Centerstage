@@ -7,6 +7,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.huskyteers.HuskyBot;
+import org.firstinspires.ftc.teamcode.huskyteers.utils.FieldInfo;
 import org.firstinspires.ftc.teamcode.huskyteers.utils.Position;
 
 @Config
@@ -161,6 +162,9 @@ public class HuskyAuto extends LinearOpMode {
     public void runOpMode() {
         huskyBot = new HuskyBot(this);
         huskyBot.init();
+
+        Pose2d initialPose = FieldInfo.getStartPose(position, 18);
+        huskyBot.drive.pose = initialPose;
 
         waitForStart();
         if (isStopRequested()) return;
