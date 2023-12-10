@@ -22,36 +22,37 @@ public class HuskyAuto extends LinearOpMode {
     }
 
     public void navigateToTeamPropLocation(int location) {
-            telemetry.addData("Going to location:", location);
+        telemetry.addData("Going to location:", location);
 
-            switch (location) {
-                case 0:
-                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .lineToX(28)
-                            .turnTo(Math.toRadians(90))
-                            .lineToY(3)
-                            .waitSeconds(1)
-                            .lineToY(-3)
-                            .build());
-                    break;
-                case 1:
-                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .strafeTo(new Vector2d(30, 0))
-                            .build());
-                    break;
-                case 2:
-                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .lineToX(28)
-                            .turnTo(Math.toRadians(-90))
-                            .lineToY(-2)
-                            .waitSeconds(1)
-                            .lineToY(3)
-                            .build());
-                    break;
-                default:
-                    break;
-            }
+        switch (location) {
+            case 0:
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
+                        .lineToX(28)
+                        .turnTo(Math.toRadians(90))
+                        .lineToY(3)
+                        .waitSeconds(1)
+                        .lineToY(-3)
+                        .build());
+                break;
+            case 1:
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
+                        .strafeTo(new Vector2d(30, 0))
+                        .build());
+                break;
+            case 2:
+                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
+                        .lineToX(28)
+                        .turnTo(Math.toRadians(-90))
+                        .lineToY(-2)
+                        .waitSeconds(1)
+                        .lineToY(3)
+                        .build());
+                break;
+            default:
+                break;
         }
+    }
+
     public void navigateToInitialLocation(int location) {
         telemetry.addData("Going to location:", location);
 
@@ -79,7 +80,6 @@ public class HuskyAuto extends LinearOpMode {
     }
 
 
-
     public int locationToAprilTag(int location) {
         if (location == 0) {
             return 432;
@@ -90,7 +90,7 @@ public class HuskyAuto extends LinearOpMode {
 
     public void parkInBackstageCloseBack() {
         // TODO: Only supports when next to backstage. Decide on a strategy for the other side.
-        if (position.equals(Position.BLUE_LEFT_STAGE)) {
+        if (position.equals(Position.BLUE_LEFT)) {
             Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
                     .strafeTo(new Vector2d(0, 24 * 2))
                     .build());
@@ -100,9 +100,10 @@ public class HuskyAuto extends LinearOpMode {
                     .build());
         }
     }
+
     public void parkInBackstageFarFront(int location) {
-        if (position == Position.RED_LEFT_STAGE) {
-            switch (location){
+        if (position == Position.RED_LEFT) {
+            switch (location) {
                 case 0:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
                             .lineToX(28)
@@ -110,21 +111,20 @@ public class HuskyAuto extends LinearOpMode {
                             .build());
                 case 1:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .strafeToLinearHeading(new Vector2d(-3,36),Math.toRadians(90))
+                            .strafeToLinearHeading(new Vector2d(-3, 36), Math.toRadians(90))
                             .waitSeconds(5)
                             //Todo: finish these as a spline
                             .lineToX(31)
                             .lineToY(-180)
                             .build());
                 case 2:
-                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0,0,0))
+                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
                             .lineToX(28)
                             .lineToY(-150)
                             .build());
             }
-        }
-        else if(position == Position.BLUE_RIGHT_STAGE) {
-            switch (location){
+        } else if (position == Position.BLUE_RIGHT) {
+            switch (location) {
                 case 0:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
                             .lineToX(28)
@@ -138,7 +138,7 @@ public class HuskyAuto extends LinearOpMode {
                             .lineToY(180)
                             .build());
                 case 2:
-                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0,0,0))
+                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
                             .lineToX(28)
                             .lineToY(150)
                             .build());
@@ -151,7 +151,7 @@ public class HuskyAuto extends LinearOpMode {
 
     public int getPropLocation() {
         // uses 0, 1, 2
-        if(position.equals(Position.RED_LEFT_STAGE) || position.equals(Position.RED_RIGHT_STAGE)) {
+        if (position.equals(Position.RED_LEFT) || position.equals(Position.RED_RIGHT)) {
             return huskyBot.huskyVision.openCv.redPropLocation();
         } else {
             return huskyBot.huskyVision.openCv.bluePropLocation();
@@ -173,11 +173,11 @@ public class HuskyAuto extends LinearOpMode {
 
         // Put down purple pixel
         navigateToTeamPropLocation(teamPropLocation);
-        if (position == Position.BLUE_LEFT_STAGE || position == Position.RED_RIGHT_STAGE) {
+        if (position == Position.BLUE_LEFT || position == Position.RED_RIGHT) {
             navigateToInitialLocation(teamPropLocation);
             parkInBackstageCloseBack();
         }
-        if(position == Position.BLUE_RIGHT_STAGE || position==Position.RED_LEFT_STAGE){
+        if (position == Position.BLUE_RIGHT || position == Position.RED_LEFT) {
             navigateToTeamPropLocation(teamPropLocation);
             parkInBackstageFarFront(teamPropLocation);
         }
