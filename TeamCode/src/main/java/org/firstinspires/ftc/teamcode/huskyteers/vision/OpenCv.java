@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.huskyteers.vision;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import com.example.huskyteers.TeamPropLocation;
+
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
 import org.firstinspires.ftc.vision.VisionProcessor;
 import org.opencv.core.Core;
@@ -13,8 +15,8 @@ import org.opencv.imgproc.Imgproc;
 
 public class OpenCv implements VisionProcessor {
     public long time;
-    private int redPropLocation;
-    private int bluePropLocation;
+    private TeamPropLocation redPropLocation;
+    private TeamPropLocation bluePropLocation;
     private double val1;
     private double val2;
     private double val3;
@@ -70,12 +72,12 @@ public class OpenCv implements VisionProcessor {
         val3 = blueSaturation3;
 
         this.redPropLocation = (redSaturation1 > redSaturation2) ?
-                ((redSaturation1 > redSaturation3) ? 0 : 2) :
-                ((redSaturation2 > redSaturation3) ? 1 : 2);
+                ((redSaturation1 > redSaturation3) ? TeamPropLocation.LEFT : TeamPropLocation.RIGHT) :
+                ((redSaturation2 > redSaturation3) ? TeamPropLocation.CENTER : TeamPropLocation.RIGHT);
 
         this.bluePropLocation = (blueSaturation1 > blueSaturation2) ?
-                ((blueSaturation1 > blueSaturation3) ? 0 : 2) :
-                ((blueSaturation2 > blueSaturation3) ? 1 : 2);
+                ((blueSaturation1 > blueSaturation3) ? TeamPropLocation.LEFT : TeamPropLocation.RIGHT) :
+                ((blueSaturation2 > blueSaturation3) ? TeamPropLocation.CENTER : TeamPropLocation.RIGHT);
 
 
         hsvFrame.release();
@@ -104,8 +106,8 @@ public class OpenCv implements VisionProcessor {
             canvas.drawRect(left, 0, left + partWidth, onscreenHeight, rectPaint);
         }
 
-        canvas.drawText("Most Red: Part " + this.redPropLocation, (this.redPropLocation) * partWidth + 10, 30, textPaint);
-        canvas.drawText("Most Blue: Part " + this.bluePropLocation, (this.bluePropLocation) * partWidth + 10, 60, textPaint);
+        canvas.drawText("Most Red: Part " + this.redPropLocation, 0, 30, textPaint);
+        canvas.drawText("Most Blue: Part " + this.bluePropLocation, 0, 60, textPaint);
     }
 
     /**
@@ -123,11 +125,11 @@ public class OpenCv implements VisionProcessor {
      *
      * @return Location of team prop
      */
-    public int redPropLocation() {
+    public TeamPropLocation redPropLocation() {
         return redPropLocation;
     }
 
-    public int bluePropLocation() {
+    public TeamPropLocation bluePropLocation() {
         return bluePropLocation;
     }
 }

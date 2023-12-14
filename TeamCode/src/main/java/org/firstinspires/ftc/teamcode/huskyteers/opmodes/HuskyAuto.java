@@ -4,11 +4,13 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.example.huskyteers.FieldInfo;
+import com.example.huskyteers.Paths;
+import com.example.huskyteers.Position;
+import com.example.huskyteers.TeamPropLocation;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.huskyteers.HuskyBot;
-import org.firstinspires.ftc.teamcode.huskyteers.utils.FieldInfo;
-import org.firstinspires.ftc.teamcode.huskyteers.utils.Position;
 
 @Config
 public class HuskyAuto extends LinearOpMode {
@@ -21,54 +23,29 @@ public class HuskyAuto extends LinearOpMode {
         position = p;
     }
 
-    public void navigateToTeamPropLocation(int location) {
+    public void navigateToTeamPropLocation(TeamPropLocation location) {
         telemetry.addData("Going to location:", location);
 
-        switch (location) {
-            case 0:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                        .lineToX(28)
-                        .turnTo(Math.toRadians(90))
-                        .lineToY(3)
-                        .waitSeconds(1)
-                        .lineToY(-3)
-                        .build());
-                break;
-            case 1:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                        .strafeTo(new Vector2d(30, 0))
-                        .build());
-                break;
-            case 2:
-                Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                        .lineToX(28)
-                        .turnTo(Math.toRadians(-90))
-                        .lineToY(-2)
-                        .waitSeconds(1)
-                        .lineToY(3)
-                        .build());
-                break;
-            default:
-                break;
-        }
+        Actions.runBlocking(Paths.pathToTeamProp(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)), location));
+        Actions.runBlocking(Paths.reversePathToTeamProp(huskyBot.drive.actionBuilder(huskyBot.drive.pose), location));
     }
 
-    public void navigateToInitialLocation(int location) {
+    public void navigateToInitialLocation(TeamPropLocation location) {
         telemetry.addData("Going to location:", location);
 
         switch (location) {
-            case 0:
+            case LEFT:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(28, 0, 90))
                         .turnTo(Math.toRadians(0))
                         .strafeTo(new Vector2d(0, 0))
                         .build());
                 break;
-            case 1:
+            case CENTER:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(30, 0, 0))
                         .strafeTo(new Vector2d(0, 0))
                         .build());
                 break;
-            case 2:
+            case RIGHT:
                 Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(28, 1, -90))
                         .turnTo(Math.toRadians(0))
                         .strafeTo(new Vector2d(0, 0))
@@ -101,15 +78,15 @@ public class HuskyAuto extends LinearOpMode {
         }
     }
 
-    public void parkInBackstageFarFront(int location) {
+    public void parkInBackstageFarFront(TeamPropLocation location) {
         if (position == Position.RED_LEFT) {
             switch (location) {
-                case 0:
+                case LEFT:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
                             .lineToX(28)
                             .lineToY(-150)
                             .build());
-                case 1:
+                case CENTER:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
                             .strafeToLinearHeading(new Vector2d(-3, 36), Math.toRadians(90))
                             .waitSeconds(5)
@@ -117,7 +94,7 @@ public class HuskyAuto extends LinearOpMode {
                             .lineToX(31)
                             .lineToY(-180)
                             .build());
-                case 2:
+                case RIGHT:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
                             .lineToX(28)
                             .lineToY(-150)
@@ -125,19 +102,19 @@ public class HuskyAuto extends LinearOpMode {
             }
         } else if (position == Position.BLUE_RIGHT) {
             switch (location) {
-                case 0:
+                case LEFT:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
                             .lineToX(28)
                             .lineToY(150)
                             .build());
-                case 1:
+                case CENTER:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
                             .lineToX(-3)
                             .lineToY(-36)
                             .lineToX(31)
                             .lineToY(180)
                             .build());
-                case 2:
+                case RIGHT:
                     Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
                             .lineToX(28)
                             .lineToY(150)
@@ -149,7 +126,7 @@ public class HuskyAuto extends LinearOpMode {
     }
 
 
-    public int getPropLocation() {
+    public TeamPropLocation getPropLocation() {
         // uses 0, 1, 2
         if (position.equals(Position.RED_LEFT) || position.equals(Position.RED_RIGHT)) {
             return huskyBot.huskyVision.openCv.redPropLocation();
@@ -169,7 +146,7 @@ public class HuskyAuto extends LinearOpMode {
         waitForStart();
         if (isStopRequested()) return;
 
-        int teamPropLocation = getPropLocation();
+        TeamPropLocation teamPropLocation = getPropLocation();
 
         // Put down purple pixel
         navigateToTeamPropLocation(teamPropLocation);

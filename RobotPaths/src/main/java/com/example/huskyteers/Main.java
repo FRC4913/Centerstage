@@ -1,29 +1,35 @@
-package com.example.meepmeeptesting;
+package com.example.huskyteers;
 
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
-public class MeepMeepTesting {
-    public static void main(String[] args) {
-        MeepMeep meepMeep = new MeepMeep(600);
+public class Main {
+    public static MeepMeep meepMeep = new MeepMeep(600);
 
-        RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
-                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
-                .build();
-        myBot.runAction(myBot.getDrive().actionBuilder(
-                        new Pose2d(-36, -72 + 9, Math.toRadians(90)))
-                .strafeTo(new Vector2d(-36, -72+9 + 30))
-                .strafeToSplineHeading(new Vector2d(-36 - 18, -72+9+30), 0)
-                .waitSeconds(5)
-                .setTangent(Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-36-18, -72+9+30 + 13), Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-36-18 + 78, -72+9+30+13 + 8), 0)
-                .splineToConstantHeading(new Vector2d(-36-18+78 + 36, -72+9+30+13+8), 0)
-                .build());
+    public static RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
+            // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
+            .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), RobotInfo.WIDTH)
+            .setDimensions(RobotInfo.WIDTH, RobotInfo.HEIGHT)
+            .build();
+
+    public static void previewTeamPropPath(TeamPropLocation location) {
+        myBot.runAction(Paths.pathToTeamProp(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0)), location));
+    }
+
+    public static void main(String[] args) {
+        previewTeamPropPath(TeamPropLocation.LEFT);
+//        myBot.runAction(myBot.getDrive().actionBuilder(
+//                        FieldInfo.getStartPose(Position.RED_LEFT, RobotInfo.WIDTH))
+//                .strafeTo(new Vector2d(-36, -72 + 9 + 30))
+//                .strafeToSplineHeading(new Vector2d(-36 - 18, -72 + 9 + 30), 0)
+//                .waitSeconds(5)
+//                .setTangent(Math.toRadians(90))
+//                .splineToConstantHeading(new Vector2d(-36 - 18, -72 + 9 + 30 + 13), Math.toRadians(90))
+//                .splineToConstantHeading(new Vector2d(-36 - 18 + 78, -72 + 9 + 30 + 13 + 8), 0)
+//                .splineToConstantHeading(new Vector2d(-36 - 18 + 78 + 36, -72 + 9 + 30 + 13 + 8), 0)
+//                .build());
 
 // region Red Left Stage
         /* RED_LEFT_STAGE. LOCATION 0.

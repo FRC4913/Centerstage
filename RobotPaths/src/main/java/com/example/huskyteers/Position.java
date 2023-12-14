@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.huskyteers.utils;
+package com.example.huskyteers;
 
 public enum Position {
     BLUE_RIGHT,

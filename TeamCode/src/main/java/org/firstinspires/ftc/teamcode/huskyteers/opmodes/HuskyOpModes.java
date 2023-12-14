@@ -1,12 +1,12 @@
 package org.firstinspires.ftc.teamcode.huskyteers.opmodes;
 
 
+import com.example.huskyteers.Position;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegistrar;
 
 import org.firstinspires.ftc.robotcore.internal.opmode.OpModeMeta;
-import org.firstinspires.ftc.teamcode.huskyteers.utils.Position;
 
 public class HuskyOpModes {
     final static String TELEOP = "Husky TeleOp Mode";
