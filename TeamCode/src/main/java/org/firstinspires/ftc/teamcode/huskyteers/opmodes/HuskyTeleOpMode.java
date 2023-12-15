@@ -97,11 +97,13 @@ public class HuskyTeleOpMode extends LinearOpMode {
                             (0.35 + 0.5 * currentGamepad1.left_trigger));
                 }
             }
+
             if(currentGamepad1.y) {
-                huskyBot.intake.runIntake(1);
+                huskyBot.intake.runIntake(10);
             } else if(currentGamepad1.b) {
-                huskyBot.intake.reverseIntake(1);
-            } else {
+                huskyBot.intake.reverseIntake(10);
+            }
+            else if(!currentGamepad1.y&&!currentGamepad1.b){
                 huskyBot.intake.stopIntake();
             }
             // endregion
