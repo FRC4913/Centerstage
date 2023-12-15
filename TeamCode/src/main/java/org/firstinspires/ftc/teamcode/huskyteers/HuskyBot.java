@@ -39,6 +39,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.huskyteers.hardware.DroneLauncher;
+import org.firstinspires.ftc.teamcode.huskyteers.hardware.Intake;
 import org.firstinspires.ftc.teamcode.huskyteers.utils.TelemetryUtils;
 import org.firstinspires.ftc.teamcode.huskyteers.vision.HuskyVision;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -75,6 +76,7 @@ public class HuskyBot {
 
     public MecanumDrive drive;
     public DroneLauncher droneLauncher;
+    public Intake intake;
     public HuskyVision huskyVision;
 
 
@@ -102,6 +104,7 @@ public class HuskyBot {
         drive = new MecanumDrive(myOpMode.hardwareMap, new Pose2d(0, 0, 0));
         // claw = new Claw(myOpMode.hardwareMap);
         droneLauncher = new DroneLauncher(myOpMode.hardwareMap);
+        intake = new Intake(myOpMode.hardwareMap);
         huskyVision = new HuskyVision(myOpMode.hardwareMap);
         huskyVision.setExposure();
 
@@ -114,7 +117,9 @@ public class HuskyBot {
         this.drive.leftFront.setPower(leftFront);
         this.drive.rightBack.setPower(rightBack);
         this.drive.rightFront.setPower(rightFront);
+
     }
+    
 
     public void updateDrivePoseEstimate() {
         this.drive.updatePoseEstimate();

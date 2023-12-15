@@ -27,5 +27,6 @@ public class Intake {
         intakeMotor.setPower(-power);
     }
 
+
     // Add other methods as needed
 }
