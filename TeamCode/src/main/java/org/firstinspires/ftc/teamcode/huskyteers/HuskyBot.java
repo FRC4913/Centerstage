@@ -102,9 +102,8 @@ public class HuskyBot {
     public void init() {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
         drive = new MecanumDrive(myOpMode.hardwareMap, new Pose2d(0, 0, 0));
-        // claw = new Claw(myOpMode.hardwareMap);
         droneLauncher = new DroneLauncher(myOpMode.hardwareMap);
-        intake = new Intake(myOpMode.hardwareMap);
+//        intake = new Intake(myOpMode.hardwareMap);
         huskyVision = new HuskyVision(myOpMode.hardwareMap);
         huskyVision.setExposure();
 
@@ -119,7 +118,7 @@ public class HuskyBot {
         this.drive.rightFront.setPower(rightFront);
 
     }
-    
+
 
     public void updateDrivePoseEstimate() {
         this.drive.updatePoseEstimate();

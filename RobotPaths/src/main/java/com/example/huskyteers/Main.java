@@ -14,12 +14,8 @@ public class Main {
             .setDimensions(RobotInfo.WIDTH, RobotInfo.HEIGHT)
             .build();
 
-    public static void previewTeamPropPath(TeamPropLocation location) {
-        myBot.runAction(Paths.pathToTeamProp(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0)), location));
-    }
-
     public static void main(String[] args) {
-        previewTeamPropPath(TeamPropLocation.LEFT);
+        myBot.runAction(Paths.pathToCommonPoint(myBot.getDrive().actionBuilder(new Pose2d(-36, -72 + RobotInfo.WIDTH / 2 + 30, Math.toRadians(90))), TeamPropLocation.CENTER));
 //        myBot.runAction(myBot.getDrive().actionBuilder(
 //                        FieldInfo.getStartPose(Position.RED_LEFT, RobotInfo.WIDTH))
 //                .strafeTo(new Vector2d(-36, -72 + 9 + 30))

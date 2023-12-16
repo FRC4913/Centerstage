@@ -56,15 +56,6 @@ public class HuskyAuto extends LinearOpMode {
         }
     }
 
-
-    public int locationToAprilTag(int location) {
-        if (location == 0) {
-            return 432;
-            // TODO: Replace with actual values, depending on alliance too.
-        }
-        return -1;
-    }
-
     public void parkInBackstageCloseBack() {
         // TODO: Only supports when next to backstage. Decide on a strategy for the other side.
         if (position.equals(Position.BLUE_LEFT)) {
@@ -78,51 +69,12 @@ public class HuskyAuto extends LinearOpMode {
         }
     }
 
-    public void parkInBackstageFarFront(TeamPropLocation location) {
-        if (position == Position.RED_LEFT) {
-            switch (location) {
-                case LEFT:
-                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .lineToX(28)
-                            .lineToY(-150)
-                            .build());
-                case CENTER:
-                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .strafeToLinearHeading(new Vector2d(-3, 36), Math.toRadians(90))
-                            .waitSeconds(5)
-                            //Todo: finish these as a spline
-                            .lineToX(31)
-                            .lineToY(-180)
-                            .build());
-                case RIGHT:
-                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .lineToX(28)
-                            .lineToY(-150)
-                            .build());
-            }
-        } else if (position == Position.BLUE_RIGHT) {
-            switch (location) {
-                case LEFT:
-                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .lineToX(28)
-                            .lineToY(150)
-                            .build());
-                case CENTER:
-                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .lineToX(-3)
-                            .lineToY(-36)
-                            .lineToX(31)
-                            .lineToY(180)
-                            .build());
-                case RIGHT:
-                    Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .lineToX(28)
-                            .lineToY(150)
-                            .build());
+    public void parkInBackstageFar() {
+        Actions.runBlocking(Paths.pathToBackstageFar(huskyBot.drive.actionBuilder(huskyBot.getDrivePoseEstimate())));
+    }
 
-            }
-        }
-
+    public void navigateToCommonPoint(TeamPropLocation teamPropLocation) {
+        Actions.runBlocking(Paths.pathToCommonPoint(huskyBot.drive.actionBuilder(huskyBot.getDrivePoseEstimate()), teamPropLocation));
     }
 
 
@@ -155,8 +107,8 @@ public class HuskyAuto extends LinearOpMode {
             parkInBackstageCloseBack();
         }
         if (position == Position.BLUE_RIGHT || position == Position.RED_LEFT) {
-            navigateToTeamPropLocation(teamPropLocation);
-            parkInBackstageFarFront(teamPropLocation);
+            navigateToCommonPoint(teamPropLocation);
+            parkInBackstageFar();
         }
 
 

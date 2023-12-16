@@ -22,18 +22,21 @@ public class Paths {
                         .waitSeconds(1)
                         .lineToY(-3)
                         .build();
+            // Ends at 28, -3
             case CENTER:
                 return actionBuilder
                         .strafeTo(new Vector2d(30, 0))
                         .build();
+            // Ends at 30, 0
             case RIGHT:
                 return actionBuilder
                         .lineToX(28)
                         .turnTo(Math.toRadians(-90))
-                        .lineToY(-2)
+                        .lineToY(-3)
                         .waitSeconds(1)
                         .lineToY(3)
                         .build();
+            // Ends at 28, 3
         }
         return actionBuilder.build();
     }
@@ -49,5 +52,25 @@ public class Paths {
                         .build();
         }
         return actionBuilder.build();
+    }
+
+
+    public static Vector2d commonPoint = new Vector2d(-34, -11);
+
+    public static Action pathToCommonPoint(TrajectoryActionBuilder actionBuilder, TeamPropLocation teamPropLocation) {
+        switch (teamPropLocation) {
+            case LEFT:
+            case RIGHT:
+                // Start at 28, -3
+                return actionBuilder.strafeToSplineHeading(commonPoint, 0).build();
+            case CENTER:
+                // Start at 30, 0
+                return actionBuilder.strafeTo(new Vector2d(FieldInfo.tiles(-1.5), FieldInfo.tiles(-1.75))).turnTo(Math.toRadians(180)).splineTo(new Vector2d(-58, -24), Math.toRadians(90)).splineTo(commonPoint, 0).build();
+        }
+        return actionBuilder.build();
+    }
+
+    public static Action pathToBackstageFar(TrajectoryActionBuilder actionBuilder) {
+        return null;
     }
 }
