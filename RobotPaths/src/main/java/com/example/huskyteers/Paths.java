@@ -55,7 +55,7 @@ public class Paths {
     }
 
 
-    public static Vector2d commonPoint = new Vector2d(-34, -11);
+    public static Vector2d commonPoint = new Vector2d(-34, -8);
 
     public static Action pathToCommonPoint(TrajectoryActionBuilder actionBuilder, TeamPropLocation teamPropLocation) {
         switch (teamPropLocation) {
@@ -71,6 +71,6 @@ public class Paths {
     }
 
     public static Action pathToBackstageFar(TrajectoryActionBuilder actionBuilder) {
-        return null;
+        return actionBuilder.strafeTo(new Vector2d(58.5, -12.2)).build();
     }
 }

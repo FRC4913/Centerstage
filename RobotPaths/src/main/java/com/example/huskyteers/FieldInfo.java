@@ -23,4 +23,7 @@ public class FieldInfo {
                 return new Pose2d(0, 0, 0);
         }
     }
+    public static boolean isRed(Position position) {
+        return position == Position.RED_RIGHT || position == Position.RED_LEFT;
+    }
 }

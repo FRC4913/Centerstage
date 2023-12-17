@@ -15,7 +15,7 @@ public class Main {
             .build();
 
     public static void main(String[] args) {
-        myBot.runAction(Paths.pathToCommonPoint(myBot.getDrive().actionBuilder(new Pose2d(-36, -72 + RobotInfo.WIDTH / 2 + 30, Math.toRadians(90))), TeamPropLocation.CENTER));
+        myBot.runAction(Paths.pathToBackstageFar(myBot.getDrive().actionBuilder(new Pose2d(Paths.commonPoint, 0))));
 //        myBot.runAction(myBot.getDrive().actionBuilder(
 //                        FieldInfo.getStartPose(Position.RED_LEFT, RobotInfo.WIDTH))
 //                .strafeTo(new Vector2d(-36, -72 + 9 + 30))

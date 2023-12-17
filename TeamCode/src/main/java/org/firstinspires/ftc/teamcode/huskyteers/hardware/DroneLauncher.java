@@ -19,7 +19,7 @@ public class DroneLauncher {
     public void shootDrone() {
         try {
             servo.setPower(0.5);
-            Thread.sleep(2000);
+            Thread.sleep(1500);
             servo.setPower(0.0);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt(); // Restore the interrupted status
