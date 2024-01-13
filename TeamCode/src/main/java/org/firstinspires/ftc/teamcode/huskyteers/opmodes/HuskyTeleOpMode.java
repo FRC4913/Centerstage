@@ -21,6 +21,8 @@ public class HuskyTeleOpMode extends LinearOpMode {
 
 // When transitioning to DUMPING state
     private static final long DUMPING_DURATION = 2000;
+    private static final long HIGH_POINT = 10;
+    private static final long LOW_POINT = 1;
     private enum OuttakeState {
         IDLE,
         MOVING_UP,
@@ -83,14 +85,14 @@ public class HuskyTeleOpMode extends LinearOpMode {
                     break;
                 case MOVING_UP:
                     // Check if reached target position or other condition
-                    if (huskyBot.outtake.getOuttakeMotorPosition() > 2) {
+                    if (huskyBot.outtake.getOuttakeMotorPosition() > HIGH_POINT) {
                         huskyBot.outtake.stopOuttake();
                         currentOuttakeState = OuttakeState.IDLE;
                     }
                     break;
                 case MOVING_DOWN:
                     // Check if reached target position or other condition
-                    if (huskyBot.outtake.getOuttakeMotorPosition() < 1) {
+                    if (huskyBot.outtake.getOuttakeMotorPosition() < LOW_POINT) {
                         huskyBot.outtake.stopOuttake();
                         currentOuttakeState = OuttakeState.IDLE;
                     }

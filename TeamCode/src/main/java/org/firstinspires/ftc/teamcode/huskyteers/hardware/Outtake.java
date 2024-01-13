@@ -10,7 +10,6 @@ public class Outtake {
     private final DcMotorEx outtakeMotor;
     public Outtake(HardwareMap hardwareMap) {
         outtakeMotor = hardwareMap.get(DcMotorEx.class, "outtake_motor");
-        outtakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         outtakeServo = hardwareMap.get(Servo.class, "outtake_servo");
         // Set other motor properties if needed@
     }
