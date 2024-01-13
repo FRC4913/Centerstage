@@ -20,9 +20,9 @@ public class HuskyTeleOpMode extends LinearOpMode {
     private long dumpingStartTime = 0;
 
 // When transitioning to DUMPING state
-    private static final long DUMPING_DURATION = 2000;
-    private static final long HIGH_POINT = 10;
-    private static final long LOW_POINT = 1;
+    private static final long DUMPING_DURATION = 2000; //Todo: figure this out
+    private static final long HIGH_POINT = 800; //Todo: figure this out
+    private static final long LOW_POINT = 100; //Todo: figure this out
     private enum OuttakeState {
         IDLE,
         MOVING_UP,
@@ -70,35 +70,69 @@ public class HuskyTeleOpMode extends LinearOpMode {
             gamepad2Utils.processUpdates(currentGamepad2);
             // endregion
 // FSM for Outtake
+//            switch (currentOuttakeState) {
+//                case IDLE:
+//                    if (gamepad1.dpad_up) {
+//                        currentOuttakeState = OuttakeState.MOVING_UP;
+//                        huskyBot.outtake.OuttakeUp(0.5); // Example power value
+//                    } else if (gamepad1.dpad_down) {
+//                        currentOuttakeState = OuttakeState.MOVING_DOWN;
+//                        huskyBot.outtake.OuttakeDown(0.5); // Example power value
+//                    } else if (gamepad1.x) {
+//                        currentOuttakeState = OuttakeState.DUMPING;
+//                        huskyBot.outtake.dump(1.0, 0.5, 0.1, 50); // Example parameters
+//                    }
+//                    break;
+//                case MOVING_UP:
+//                    // Check if reached target position or other condition
+//                    if (huskyBot.outtake.getOuttakeMotorPosition() > HIGH_POINT) {
+//                        huskyBot.outtake.stopOuttake();
+//                        currentOuttakeState = OuttakeState.IDLE;
+//                    }
+//                    break;
+//                case MOVING_DOWN:
+//                    // Check if reached target position or other condition
+//                    if (huskyBot.outtake.getOuttakeMotorPosition() < LOW_POINT) {
+//                        huskyBot.outtake.stopOuttake();
+//                        currentOuttakeState = OuttakeState.IDLE;
+//                    }
+//                    break;
+//                case DUMPING:
+//                    // Check if dumping is completed
+//                    if (System.currentTimeMillis() - dumpingStartTime > DUMPING_DURATION) {
+//                        currentOuttakeState = OuttakeState.IDLE;
+//                    }
+//                    break;
+//            }
             switch (currentOuttakeState) {
                 case IDLE:
                     if (gamepad1.dpad_up) {
                         currentOuttakeState = OuttakeState.MOVING_UP;
-                        huskyBot.outtake.OuttakeUp(0.5); // Example power value
+                        huskyBot.outtake.setMotorPowerWithLimit(0.5);
                     } else if (gamepad1.dpad_down) {
                         currentOuttakeState = OuttakeState.MOVING_DOWN;
-                        huskyBot.outtake.OuttakeDown(0.5); // Example power value
+                        huskyBot.outtake.setMotorPowerWithLimit(-0.5);
                     } else if (gamepad1.x) {
                         currentOuttakeState = OuttakeState.DUMPING;
-                        huskyBot.outtake.dump(1.0, 0.5, 0.1, 50); // Example parameters
+                        huskyBot.outtake.dump(1.0, 0.5, 0.1, 50);//Todo: Find Optimal Value
+                        dumpingStartTime = System.currentTimeMillis();
                     }
                     break;
                 case MOVING_UP:
-                    // Check if reached target position or other condition
-                    if (huskyBot.outtake.getOuttakeMotorPosition() > HIGH_POINT) {
+                    // Transition logic for MOVING_UP
+                    if (huskyBot.outtake.getOuttakeMotorPosition() >= HIGH_POINT) {
                         huskyBot.outtake.stopOuttake();
                         currentOuttakeState = OuttakeState.IDLE;
                     }
                     break;
                 case MOVING_DOWN:
-                    // Check if reached target position or other condition
-                    if (huskyBot.outtake.getOuttakeMotorPosition() < LOW_POINT) {
+                    // Transition logic for MOVING_DOWN
+                    if (huskyBot.outtake.getOuttakeMotorPosition() <= LOW_POINT) {
                         huskyBot.outtake.stopOuttake();
                         currentOuttakeState = OuttakeState.IDLE;
                     }
                     break;
                 case DUMPING:
-                    // Check if dumping is completed
                     if (System.currentTimeMillis() - dumpingStartTime > DUMPING_DURATION) {
                         currentOuttakeState = OuttakeState.IDLE;
                     }

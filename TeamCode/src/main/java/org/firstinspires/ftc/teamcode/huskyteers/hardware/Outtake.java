@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Config
 public class Outtake {
     public final Servo outtakeServo;
+    private final int MAX_ENCODER_POSITION = 1000; // Todo: Find the actual value
+    private final int MIN_ENCODER_POSITION = 0; // Todo: Find the actual value
     private final DcMotorEx outtakeMotor;
     public Outtake(HardwareMap hardwareMap) {
         outtakeMotor = hardwareMap.get(DcMotorEx.class, "outtake_motor");
@@ -74,6 +76,14 @@ public class Outtake {
         }
 
         outtakeServo.setPosition(position);
+    }
+    public void setMotorPowerWithLimit(double power) {
+        int currentPos = outtakeMotor.getCurrentPosition();
+        if ((power > 0 && currentPos < MAX_ENCODER_POSITION) || (power < 0 && currentPos > MIN_ENCODER_POSITION)) {
+            outtakeMotor.setPower(power);
+        } else {
+            outtakeMotor.setPower(0);
+        }
     }
     public int getOuttakeMotorPosition() {
         return outtakeMotor.getCurrentPosition();
