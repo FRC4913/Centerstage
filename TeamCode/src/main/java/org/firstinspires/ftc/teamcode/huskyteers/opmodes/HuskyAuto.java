@@ -8,10 +8,8 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.example.huskyteers.FieldInfo;
 import com.example.huskyteers.Paths;
 import com.example.huskyteers.Position;
-import com.example.huskyteers.RobotInfo;
 import com.example.huskyteers.TeamPropLocation;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
 import org.firstinspires.ftc.teamcode.huskyteers.HuskyBot;
 
 @Config
@@ -28,12 +26,12 @@ public class HuskyAuto extends LinearOpMode {
     public void navigateToTeamPropLocation(TeamPropLocation location) {
         telemetry.addData("Going to location:", location);
 
-        Actions.runBlocking(Paths.pathToTeamProp(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)), location));
+        Actions.runBlocking(Paths.pathToTeamProp(huskyBot.drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(180))), location));
     }
 
     public void navigateToInitialLocation(TeamPropLocation location) {
         telemetry.addData("Going to location:", location);
-        Actions.runBlocking(Paths.reversePathToTeamProp(huskyBot.drive.actionBuilder(huskyBot.getDrivePoseEstimate()), location ));
+        Actions.runBlocking(Paths.reversePathToTeamProp(huskyBot.drive.actionBuilder(huskyBot.getDrivePoseEstimate()), location));
     }
 
     public void parkInBackstageCloseBack() {
