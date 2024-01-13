@@ -34,7 +34,7 @@ dependencies {
     implementation project(":RobotPaths")
     annotationProcessor files('lib/OpModeAnnotationProcessor.jar')
 
-    implementation "com.acmerobotics.roadrunner:ftc:0.1.9"
+    implementation "com.acmerobotics.roadrunner:ftc:0.1.11"
     implementation "com.acmerobotics.dashboard:dashboard:0.4.14"
 
     implementation 'org.openftc:easyopencv:1.7.0'
