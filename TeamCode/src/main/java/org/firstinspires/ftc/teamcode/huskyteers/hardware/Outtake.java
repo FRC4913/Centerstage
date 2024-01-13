@@ -12,7 +12,7 @@ public class Outtake {
     public Outtake(HardwareMap hardwareMap) {
         outtakeMotor = hardwareMap.get(DcMotorEx.class, "outtake_motor");
         outtakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        outtakeServo = hardwareMap.get(CRServo.class, "outtak_servo");
-        // Set other motor properties if needed
+        outtakeServo = hardwareMap.get(CRServo.class, "outtake_servo");
+        // Set other motor properties if needed@
     }
 }
