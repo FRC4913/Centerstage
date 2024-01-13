@@ -40,6 +40,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.huskyteers.hardware.DroneLauncher;
 import org.firstinspires.ftc.teamcode.huskyteers.hardware.Intake;
+import org.firstinspires.ftc.teamcode.huskyteers.hardware.Outtake;
 import org.firstinspires.ftc.teamcode.huskyteers.utils.TelemetryUtils;
 import org.firstinspires.ftc.teamcode.huskyteers.vision.HuskyVision;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -77,10 +78,13 @@ public class HuskyBot {
     public MecanumDrive drive;
     public DroneLauncher droneLauncher;
     public Intake intake;
+    public Outtake outtake;
     public HuskyVision huskyVision;
 
 
     // Define Drive constants.
+
+
     public static double DESIRED_DISTANCE_FROM_APRILTAG = 12.0;
 
     public static double DRONE_LAUNCHER_POWER = 0.5;
@@ -103,7 +107,8 @@ public class HuskyBot {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
         drive = new MecanumDrive(myOpMode.hardwareMap, new Pose2d(0, 0, 0));
         droneLauncher = new DroneLauncher(myOpMode.hardwareMap);
-//        intake = new Intake(myOpMode.hardwareMap);
+        intake = new Intake(myOpMode.hardwareMap);
+        outtake = new Outtake(myOpMode.hardwareMap);
         huskyVision = new HuskyVision(myOpMode.hardwareMap);
         huskyVision.setExposure();
 

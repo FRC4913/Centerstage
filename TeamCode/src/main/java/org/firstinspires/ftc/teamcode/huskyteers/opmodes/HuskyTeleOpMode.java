@@ -17,6 +17,19 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Config
 @TeleOp(name = "Husky TeleOp Mode", group = "Huskyteers")
 public class HuskyTeleOpMode extends LinearOpMode {
+    private long dumpingStartTime = 0;
+
+// When transitioning to DUMPING state
+    private static final long DUMPING_DURATION = 2000;
+    private enum OuttakeState {
+        IDLE,
+        MOVING_UP,
+        MOVING_DOWN,
+        DUMPING
+    }
+
+    private OuttakeState currentOuttakeState = OuttakeState.IDLE;
+
     @SuppressLint("DefaultLocale")
     @Override
     public void runOpMode() {
@@ -54,6 +67,41 @@ public class HuskyTeleOpMode extends LinearOpMode {
             gamepad1Utils.processUpdates(currentGamepad1);
             gamepad2Utils.processUpdates(currentGamepad2);
             // endregion
+// FSM for Outtake
+            switch (currentOuttakeState) {
+                case IDLE:
+                    if (gamepad1.dpad_up) {
+                        currentOuttakeState = OuttakeState.MOVING_UP;
+                        huskyBot.outtake.OuttakeUp(0.5); // Example power value
+                    } else if (gamepad1.dpad_down) {
+                        currentOuttakeState = OuttakeState.MOVING_DOWN;
+                        huskyBot.outtake.OuttakeDown(0.5); // Example power value
+                    } else if (gamepad1.x) {
+                        currentOuttakeState = OuttakeState.DUMPING;
+                        huskyBot.outtake.dump(1.0, 0.5, 0.1, 50); // Example parameters
+                    }
+                    break;
+                case MOVING_UP:
+                    // Check if reached target position or other condition
+                    if (huskyBot.outtake.getOuttakeMotorPosition() > 2) {
+                        huskyBot.outtake.stopOuttake();
+                        currentOuttakeState = OuttakeState.IDLE;
+                    }
+                    break;
+                case MOVING_DOWN:
+                    // Check if reached target position or other condition
+                    if (huskyBot.outtake.getOuttakeMotorPosition() < 1) {
+                        huskyBot.outtake.stopOuttake();
+                        currentOuttakeState = OuttakeState.IDLE;
+                    }
+                    break;
+                case DUMPING:
+                    // Check if dumping is completed
+                    if (System.currentTimeMillis() - dumpingStartTime > DUMPING_DURATION) {
+                        currentOuttakeState = OuttakeState.IDLE;
+                    }
+                    break;
+            }
 
             // region DRIVE CONTROL
 
@@ -87,14 +135,14 @@ public class HuskyTeleOpMode extends LinearOpMode {
                 }
             }
 
-//            if(currentGamepad1.y) {
-//                huskyBot.intake.runIntake(10);
-//            } else if(currentGamepad1.b) {
-//                huskyBot.intake.reverseIntake(10);
-//            }
-//            else if(!currentGamepad1.y&&!currentGamepad1.b){
-//                huskyBot.intake.stopIntake();
-//            }
+            if(currentGamepad1.y) {
+                huskyBot.intake.runIntake(10);
+            } else if(currentGamepad1.b) {
+                huskyBot.intake.reverseIntake(10);
+            }
+            else if(!currentGamepad1.y&&!currentGamepad1.b){
+                huskyBot.intake.stopIntake();
+            }
             // endregion
 
             // region TELEMETRY
