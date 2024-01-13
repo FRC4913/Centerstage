@@ -19,10 +19,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class HuskyTeleOpMode extends LinearOpMode {
     private long dumpingStartTime = 0;
 
-// When transitioning to DUMPING state
+    // When transitioning to DUMPING state
     private static final long DUMPING_DURATION = 2000; //Todo: figure this out
     private static final long HIGH_POINT = 800; //Todo: figure this out
     private static final long LOW_POINT = 100; //Todo: figure this out
+    private long stateEntryTime = 0;
+    private static final long MOVING_TIMEOUT = 5000; //Todo: adjust this
+    private static final long DUMPING_TIMEOUT = 3000; //Todo: adjust this
     private enum OuttakeState {
         IDLE,
         MOVING_UP,
@@ -107,33 +110,46 @@ public class HuskyTeleOpMode extends LinearOpMode {
             switch (currentOuttakeState) {
                 case IDLE:
                     if (gamepad1.dpad_up) {
+                        // Start moving up
+                        huskyBot.outtake.setMotorPowerWithLimit(0.5); // Example power for moving up
+                        stateEntryTime = System.currentTimeMillis(); // Start the timer for timeout
                         currentOuttakeState = OuttakeState.MOVING_UP;
-                        huskyBot.outtake.setMotorPowerWithLimit(0.5);
                     } else if (gamepad1.dpad_down) {
+                        // Start moving down
+                        huskyBot.outtake.setMotorPowerWithLimit(-0.5); // Example power for moving down
+                        stateEntryTime = System.currentTimeMillis(); // Start the timer for timeout
                         currentOuttakeState = OuttakeState.MOVING_DOWN;
-                        huskyBot.outtake.setMotorPowerWithLimit(-0.5);
                     } else if (gamepad1.x) {
+                        // Start dumping
+                        huskyBot.outtake.dump(1.0, 0.5, 0.1, 50); // Example parameters for dumping
+                        stateEntryTime = System.currentTimeMillis(); // Start the timer for dumping
                         currentOuttakeState = OuttakeState.DUMPING;
-                        huskyBot.outtake.dump(1.0, 0.5, 0.1, 50);//Todo: Find Optimal Value
-                        dumpingStartTime = System.currentTimeMillis();
+                    } else if (gamepad1.b) {
+                        // Manual stop button pressed in IDLE state
+                        // Implement any necessary logic here if needed
+                        // For example, reset certain values or stop any residual motor movement
                     }
                     break;
+
                 case MOVING_UP:
-                    // Transition logic for MOVING_UP
-                    if (huskyBot.outtake.getOuttakeMotorPosition() >= HIGH_POINT) {
+                    if (huskyBot.outtake.getOuttakeMotorPosition() >= HIGH_POINT ||
+                            System.currentTimeMillis() - stateEntryTime > MOVING_TIMEOUT ||
+                            gamepad1.b) { // Check for manual stop
                         huskyBot.outtake.stopOuttake();
                         currentOuttakeState = OuttakeState.IDLE;
                     }
                     break;
                 case MOVING_DOWN:
-                    // Transition logic for MOVING_DOWN
-                    if (huskyBot.outtake.getOuttakeMotorPosition() <= LOW_POINT) {
+                    if (huskyBot.outtake.getOuttakeMotorPosition() <= LOW_POINT ||
+                            System.currentTimeMillis() - stateEntryTime > MOVING_TIMEOUT ||
+                            gamepad1.b) { // Check for manual stop
                         huskyBot.outtake.stopOuttake();
                         currentOuttakeState = OuttakeState.IDLE;
                     }
                     break;
                 case DUMPING:
-                    if (System.currentTimeMillis() - dumpingStartTime > DUMPING_DURATION) {
+                    if (System.currentTimeMillis() - stateEntryTime > DUMPING_TIMEOUT || gamepad1.b) {
+                        // Dumping completed or manual stop
                         currentOuttakeState = OuttakeState.IDLE;
                     }
                     break;
