@@ -1,13 +1,10 @@
 package org.firstinspires.ftc.teamcode.huskyteers.opmodes;
 
 import android.annotation.SuppressLint;
-
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
-
 import org.firstinspires.ftc.teamcode.huskyteers.HuskyBot;
 import org.firstinspires.ftc.teamcode.huskyteers.utils.GamepadUtils;
 import org.firstinspires.ftc.teamcode.huskyteers.utils.TelemetryUtils;
@@ -26,6 +23,7 @@ public class HuskyTeleOpMode extends LinearOpMode {
     private long stateEntryTime = 0;
     private static final long MOVING_TIMEOUT = 5000; //Todo: adjust this
     private static final long DUMPING_TIMEOUT = 3000; //Todo: adjust this
+
     private enum OuttakeState {
         IDLE,
         MOVING_UP,
@@ -33,7 +31,7 @@ public class HuskyTeleOpMode extends LinearOpMode {
         DUMPING
     }
 
-    private OuttakeState currentOuttakeState = OuttakeState.IDLE;
+//    private OuttakeState currentOuttakeState = OuttakeState.IDLE;
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -54,9 +52,9 @@ public class HuskyTeleOpMode extends LinearOpMode {
             gamepad1.runRumbleEffect(new Gamepad.RumbleEffect.Builder().addStep(1, 1, 200).build());
         });
         // region DRONE LAUNCHER
-        gamepad2Utils.addRisingEdge("dpad_up", d -> {
-            huskyBot.droneLauncher.shootDrone();
-        });
+//        gamepad2Utils.addRisingEdge("dpad_up", d -> {
+//            huskyBot.droneLauncher.shootDrone();
+//        });
         // endregion
 
         waitForStart();
@@ -107,53 +105,53 @@ public class HuskyTeleOpMode extends LinearOpMode {
 //                    }
 //                    break;
 //            }
-            switch (currentOuttakeState) {
-                case IDLE:
-                    if (gamepad1.dpad_up) {
-                        // Start moving up
-                        huskyBot.outtake.setMotorPowerWithLimit(0.5); // Example power for moving up
-                        stateEntryTime = System.currentTimeMillis(); // Start the timer for timeout
-                        currentOuttakeState = OuttakeState.MOVING_UP;
-                    } else if (gamepad1.dpad_down) {
-                        // Start moving down
-                        huskyBot.outtake.setMotorPowerWithLimit(-0.5); // Example power for moving down
-                        stateEntryTime = System.currentTimeMillis(); // Start the timer for timeout
-                        currentOuttakeState = OuttakeState.MOVING_DOWN;
-                    } else if (gamepad1.x) {
-                        // Start dumping
-                        huskyBot.outtake.dump(1.0, 0.5, 0.1, 50); // Example parameters for dumping
-                        stateEntryTime = System.currentTimeMillis(); // Start the timer for dumping
-                        currentOuttakeState = OuttakeState.DUMPING;
-                    } else if (gamepad1.b) {
-                        // Manual stop button pressed in IDLE state
-                        // Implement any necessary logic here if needed
-                        // For example, reset certain values or stop any residual motor movement
-                    }
-                    break;
-
-                case MOVING_UP:
-                    if (huskyBot.outtake.getOuttakeMotorPosition() >= HIGH_POINT ||
-                            System.currentTimeMillis() - stateEntryTime > MOVING_TIMEOUT ||
-                            gamepad1.b) { // Check for manual stop
-                        huskyBot.outtake.stopOuttake();
-                        currentOuttakeState = OuttakeState.IDLE;
-                    }
-                    break;
-                case MOVING_DOWN:
-                    if (huskyBot.outtake.getOuttakeMotorPosition() <= LOW_POINT ||
-                            System.currentTimeMillis() - stateEntryTime > MOVING_TIMEOUT ||
-                            gamepad1.b) { // Check for manual stop
-                        huskyBot.outtake.stopOuttake();
-                        currentOuttakeState = OuttakeState.IDLE;
-                    }
-                    break;
-                case DUMPING:
-                    if (System.currentTimeMillis() - stateEntryTime > DUMPING_TIMEOUT || gamepad1.b) {
-                        // Dumping completed or manual stop
-                        currentOuttakeState = OuttakeState.IDLE;
-                    }
-                    break;
-            }
+//            switch (currentOuttakeState) {
+//                case IDLE:
+//                    if (gamepad1.dpad_up) {
+//                        // Start moving up
+//                        huskyBot.outtake.setMotorPowerWithLimit(0.5); // Example power for moving up
+//                        stateEntryTime = System.currentTimeMillis(); // Start the timer for timeout
+//                        currentOuttakeState = OuttakeState.MOVING_UP;
+//                    } else if (gamepad1.dpad_down) {
+//                        // Start moving down
+//                        huskyBot.outtake.setMotorPowerWithLimit(-0.5); // Example power for moving down
+//                        stateEntryTime = System.currentTimeMillis(); // Start the timer for timeout
+//                        currentOuttakeState = OuttakeState.MOVING_DOWN;
+//                    } else if (gamepad1.x) {
+//                        // Start dumping
+//                        huskyBot.outtake.dump(1.0, 0.5, 0.1, 50); // Example parameters for dumping
+//                        stateEntryTime = System.currentTimeMillis(); // Start the timer for dumping
+//                        currentOuttakeState = OuttakeState.DUMPING;
+//                    } else if (gamepad1.b) {
+//                        // Manual stop button pressed in IDLE state
+//                        // Implement any necessary logic here if needed
+//                        // For example, reset certain values or stop any residual motor movement
+//                    }
+//                    break;
+//
+//                case MOVING_UP:
+//                    if (huskyBot.outtake.getOuttakeMotorPosition() >= HIGH_POINT ||
+//                            System.currentTimeMillis() - stateEntryTime > MOVING_TIMEOUT ||
+//                            gamepad1.b) { // Check for manual stop
+//                        huskyBot.outtake.stopOuttake();
+//                        currentOuttakeState = OuttakeState.IDLE;
+//                    }
+//                    break;
+//                case MOVING_DOWN:
+//                    if (huskyBot.outtake.getOuttakeMotorPosition() <= LOW_POINT ||
+//                            System.currentTimeMillis() - stateEntryTime > MOVING_TIMEOUT ||
+//                            gamepad1.b) { // Check for manual stop
+//                        huskyBot.outtake.stopOuttake();
+//                        currentOuttakeState = OuttakeState.IDLE;
+//                    }
+//                    break;
+//                case DUMPING:
+//                    if (System.currentTimeMillis() - stateEntryTime > DUMPING_TIMEOUT || gamepad1.b) {
+//                        // Dumping completed or manual stop
+//                        currentOuttakeState = OuttakeState.IDLE;
+//                    }
+//                    break;
+//            }
 
             // region DRIVE CONTROL
 
@@ -187,12 +185,11 @@ public class HuskyTeleOpMode extends LinearOpMode {
                 }
             }
 
-            if(currentGamepad1.y) {
-                huskyBot.intake.runIntake(10);
-            } else if(currentGamepad1.b) {
-                huskyBot.intake.reverseIntake(10);
-            }
-            else if(!currentGamepad1.y&&!currentGamepad1.b){
+            if (currentGamepad1.y) {
+                huskyBot.intake.runIntake(50);
+            } else if (currentGamepad1.b) {
+                huskyBot.intake.reverseIntake(50);
+            } else if (!currentGamepad1.y && !currentGamepad1.b) {
                 huskyBot.intake.stopIntake();
             }
             // endregion

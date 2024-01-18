@@ -1,6 +1,5 @@
 package com.example.huskyteers;
 
-import com.acmerobotics.roadrunner.Pose2d;
 import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
@@ -15,8 +14,10 @@ public class Main {
             .build();
 
     public static void main(String[] args) {
-        myBot.runAction(Paths.pathToTeamProp(myBot.getDrive().actionBuilder(new Pose2d(0, 0, Math.toRadians(180))), TeamPropLocation.RIGHT));
-//        myBot.runAction(myBot.getDrive().actionBuilder(
+        myBot.runAction(myBot.getDrive().actionBuilder(FieldInfo.getStartPose(Position.RED_RIGHT, RobotInfo.HEIGHT))
+                .lineToY(-30)
+                .turn(Math.toRadians(-90))
+                .build());//        myBot.runAction(myBot.getDrive().actionBuilder(
 //                        FieldInfo.getStartPose(Position.RED_LEFT, RobotInfo.WIDTH))
 //                .strafeTo(new Vector2d(-36, -72 + 9 + 30))
 //                .strafeToSplineHeading(new Vector2d(-36 - 18, -72 + 9 + 30), 0)

@@ -27,4 +27,8 @@ public class FieldInfo {
     public static boolean isRed(Position position) {
         return position == Position.RED_RIGHT || position == Position.RED_LEFT;
     }
+
+    public static boolean isBackstage(Position position) {
+        return position == Position.BLUE_LEFT || position == Position.RED_RIGHT;
+    }
 }

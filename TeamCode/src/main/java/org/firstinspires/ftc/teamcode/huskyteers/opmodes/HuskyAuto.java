@@ -8,8 +8,10 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.example.huskyteers.FieldInfo;
 import com.example.huskyteers.Paths;
 import com.example.huskyteers.Position;
+import com.example.huskyteers.RobotInfo;
 import com.example.huskyteers.TeamPropLocation;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
 import org.firstinspires.ftc.teamcode.huskyteers.HuskyBot;
 
 @Config
@@ -26,7 +28,7 @@ public class HuskyAuto extends LinearOpMode {
     public void navigateToTeamPropLocation(TeamPropLocation location) {
         telemetry.addData("Going to location:", location);
 
-        Actions.runBlocking(Paths.pathToTeamProp(huskyBot.drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(180))), location));
+        Actions.runBlocking(Paths.pathToTeamProp(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)), location));
     }
 
     public void navigateToInitialLocation(TeamPropLocation location) {
@@ -78,6 +80,42 @@ public class HuskyAuto extends LinearOpMode {
         Actions.runBlocking(new SleepAction(seconds));
     }
 
+    public float reverse(float num) {
+        if (!FieldInfo.isRed(position)) {
+            return -num;
+        }
+        return num;
+    }
+
+    public void closeToBackdropAuto(TeamPropLocation teamPropLocation) {
+        // Go to center of spikes (backwards)
+        Actions.runBlocking(Paths.pathToTeamProp(huskyBot.drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(180))), teamPropLocation));
+
+        if (teamPropLocation == TeamPropLocation.RIGHT) {
+            // Left Spike: Rotate left
+
+            huskyBot.drive.actionBuilder(huskyBot.getDrivePoseEstimate())
+                    .lineToY(reverse(-30))
+                    .turn(Math.toRadians(-90))
+
+                    .build();
+        } else if (teamPropLocation == TeamPropLocation.CENTER) {
+            // Center:Continue backwards motion
+            huskyBot.drive.actionBuilder(huskyBot.getDrivePoseEstimate())
+                    .lineToY(-12)
+                    .build();
+        } else {
+            huskyBot.drive.actionBuilder(huskyBot.getDrivePoseEstimate())
+                    .lineToY(reverse(-30))
+                    .turn(Math.toRadians(90))
+                    .build();
+        }
+    }
+
+    public void farFromBackdropAuto(TeamPropLocation teamPropLocation) {
+
+    }
+
     @Override
     public void runOpMode() {
         huskyBot = new HuskyBot(this);
@@ -90,25 +128,33 @@ public class HuskyAuto extends LinearOpMode {
 
         TeamPropLocation teamPropLocation = getPropLocation();
         System.out.println(teamPropLocation.toString());
-
-        // Put down purple pixel
+        huskyBot.drive.pose = FieldInfo.getStartPose(position, RobotInfo.HEIGHT);
         navigateToTeamPropLocation(teamPropLocation);
         if (position == Position.BLUE_LEFT || position == Position.RED_RIGHT) {
-            navigateToInitialLocation(teamPropLocation);
-            parkInBackstageCloseBack();
+            closeToBackdropAuto(teamPropLocation);
+        } else {
+            farFromBackdropAuto(teamPropLocation);
         }
-        if (position == Position.BLUE_RIGHT || position == Position.RED_LEFT) {
-            Pose2d startPose = FieldInfo.getStartPose(position, 18);
-            Pose2d updatedPose = huskyBot.drive.pose;
 
-            if (position == Position.RED_LEFT) {
-                huskyBot.drive.pose = new Pose2d(startPose.position.x + updatedPose.position.y, startPose.position.y + updatedPose.position.x, startPose.heading.toDouble() + updatedPose.heading.toDouble());
-            } else {
-                huskyBot.drive.pose = new Pose2d(startPose.position.x + updatedPose.position.y, startPose.position.y - updatedPose.position.x, startPose.heading.toDouble() - updatedPose.heading.toDouble());
-            }
-            navigateToCommonPoint(teamPropLocation);
-            waitSeconds(13);
-            parkInBackstageFar();
-        }
+        // Put down purple pixel
+//        navigateToTeamPropLocation(teamPropLocation);
+//        if (position == Position.BLUE_LEFT || position == Position.RED_RIGHT) {
+//            Actions.runBlocking(Paths.pathToTeamProp(huskyBot.drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(180))), teamPropLocation));
+//            navigateToInitialLocation(teamPropLocation);
+//            parkInBackstageCloseBack();
+//        }
+//        if (position == Position.BLUE_RIGHT || position == Position.RED_LEFT) {
+//            Pose2d startPose = FieldInfo.getStartPose(position, 18);
+//            Pose2d updatedPose = huskyBot.drive.pose;
+//
+//            if (position == Position.RED_LEFT) {
+//                huskyBot.drive.pose = new Pose2d(startPose.position.x + updatedPose.position.y, startPose.position.y + updatedPose.position.x, startPose.heading.toDouble() + updatedPose.heading.toDouble());
+//            } else {
+//                huskyBot.drive.pose = new Pose2d(startPose.position.x + updatedPose.position.y, startPose.position.y - updatedPose.position.x, startPose.heading.toDouble() - updatedPose.heading.toDouble());
+//            }
+//            navigateToCommonPoint(teamPropLocation);
+//            waitSeconds(13);
+//            parkInBackstageFar();
+//        }
     }
 }
