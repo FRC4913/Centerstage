@@ -19,11 +19,11 @@ public class TelemetryUtils {
         telemetry.addData("Turn: ", pw.component2());
     }
 
-    public static void DrivePos2d(HuskyBot huskyBot) {
-        Pose2d pose = huskyBot.getDrivePoseEstimate();
-        telemetry.addData("Robot X: ", pose.component1().x);
-        telemetry.addData("Robot Y: ", pose.component1().y);
-    }
+//    public static void DrivePos2d(HuskyBot huskyBot) {
+//        Pose2d pose = huskyBot.getDrivePoseEstimate();
+//        telemetry.addData("Robot X: ", pose.component1().x);
+//        telemetry.addData("Robot Y: ", pose.component1().y);
+//    }
 
     @SuppressLint("DefaultLocale")
     public static void AprilTagDetection(AprilTagDetection detection) {

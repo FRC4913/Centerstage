@@ -27,9 +27,9 @@ public class VisionTester extends LinearOpMode {
         // region TELEOP MODE
         while (opModeIsActive() && !isStopRequested()) {
 
-            telemetry.addData("Red HuskyProp", huskyBot.huskyVision.openCv.redPropLocation());
-            telemetry.addData("Blue HuskyProp", huskyBot.huskyVision.openCv.bluePropLocation());
-            telemetry.addData("Time", huskyBot.huskyVision.openCv.time / 1E9);
+//            telemetry.addData("Red HuskyProp", huskyBot.huskyVision.openCv.redPropLocation());
+//            telemetry.addData("Blue HuskyProp", huskyBot.huskyVision.openCv.bluePropLocation());
+//            telemetry.addData("Time", huskyBot.huskyVision.openCv.time / 1E9);
             telemetry.update();
         }
         // endregion

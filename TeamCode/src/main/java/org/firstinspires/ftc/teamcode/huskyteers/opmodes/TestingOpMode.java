@@ -42,7 +42,7 @@ public class TestingOpMode extends LinearOpMode {
 
             // region TELEMETRY
             TelemetryUtils.Gamepad(currentGamepad1);
-            TelemetryUtils.DrivePos2d(huskyBot);
+//            TelemetryUtils.DrivePos2d(huskyBot);
             telemetry.update();
             // endregion
         }

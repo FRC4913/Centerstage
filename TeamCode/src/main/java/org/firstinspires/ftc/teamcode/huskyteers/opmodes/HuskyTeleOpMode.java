@@ -7,6 +7,7 @@ import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.huskyteers.HuskyBot;
 import org.firstinspires.ftc.teamcode.huskyteers.utils.GamepadUtils;
@@ -42,20 +43,32 @@ public class HuskyTeleOpMode extends LinearOpMode {
         // region INITIALIZATION
         HuskyBot huskyBot = new HuskyBot(this);
         huskyBot.init();
-
+        huskyBot.outtake.outtakeServo.setDirection(Servo.Direction.REVERSE);
         GamepadUtils gamepad1Utils = new GamepadUtils();
         GamepadUtils gamepad2Utils = new GamepadUtils();
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad currentGamepad2 = new Gamepad();
 
-        AtomicBoolean usingFieldCentric = new AtomicBoolean(true);
-        gamepad1Utils.addRisingEdge("a", d -> {
-            usingFieldCentric.set(!usingFieldCentric.get());
-            gamepad1.runRumbleEffect(new Gamepad.RumbleEffect.Builder().addStep(1, 1, 200).build());
-        });
+//        AtomicBoolean usingFieldCentric = new AtomicBoolean(true);
+//        gamepad1Utils.addRisingEdge("a", d -> {
+//            usingFieldCentric.set(!usingFieldCentric.get());
+//            gamepad1.runRumbleEffect(new Gamepad.RumbleEffect.Builder().addStep(1, 1, 200).build());
+//        });
         // region DRONE LAUNCHER
-        gamepad2Utils.addRisingEdge("dpad_up", d -> {
-            huskyBot.droneLauncher.shootDrone();
+
+        gamepad1Utils.addRisingEdge("a", d -> {
+            huskyBot.outtake.outtakeServo.setPosition(0);
+        });
+
+        gamepad1Utils.addRisingEdge("b", d -> {
+            huskyBot.outtake.outtakeServo.setPosition(0.3);
+        });
+
+        gamepad1Utils.addRisingEdge("y", d -> {
+            huskyBot.outtake.outtakeServo.setPosition(0.6);
+        });
+        gamepad1Utils.addRisingEdge("x", d -> {
+            huskyBot.outtake.outtakeServo.setPosition(1);
         });
         // endregion
 
@@ -71,6 +84,11 @@ public class HuskyTeleOpMode extends LinearOpMode {
             currentGamepad2.copy(gamepad2);
             gamepad1Utils.processUpdates(currentGamepad1);
             gamepad2Utils.processUpdates(currentGamepad2);
+
+            telemetry.addData("Servo Pos: ", huskyBot.outtake.outtakeServo.getPosition());
+            telemetry.addData("Servo Direc: ", huskyBot.outtake.outtakeServo.getDirection());
+
+
             // endregion
 // FSM for Outtake
 //            switch (currentOuttakeState) {
@@ -107,99 +125,101 @@ public class HuskyTeleOpMode extends LinearOpMode {
 //                    }
 //                    break;
 //            }
-            switch (currentOuttakeState) {
-                case IDLE:
-                    if (gamepad1.dpad_up) {
-                        // Start moving up
-                        huskyBot.outtake.setMotorPowerWithLimit(0.5); // Example power for moving up
-                        stateEntryTime = System.currentTimeMillis(); // Start the timer for timeout
-                        currentOuttakeState = OuttakeState.MOVING_UP;
-                    } else if (gamepad1.dpad_down) {
-                        // Start moving down
-                        huskyBot.outtake.setMotorPowerWithLimit(-0.5); // Example power for moving down
-                        stateEntryTime = System.currentTimeMillis(); // Start the timer for timeout
-                        currentOuttakeState = OuttakeState.MOVING_DOWN;
-                    } else if (gamepad1.x) {
-                        // Start dumping
-                        huskyBot.outtake.dump(1.0, 0.5, 0.1, 50); // Example parameters for dumping
-                        stateEntryTime = System.currentTimeMillis(); // Start the timer for dumping
-                        currentOuttakeState = OuttakeState.DUMPING;
-                    } else if (gamepad1.b) {
-                        // Manual stop button pressed in IDLE state
-                        // Implement any necessary logic here if needed
-                        // For example, reset certain values or stop any residual motor movement
-                    }
-                    break;
+//            switch (currentOuttakeState) {
+//                case IDLE:
+//                    if (gamepad1.dpad_up) {
+//                        // Start moving up
+//                        huskyBot.outtake.setMotorPowerWithLimit(0.5); // Example power for moving up
+//                        stateEntryTime = System.currentTimeMillis(); // Start the timer for timeout
+//                        currentOuttakeState = OuttakeState.MOVING_UP;
+//                    } else if (gamepad1.dpad_down) {
+//                        // Start moving down
+//                        huskyBot.outtake.setMotorPowerWithLimit(-0.5); // Example power for moving down
+//                        stateEntryTime = System.currentTimeMillis(); // Start the timer for timeout
+//                        currentOuttakeState = OuttakeState.MOVING_DOWN;
+//                    } else if (gamepad1.x) {
+//                        // Start dumping
+//                        huskyBot.outtake.dump(1.0, 0.5, 0.1, 50); // Example parameters for dumping
+//                        stateEntryTime = System.currentTimeMillis(); // Start the timer for dumping
+//                        currentOuttakeState = OuttakeState.DUMPING;
+//                    } else if (gamepad1.b) {
+//                        // Manual stop button pressed in IDLE state
+//                        // Implement any necessary logic here if needed
+//                        // For example, reset certain values or stop any residual motor movement
+//                    }
+//                    break;
+//
+//                case MOVING_UP:
+////                    if (huskyBot.outtake.getOuttakeMotorPosition() >= HIGH_POINT ||
+////                            System.currentTimeMillis() - stateEntryTime > MOVING_TIMEOUT ||
+////                            gamepad1.b) { // Check for manual stop
+////                        huskyBot.outtake.stopOuttake();
+////                        currentOuttakeState = OuttakeState.IDLE;
+////                    }
+//                    break;
+//                case MOVING_DOWN:
+////                    if (huskyBot.outtake.getOuttakeMotorPosition() <= LOW_POINT ||
+////                            System.currentTimeMillis() - stateEntryTime > MOVING_TIMEOUT ||
+////                            gamepad1.b) { // Check for manual stop
+////                        huskyBot.outtake.stopOuttake();
+////                        currentOuttakeState = OuttakeState.IDLE;
+////                    }
+//                    break;
+//                case DUMPING:
+//                    if (System.currentTimeMillis() - stateEntryTime > DUMPING_TIMEOUT || gamepad1.b) {
+//                        // Dumping completed or manual stop
+//                        currentOuttakeState = OuttakeState.IDLE;
+//                    }
+//                    break;
+//            }
 
-                case MOVING_UP:
-                    if (huskyBot.outtake.getOuttakeMotorPosition() >= HIGH_POINT ||
-                            System.currentTimeMillis() - stateEntryTime > MOVING_TIMEOUT ||
-                            gamepad1.b) { // Check for manual stop
-                        huskyBot.outtake.stopOuttake();
-                        currentOuttakeState = OuttakeState.IDLE;
-                    }
-                    break;
-                case MOVING_DOWN:
-                    if (huskyBot.outtake.getOuttakeMotorPosition() <= LOW_POINT ||
-                            System.currentTimeMillis() - stateEntryTime > MOVING_TIMEOUT ||
-                            gamepad1.b) { // Check for manual stop
-                        huskyBot.outtake.stopOuttake();
-                        currentOuttakeState = OuttakeState.IDLE;
-                    }
-                    break;
-                case DUMPING:
-                    if (System.currentTimeMillis() - stateEntryTime > DUMPING_TIMEOUT || gamepad1.b) {
-                        // Dumping completed or manual stop
-                        currentOuttakeState = OuttakeState.IDLE;
-                    }
-                    break;
-            }
+
 
             // region DRIVE CONTROL
 
             // Press START to reset robot heading.
-            if (currentGamepad1.start) {
-                huskyBot.setCurrentHeadingAsForward();
-            }
-
-            /*
-             * If not LEFT BUMPER, use:
-             *  - A to toggle between field-centric and robot-centric drive.
-             *  - LEFT STICK for movement.
-             *  - RIGHT STICK for rotation.
-             *  - LEFT TRIGGER to increase speed.
-             */
-            else {
-                if (usingFieldCentric.get()) {
-                    telemetry.addLine("Currently using field centric");
-                    huskyBot.fieldCentricDriveRobot(
-                            currentGamepad1.left_stick_y,
-                            -currentGamepad1.left_stick_x,
-                            -currentGamepad1.right_stick_x,
-                            (0.35 + 0.5 * currentGamepad1.left_trigger));
-                } else {
-                    telemetry.addLine("Currently using tank drive");
-                    huskyBot.driveRobot(
-                            currentGamepad1.left_stick_y,
-                            -currentGamepad1.left_stick_x,
-                            -currentGamepad1.right_stick_x,
-                            (0.35 + 0.5 * currentGamepad1.left_trigger));
-                }
-            }
-
-            if(currentGamepad1.y) {
-                huskyBot.intake.runIntake(10);
-            } else if(currentGamepad1.b) {
-                huskyBot.intake.reverseIntake(10);
-            }
-            else if(!currentGamepad1.y&&!currentGamepad1.b){
-                huskyBot.intake.stopIntake();
-            }
+//            if (currentGamepad1.start) {
+//                huskyBot.setCurrentHeadingAsForward();
+//            }
+//
+//            /*
+//             * If not LEFT BUMPER, use:
+//             *  - A to toggle between field-centric and robot-centric drive.
+//             *  - LEFT STICK for movement.
+//             *  - RIGHT STICK for rotation.
+//             *  - LEFT TRIGGER to increase speed.
+//             */
+//            else {
+//                if (usingFieldCentric.get()) {
+//                    telemetry.addLine("Currently using field centric");
+//                    huskyBot.fieldCentricDriveRobot(
+//                            currentGamepad1.left_stick_y,
+//                            -currentGamepad1.left_stick_x,
+//                            -currentGamepad1.right_stick_x,
+//                            (0.35 + 0.5 * currentGamepad1.left_trigger));
+//                } else {
+//                    telemetry.addLine("Currently using tank drive");
+//                    huskyBot.driveRobot(
+//                            currentGamepad1.left_stick_y,
+//                            -currentGamepad1.left_stick_x,
+//                            -currentGamepad1.right_stick_x,
+//                            (0.35 + 0.5 * currentGamepad1.left_trigger));
+//                }
+//            }
+//
+//            if(currentGamepad1.y) {
+//                huskyBot.intake.runIntake(10);
+//            } else if(currentGamepad1.b) {
+//                huskyBot.intake.reverseIntake(10);
+//            }
+//            else if(!currentGamepad1.y&&!currentGamepad1.b){
+//                huskyBot.intake.stopIntake();
+//            }
             // endregion
 
             // region TELEMETRY
             TelemetryUtils.Gamepad(currentGamepad1);
-            TelemetryUtils.DrivePos2d(huskyBot);
+//            TelemetryUtils.DrivePos2d(huskyBot);
             telemetry.update();
             // endregion
         }

@@ -75,11 +75,11 @@ public class HuskyBot {
 
     // Define hardware objects.
 
-    public MecanumDrive drive;
-    public DroneLauncher droneLauncher;
-    public Intake intake;
+//    public MecanumDrive drive;
+//    public DroneLauncher droneLauncher;
+//    public Intake intake;
     public Outtake outtake;
-    public HuskyVision huskyVision;
+//    public HuskyVision huskyVision;
 
 
     // Define Drive constants.
@@ -105,81 +105,81 @@ public class HuskyBot {
 
     public void init() {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
-        drive = new MecanumDrive(myOpMode.hardwareMap, new Pose2d(0, 0, 0));
-        droneLauncher = new DroneLauncher(myOpMode.hardwareMap);
-        intake = new Intake(myOpMode.hardwareMap);
+//        drive = new MecanumDrive(myOpMode.hardwareMap, new Pose2d(0, 0, 0));
+//        droneLauncher = new DroneLauncher(myOpMode.hardwareMap);
+//        intake = new Intake(myOpMode.hardwareMap);
         outtake = new Outtake(myOpMode.hardwareMap);
-        huskyVision = new HuskyVision(myOpMode.hardwareMap);
-        huskyVision.setExposure();
+//        huskyVision = new HuskyVision(myOpMode.hardwareMap);
+//        huskyVision.setExposure();
 
         myOpMode.telemetry.addData(">", "Hardware Initialized");
         myOpMode.telemetry.update();
     }
-
-    public void setMotorPowers(float leftBack, float leftFront, float rightBack, float rightFront) {
-        this.drive.leftBack.setPower(leftBack);
-        this.drive.leftFront.setPower(leftFront);
-        this.drive.rightBack.setPower(rightBack);
-        this.drive.rightFront.setPower(rightFront);
-
-    }
-
-
-    public void updateDrivePoseEstimate() {
-        this.drive.updatePoseEstimate();
-    }
-
-    public Pose2d getDrivePoseEstimate() {
-        return this.drive.pose;
-    }
-
-    public void driveRobot(double drive, double strafe, double turn, double speed) {
-        PoseVelocity2d pw = new PoseVelocity2d(
-                new Vector2d(
-                        -drive * speed,
-                        strafe * speed
-                ), turn * speed
-        );
-
-        this.drive.setDrivePowers(pw);
-    }
-
-    public void fieldCentricDriveRobot(double gamepadLeftStickY, double gamepadLeftStickX, double gamepadRightStickX, double speed) {
-        updateDrivePoseEstimate();
-
-        Vector2d angleVector = this.drive.pose.heading.vec();
-        double angle = -Math.atan2(angleVector.y, angleVector.x);
-
-        double rotatedX = gamepadLeftStickX * Math.cos(angle) - gamepadLeftStickY * Math.sin(angle);
-        double rotatedY = gamepadLeftStickX * Math.sin(angle) + gamepadLeftStickY * Math.cos(angle);
-
-        driveRobot(rotatedY, rotatedX, gamepadRightStickX, speed);
-    }
-
-    public void setCurrentHeadingAsForward() {
-        this.drive.pose = new Pose2d(this.drive.pose.position, Rotation2d.exp(0));
-    }
-
-    public PoseVelocity2d alignWithAprilTag(int aprilTagID) {
-        Optional<AprilTagDetection> desiredTag = huskyVision.AprilTagDetector.getAprilTagById(aprilTagID);
-        if (!desiredTag.isPresent()) {
-            return new PoseVelocity2d(new Vector2d(0, 0), 0);
-        }
-        AprilTagDetection tag = desiredTag.get();
-
-        double rangeError = (tag.ftcPose.range - DESIRED_DISTANCE_FROM_APRILTAG);
-        double headingError = tag.ftcPose.bearing;
-        double yawError = tag.ftcPose.yaw;
-
-        return errorsToPoseVelocity2d(rangeError, headingError, yawError);
-    }
-
-    public PoseVelocity2d errorsToPoseVelocity2d(double rangeError, double headingError, double yawError) {
-        double drive = Range.clip(rangeError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
-        double turn = -Range.clip(headingError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN);
-        double strafe = -Range.clip(-yawError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
-
-        return new PoseVelocity2d(new Vector2d(strafe, drive), turn);
-    }
+//
+//    public void setMotorPowers(float leftBack, float leftFront, float rightBack, float rightFront) {
+//        this.drive.leftBack.setPower(leftBack);
+//        this.drive.leftFront.setPower(leftFront);
+//        this.drive.rightBack.setPower(rightBack);
+//        this.drive.rightFront.setPower(rightFront);
+//
+//    }
+//
+//
+//    public void updateDrivePoseEstimate() {
+//        this.drive.updatePoseEstimate();
+//    }
+//
+//    public Pose2d getDrivePoseEstimate() {
+//        return this.drive.pose;
+//    }
+//
+//    public void driveRobot(double drive, double strafe, double turn, double speed) {
+//        PoseVelocity2d pw = new PoseVelocity2d(
+//                new Vector2d(
+//                        -drive * speed,
+//                        strafe * speed
+//                ), turn * speed
+//        );
+//
+//        this.drive.setDrivePowers(pw);
+//    }
+//
+//    public void fieldCentricDriveRobot(double gamepadLeftStickY, double gamepadLeftStickX, double gamepadRightStickX, double speed) {
+//        updateDrivePoseEstimate();
+//
+//        Vector2d angleVector = this.drive.pose.heading.vec();
+//        double angle = -Math.atan2(angleVector.y, angleVector.x);
+//
+//        double rotatedX = gamepadLeftStickX * Math.cos(angle) - gamepadLeftStickY * Math.sin(angle);
+//        double rotatedY = gamepadLeftStickX * Math.sin(angle) + gamepadLeftStickY * Math.cos(angle);
+//
+//        driveRobot(rotatedY, rotatedX, gamepadRightStickX, speed);
+//    }
+//
+//    public void setCurrentHeadingAsForward() {
+//        this.drive.pose = new Pose2d(this.drive.pose.position, Rotation2d.exp(0));
+//    }
+//
+//    public PoseVelocity2d alignWithAprilTag(int aprilTagID) {
+//        Optional<AprilTagDetection> desiredTag = huskyVision.AprilTagDetector.getAprilTagById(aprilTagID);
+//        if (!desiredTag.isPresent()) {
+//            return new PoseVelocity2d(new Vector2d(0, 0), 0);
+//        }
+//        AprilTagDetection tag = desiredTag.get();
+//
+//        double rangeError = (tag.ftcPose.range - DESIRED_DISTANCE_FROM_APRILTAG);
+//        double headingError = tag.ftcPose.bearing;
+//        double yawError = tag.ftcPose.yaw;
+//
+//        return errorsToPoseVelocity2d(rangeError, headingError, yawError);
+//    }
+//
+//    public PoseVelocity2d errorsToPoseVelocity2d(double rangeError, double headingError, double yawError) {
+//        double drive = Range.clip(rangeError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
+//        double turn = -Range.clip(headingError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN);
+//        double strafe = -Range.clip(-yawError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
+//
+//        return new PoseVelocity2d(new Vector2d(strafe, drive), turn);
+//    }
 
 }
