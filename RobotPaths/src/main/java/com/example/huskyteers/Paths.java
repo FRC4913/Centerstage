@@ -46,8 +46,12 @@ public class Paths {
     }
 
     public static Action pathToParkingFromFrontstage(TrajectoryActionBuilder actionBuilder) {
-        // Assigned to francis
-        return actionBuilder.build();
+        return actionBuilder
+                .strafeTo(new Vector2d(-60, 60))
+                .turn(Math.toRadians(90))
+                .strafeTo(new Vector2d(-60, 12))
+                .strafeTo(new Vector2d(36, 12))
+                .build();
     }
 
     public static Action pathToBackdrop(TrajectoryActionBuilder actionBuilder, TeamPropLocation teamPropLocation) {
