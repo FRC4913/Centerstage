@@ -17,6 +17,7 @@ public class Paths {
         switch (teamPropLocation) {
             case LEFT:
                 return actionBuilder
+                        .setTangent(Math.toRadians(180))
                         .lineToX(28)
                         .turnTo(Math.toRadians(90))
                         .lineToY(3)
@@ -31,6 +32,7 @@ public class Paths {
             // Ends at 30, 0
             case RIGHT:
                 return actionBuilder
+                        .setTangent(Math.toRadians(180))
                         .lineToX(28)
                         .turnTo(Math.toRadians(-90))
                         .lineToY(-3)
