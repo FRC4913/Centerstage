@@ -66,7 +66,6 @@ public class HuskyAuto extends LinearOpMode {
     }
 
     public void navigateToTeamPropLocation(TeamPropLocation location) {
-        // Assigned to chrysa
         Actions.runBlocking(Paths.pathToTeamProp(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)), location));
     }
 

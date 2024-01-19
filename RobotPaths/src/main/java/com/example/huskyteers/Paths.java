@@ -13,31 +13,32 @@ public class Paths {
      * @return Action to navigate to the team prop
      */
     public static Action pathToTeamProp(TrajectoryActionBuilder actionBuilder, TeamPropLocation teamPropLocation) {
-        // Assigned to Chrysa
         switch (teamPropLocation) {
             case LEFT:
                 return actionBuilder
                         .setTangent(Math.toRadians(180))
-                        .lineToX(28)
+                        .strafeTo(new Vector2d(28, 0))
                         .turnTo(Math.toRadians(90))
-                        .lineToY(3)
                         .waitSeconds(1)
-                        .lineToY(-3)
+                        .turnTo(Math.toRadians(0))
+                        .strafeTo(new Vector2d(0, 0))
                         .build();
             // Ends at 28, -3
             case CENTER:
                 return actionBuilder
                         .strafeTo(new Vector2d(30, 0))
+                        .waitSeconds(1)
+                        .strafeTo(new Vector2d(0, 0))
                         .build();
             // Ends at 30, 0
             case RIGHT:
                 return actionBuilder
                         .setTangent(Math.toRadians(180))
-                        .lineToX(28)
+                        .strafeTo(new Vector2d(28, 0))
                         .turnTo(Math.toRadians(-90))
-                        .lineToY(-3)
                         .waitSeconds(1)
-                        .lineToY(3)
+                        .turnTo(Math.toRadians(0))
+                        .strafeTo(new Vector2d(0, 0))
                         .build();
             // Ends at 28, 3
         }
