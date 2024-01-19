@@ -22,7 +22,7 @@ public class HuskyTeleOpMode extends LinearOpMode {
 
     // When transitioning to DUMPING state
     private static final long DUMPING_DURATION = 2000; //Todo: figure this out
-    private static final long HIGH_POINT = 800; //Todo: figure this out
+    private static final long HIGH_POINT = 400; //Todo: figure this out
     private static final long LOW_POINT = 100; //Todo: figure this out
     private long stateEntryTime = 0;
     private static final long MOVING_TIMEOUT = 5000; //Todo: adjust this
@@ -125,6 +125,23 @@ public class HuskyTeleOpMode extends LinearOpMode {
 //                    }
 //                    break;
 //            }
+
+            if (gamepad1.dpad_up) {
+                // Start moving up
+                huskyBot.outtake.setMotorPowerWithLimit(0.5); // Example power for moving up
+                stateEntryTime = System.currentTimeMillis(); // Start the timer for timeout
+                currentOuttakeState = OuttakeState.MOVING_UP;
+            } else if (gamepad1.dpad_down) {
+                // Start moving down
+                huskyBot.outtake.setMotorPowerWithLimit(-0.5); // Exampxle power for moving down
+                stateEntryTime = System.currentTimeMillis(); // Start the timer for timeout
+                currentOuttakeState = OuttakeState.MOVING_DOWN;
+            } else if (gamepad1.dpad_left) {
+                huskyBot.outtake.stopOuttake();
+            }
+
+            telemetry.addData("Motor Position: ", huskyBot.outtake.outtakeMotor.getCurrentPosition());
+//
 //            switch (currentOuttakeState) {
 //                case IDLE:
 //                    if (gamepad1.dpad_up) {
@@ -150,20 +167,20 @@ public class HuskyTeleOpMode extends LinearOpMode {
 //                    break;
 //
 //                case MOVING_UP:
-////                    if (huskyBot.outtake.getOuttakeMotorPosition() >= HIGH_POINT ||
-////                            System.currentTimeMillis() - stateEntryTime > MOVING_TIMEOUT ||
-////                            gamepad1.b) { // Check for manual stop
-////                        huskyBot.outtake.stopOuttake();
-////                        currentOuttakeState = OuttakeState.IDLE;
-////                    }
+//                    if (huskyBot.outtake.getOuttakeMotorPosition() >= HIGH_POINT ||
+//                            System.currentTimeMillis() - stateEntryTime > MOVING_TIMEOUT ||
+//                            gamepad1.b) { // Check for manual stop
+//                        huskyBot.outtake.stopOuttake();
+//                        currentOuttakeState = OuttakeState.IDLE;
+//                    }
 //                    break;
 //                case MOVING_DOWN:
-////                    if (huskyBot.outtake.getOuttakeMotorPosition() <= LOW_POINT ||
-////                            System.currentTimeMillis() - stateEntryTime > MOVING_TIMEOUT ||
-////                            gamepad1.b) { // Check for manual stop
-////                        huskyBot.outtake.stopOuttake();
-////                        currentOuttakeState = OuttakeState.IDLE;
-////                    }
+//                    if (huskyBot.outtake.getOuttakeMotorPosition() <= LOW_POINT ||
+//                            System.currentTimeMillis() - stateEntryTime > MOVING_TIMEOUT ||
+//                            gamepad1.b) { // Check for manual stop
+//                        huskyBot.outtake.stopOuttake();
+//                        currentOuttakeState = OuttakeState.IDLE;
+//                    }
 //                    break;
 //                case DUMPING:
 //                    if (System.currentTimeMillis() - stateEntryTime > DUMPING_TIMEOUT || gamepad1.b) {
