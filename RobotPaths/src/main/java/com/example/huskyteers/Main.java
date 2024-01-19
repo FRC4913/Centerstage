@@ -1,5 +1,6 @@
 package com.example.huskyteers;
 
+import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
@@ -14,10 +15,8 @@ public class Main {
             .build();
 
     public static void main(String[] args) {
-        myBot.runAction(myBot.getDrive().actionBuilder(FieldInfo.getStartPose(Position.RED_RIGHT, RobotInfo.HEIGHT))
-                .lineToY(-30)
-                .turn(Math.toRadians(-90))
-                .build());
+        TrajectoryActionBuilder actionBuilder = myBot.getDrive().actionBuilder(FieldInfo.getStartPose(Position.RED_RIGHT, RobotInfo.HEIGHT));
+        myBot.runAction(Paths.pathToTeamProp(actionBuilder, TeamPropLocation.LEFT));
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
                 .setDarkMode(true)
