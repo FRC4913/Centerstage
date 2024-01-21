@@ -50,7 +50,7 @@ public class Paths {
                 .strafeTo(new Vector2d(-60, 60))
                 .turn(Math.toRadians(90))
                 .strafeTo(new Vector2d(-60, 12))
-                .strafeTo(new Vector2d(36, 12))
+                .strafeTo(new Vector2d(60, 12))
                 .build();
     }
 
