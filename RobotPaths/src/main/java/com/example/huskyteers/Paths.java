@@ -54,13 +54,24 @@ public class Paths {
                 .build();
     }
 
-    public static Action pathToBackdrop(TrajectoryActionBuilder actionBuilder, TeamPropLocation teamPropLocation) {
-        // Assigned to Ethan
-        return actionBuilder.build();
+    public static Vector2d getBackdropPlace(TeamPropLocation teamPropLocation) {
+        switch (teamPropLocation) {
+            case LEFT:
+                return new Vector2d(50, 40);
+            case CENTER:
+                return new Vector2d(50, 35);
+            case RIGHT:
+                return new Vector2d(50, 30);
+        }
+        return new Vector2d(0, 0);
     }
 
-    public static Action pathToParkingFromBackstage(TrajectoryActionBuilder actionBuilder) {
-        // Assigned to Ethan
-        return actionBuilder.build();
+    public static TrajectoryActionBuilder pathToBackdrop(TrajectoryActionBuilder actionBuilder, TeamPropLocation teamPropLocation) {
+        return actionBuilder.splineTo(new Vector2d(30, 50), 0).splineTo(getBackdropPlace(teamPropLocation), 0);
+
+    }
+
+    public static TrajectoryActionBuilder pathToParkingFromBackstage(TrajectoryActionBuilder actionBuilder) {
+        return actionBuilder.lineToX(40).turnTo(Math.toRadians(180)).splineToConstantHeading(new Vector2d(60, 60), 0);
     }
 }

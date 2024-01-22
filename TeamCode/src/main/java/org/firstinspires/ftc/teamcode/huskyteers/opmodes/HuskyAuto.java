@@ -71,7 +71,7 @@ public class HuskyAuto extends LinearOpMode {
 
     private void navigateToBackdrop(TeamPropLocation teamPropLocation) {
         // Assigned to Ethan
-        Actions.runBlocking(Paths.pathToBackdrop(getActionBuilder(), teamPropLocation));
+        Actions.runBlocking(Paths.pathToBackdrop(getActionBuilder(), teamPropLocation).build());
     }
 
     private void placePixelOnBackdrop() {
@@ -79,7 +79,7 @@ public class HuskyAuto extends LinearOpMode {
     }
 
     private void navigateToParkingFromBackstage() {
-        Actions.runBlocking(Paths.pathToParkingFromBackstage(getActionBuilder()));
+        Actions.runBlocking(Paths.pathToParkingFromBackstage(getActionBuilder()).build());
     }
 
     private void navigateToParkingFromFrontstage() {
