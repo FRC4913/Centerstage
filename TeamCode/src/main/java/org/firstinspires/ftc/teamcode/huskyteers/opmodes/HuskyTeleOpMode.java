@@ -119,13 +119,13 @@ public class HuskyTeleOpMode extends LinearOpMode {
                     break;
                 case MOVING_UP:
                     if(!huskyBot.outtake.outtakeMotor.isBusy() || finiteTimer.seconds() > 5) {
-                            gamepad1.rumble(1000);
+                        gamepad1.rumble(1000);
 
-                            huskyBot.outtake.outtakeMotor.setPower(0);
-                            huskyBot.outtake.outtakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                        huskyBot.outtake.outtakeMotor.setPower(0);
+                        huskyBot.outtake.outtakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-                            currentOuttakeState = OuttakeState.IDLE;
-                            break;
+                        currentOuttakeState = OuttakeState.IDLE;
+                        break;
                     }
 
                     telemetry.addData("Outtake Status: ", "MOVING UP");
@@ -147,7 +147,7 @@ public class HuskyTeleOpMode extends LinearOpMode {
             }
 
 
-            telemetry.addData("Outtake Pos: ", huskyBot.outtake.getOuttakeMotorPosition());
+            telemetry.addData("Outtake Pos: ", huskyBot.outtake.outtakeMotor.getCurrentPosition());
 
             // region DRIVE CONTROL
 
@@ -200,3 +200,4 @@ public class HuskyTeleOpMode extends LinearOpMode {
         // endregion
     }
 }
+
