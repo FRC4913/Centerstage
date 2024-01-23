@@ -75,7 +75,7 @@ public class HuskyBot {
 
     // Define hardware objects.
 
-//    public MecanumDrive drive;
+    public MecanumDrive drive;
 //    public DroneLauncher droneLauncher;
 //    public Intake intake;
     public Outtake outtake;
@@ -105,7 +105,7 @@ public class HuskyBot {
 
     public void init() {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
-//        drive = new MecanumDrive(myOpMode.hardwareMap, new Pose2d(0, 0, 0));
+        drive = new MecanumDrive(myOpMode.hardwareMap, new Pose2d(0, 0, 0));
 //        droneLauncher = new DroneLauncher(myOpMode.hardwareMap);
 //        intake = new Intake(myOpMode.hardwareMap);
         outtake = new Outtake(myOpMode.hardwareMap);
@@ -115,51 +115,51 @@ public class HuskyBot {
         myOpMode.telemetry.addData(">", "Hardware Initialized");
         myOpMode.telemetry.update();
     }
-//
-//    public void setMotorPowers(float leftBack, float leftFront, float rightBack, float rightFront) {
-//        this.drive.leftBack.setPower(leftBack);
-//        this.drive.leftFront.setPower(leftFront);
-//        this.drive.rightBack.setPower(rightBack);
-//        this.drive.rightFront.setPower(rightFront);
-//
-//    }
-//
-//
-//    public void updateDrivePoseEstimate() {
-//        this.drive.updatePoseEstimate();
-//    }
-//
-//    public Pose2d getDrivePoseEstimate() {
-//        return this.drive.pose;
-//    }
-//
-//    public void driveRobot(double drive, double strafe, double turn, double speed) {
-//        PoseVelocity2d pw = new PoseVelocity2d(
-//                new Vector2d(
-//                        -drive * speed,
-//                        strafe * speed
-//                ), turn * speed
-//        );
-//
-//        this.drive.setDrivePowers(pw);
-//    }
-//
-//    public void fieldCentricDriveRobot(double gamepadLeftStickY, double gamepadLeftStickX, double gamepadRightStickX, double speed) {
-//        updateDrivePoseEstimate();
-//
-//        Vector2d angleVector = this.drive.pose.heading.vec();
-//        double angle = -Math.atan2(angleVector.y, angleVector.x);
-//
-//        double rotatedX = gamepadLeftStickX * Math.cos(angle) - gamepadLeftStickY * Math.sin(angle);
-//        double rotatedY = gamepadLeftStickX * Math.sin(angle) + gamepadLeftStickY * Math.cos(angle);
-//
-//        driveRobot(rotatedY, rotatedX, gamepadRightStickX, speed);
-//    }
-//
-//    public void setCurrentHeadingAsForward() {
-//        this.drive.pose = new Pose2d(this.drive.pose.position, Rotation2d.exp(0));
-//    }
-//
+
+    public void setMotorPowers(float leftBack, float leftFront, float rightBack, float rightFront) {
+        this.drive.leftBack.setPower(leftBack);
+        this.drive.leftFront.setPower(leftFront);
+        this.drive.rightBack.setPower(rightBack);
+        this.drive.rightFront.setPower(rightFront);
+
+    }
+
+
+    public void updateDrivePoseEstimate() {
+        this.drive.updatePoseEstimate();
+    }
+
+    public Pose2d getDrivePoseEstimate() {
+        return this.drive.pose;
+    }
+
+    public void driveRobot(double drive, double strafe, double turn, double speed) {
+        PoseVelocity2d pw = new PoseVelocity2d(
+                new Vector2d(
+                        -drive * speed,
+                        strafe * speed
+                ), turn * speed
+        );
+
+        this.drive.setDrivePowers(pw);
+    }
+
+    public void fieldCentricDriveRobot(double gamepadLeftStickY, double gamepadLeftStickX, double gamepadRightStickX, double speed) {
+        updateDrivePoseEstimate();
+
+        Vector2d angleVector = this.drive.pose.heading.vec();
+        double angle = -Math.atan2(angleVector.y, angleVector.x);
+
+        double rotatedX = gamepadLeftStickX * Math.cos(angle) - gamepadLeftStickY * Math.sin(angle);
+        double rotatedY = gamepadLeftStickX * Math.sin(angle) + gamepadLeftStickY * Math.cos(angle);
+
+        driveRobot(rotatedY, rotatedX, gamepadRightStickX, speed);
+    }
+
+    public void setCurrentHeadingAsForward() {
+        this.drive.pose = new Pose2d(this.drive.pose.position, Rotation2d.exp(0));
+    }
+
 //    public PoseVelocity2d alignWithAprilTag(int aprilTagID) {
 //        Optional<AprilTagDetection> desiredTag = huskyVision.AprilTagDetector.getAprilTagById(aprilTagID);
 //        if (!desiredTag.isPresent()) {
