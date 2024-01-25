@@ -161,7 +161,7 @@ public class HuskyTeleOpMode extends LinearOpMode {
              *  - A to toggle between field-centric and robot-centric drive.
              *  - LEFT STICK for movement.
              *  - RIGHT STICK for rotation.
-             *  - LEFT TRIGGER to increase speed.
+             *  - LEFT TRIGGER to decrease speed.
              */
             else {
                 if (usingFieldCentric.get()) {
