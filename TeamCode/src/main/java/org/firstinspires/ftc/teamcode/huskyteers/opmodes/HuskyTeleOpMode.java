@@ -30,6 +30,8 @@ public class HuskyTeleOpMode extends LinearOpMode {
     private long stateEntryTime = 0;
     private static final long MOVING_TIMEOUT = 5000; //Todo: adjust this
     private static final long DUMPING_TIMEOUT = 3000; //Todo: adjust this
+    private double servoPosition = 0.5; // default position Todo: adjust this
+    private final double SERVO_INCREMENT = 0.01; // change in position Todo: adjust this
 
     private ElapsedTime finiteTimer = new ElapsedTime();
 
@@ -45,6 +47,7 @@ public class HuskyTeleOpMode extends LinearOpMode {
     @SuppressLint("DefaultLocale")
     @Override
     public void runOpMode() {
+
 
         // region INITIALIZATION
         HuskyBot huskyBot = new HuskyBot(this);
@@ -97,7 +100,17 @@ public class HuskyTeleOpMode extends LinearOpMode {
             telemetry.addData("Servo Pos: ", huskyBot.outtake.outtakeServo.getPosition());
             telemetry.addData("Servo Direc: ", huskyBot.outtake.outtakeServo.getDirection());
             // endregion
-
+            if (currentGamepad1.start) {
+                huskyBot.setCurrentHeadingAsForward();
+            }
+            if (gamepad2.dpad_up) {
+                servoPosition += SERVO_INCREMENT;
+                servoPosition = Math.min(servoPosition, 1.0); // Ensure position does not exceed 1.0
+            } else if (gamepad2.dpad_down) {
+                servoPosition -= SERVO_INCREMENT;
+                servoPosition = Math.max(servoPosition, 0.0); // Ensure position does not go below 0.0
+            }
+            huskyBot.outtake.outtakeServo.setPosition(servoPosition);
             switch (currentOuttakeState) {
                 case IDLE:
                     if (gamepad1.dpad_up) {
