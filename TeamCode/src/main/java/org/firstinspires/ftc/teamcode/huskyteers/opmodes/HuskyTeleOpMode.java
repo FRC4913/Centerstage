@@ -170,14 +170,14 @@ public class HuskyTeleOpMode extends LinearOpMode {
                             currentGamepad1.left_stick_y,
                             -currentGamepad1.left_stick_x,
                             -currentGamepad1.right_stick_x,
-                            (0.35 + 0.5 * currentGamepad1.left_trigger));
+                            (0.85 - 0.5 * currentGamepad1.left_trigger));
                 } else {
                     telemetry.addLine("Currently using tank drive");
                     huskyBot.driveRobot(
                             currentGamepad1.left_stick_y,
                             -currentGamepad1.left_stick_x,
                             -currentGamepad1.right_stick_x,
-                            (0.35 + 0.5 * currentGamepad1.left_trigger));
+                            (0.85 - 0.5 * currentGamepad1.left_trigger));
                 }
             }
 //
