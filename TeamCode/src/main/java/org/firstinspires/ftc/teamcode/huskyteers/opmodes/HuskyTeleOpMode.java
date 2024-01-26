@@ -41,6 +41,7 @@ public class HuskyTeleOpMode extends LinearOpMode {
     @Override
     public void runOpMode() {
 
+
         // region INITIALIZATION
         HuskyBot huskyBot = new HuskyBot(this);
         huskyBot.init();
@@ -92,6 +93,9 @@ public class HuskyTeleOpMode extends LinearOpMode {
             telemetry.addData("Servo Pos: ", huskyBot.outtake.outtakeServo.getPosition());
             telemetry.addData("Servo Direc: ", huskyBot.outtake.outtakeServo.getDirection());
             // endregion
+            if (currentGamepad1.start) {
+                huskyBot.setCurrentHeadingAsForward();
+            }
 
             switch (currentOuttakeState) {
                 case IDLE:
@@ -145,7 +149,7 @@ public class HuskyTeleOpMode extends LinearOpMode {
              *  - A to toggle between field-centric and robot-centric drive.
              *  - LEFT STICK for movement.
              *  - RIGHT STICK for rotation.
-             *  - LEFT TRIGGER to increase speed.
+             *  - LEFT TRIGGER to decrease speed.
              */
             else {
                 if (usingFieldCentric.get()) {
@@ -154,14 +158,14 @@ public class HuskyTeleOpMode extends LinearOpMode {
                             currentGamepad1.left_stick_y,
                             -currentGamepad1.left_stick_x,
                             -currentGamepad1.right_stick_x,
-                            (0.35 + 0.5 * currentGamepad1.left_trigger));
+                            (0.85 - 0.5 * currentGamepad1.left_trigger));
                 } else {
                     telemetry.addLine("Currently using tank drive");
                     huskyBot.driveRobot(
                             currentGamepad1.left_stick_y,
                             -currentGamepad1.left_stick_x,
                             -currentGamepad1.right_stick_x,
-                            (0.35 + 0.5 * currentGamepad1.left_trigger));
+                            (0.85 - 0.5 * currentGamepad1.left_trigger));
                 }
             }
 
