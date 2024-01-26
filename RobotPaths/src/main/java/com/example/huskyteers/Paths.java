@@ -12,7 +12,7 @@ public class Paths {
      * @param actionBuilder Starting from 0, 0, 0
      * @return Action to navigate to the team prop
      */
-    public static Action pathToTeamProp(TrajectoryActionBuilder actionBuilder, TeamPropLocation teamPropLocation) {
+    public static TrajectoryActionBuilder pathToTeamProp(TrajectoryActionBuilder actionBuilder, TeamPropLocation teamPropLocation) {
         switch (teamPropLocation) {
             case LEFT:
                 return actionBuilder
@@ -21,15 +21,13 @@ public class Paths {
                         .turnTo(Math.toRadians(90))
                         .waitSeconds(1)
                         .turnTo(Math.toRadians(0))
-                        .strafeTo(new Vector2d(0, 0))
-                        .build();
+                        .strafeTo(new Vector2d(0, 0));
             // Ends at 28, -3
             case CENTER:
                 return actionBuilder
                         .strafeTo(new Vector2d(30, 0))
                         .waitSeconds(1)
-                        .strafeTo(new Vector2d(0, 0))
-                        .build();
+                        .strafeTo(new Vector2d(0, 0));
             // Ends at 30, 0
             case RIGHT:
                 return actionBuilder
@@ -38,11 +36,10 @@ public class Paths {
                         .turnTo(Math.toRadians(-90))
                         .waitSeconds(1)
                         .turnTo(Math.toRadians(0))
-                        .strafeTo(new Vector2d(0, 0))
-                        .build();
+                        .strafeTo(new Vector2d(0, 0));
             // Ends at 28, 3
         }
-        return actionBuilder.build();
+        return actionBuilder;
     }
 
     public static Action pathToParkingFromFrontstage(TrajectoryActionBuilder actionBuilder) {

@@ -66,7 +66,7 @@ public class HuskyAuto extends LinearOpMode {
     }
 
     public void navigateToTeamPropLocation(TeamPropLocation location) {
-        Actions.runBlocking(Paths.pathToTeamProp(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)), location));
+        Actions.runBlocking(Paths.pathToTeamProp(huskyBot.drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(180))), location).build());
     }
 
     private void navigateToBackdrop(TeamPropLocation teamPropLocation) {
