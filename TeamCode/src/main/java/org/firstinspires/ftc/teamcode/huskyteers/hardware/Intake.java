@@ -12,7 +12,6 @@ public class Intake {
     public Intake(HardwareMap hardwareMap) {
         intakeMotor = hardwareMap.get(DcMotorEx.class, "intake_motor");
         intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        // Set other motor properties if needed
     }
 
     public void runIntake(double power) {
@@ -26,7 +25,4 @@ public class Intake {
     public void reverseIntake(double power) {
         intakeMotor.setPower(-power);
     }
-
-
-    // Add other methods as needed
 }
