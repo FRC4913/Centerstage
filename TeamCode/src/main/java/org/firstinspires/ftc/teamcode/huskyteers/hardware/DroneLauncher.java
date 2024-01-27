@@ -16,7 +16,7 @@ public class DroneLauncher {
         drone_servo = hardwareMap.get(Servo.class, "drone_launcher");
     }
     public void loadDrone() {
-        drone_servo.setPosition(LAUNCHER_LAUNCH_POSITION);
+        drone_servo.setPosition(LAUNCHER_LOADED_POSITION);
     }
 
     public void shootDrone() {
