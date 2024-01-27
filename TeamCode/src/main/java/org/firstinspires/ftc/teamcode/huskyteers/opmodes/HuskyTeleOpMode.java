@@ -159,6 +159,9 @@ public class HuskyTeleOpMode extends LinearOpMode {
             } else if(currentGamepad1.right_bumper) {
                 huskyBot.intake.openClaw();
             }
+            if(currentGamepad2.x){
+                huskyBot.droneLauncher.shootDrone();
+            }
             // endregion
 
             // region TELEMETRY
