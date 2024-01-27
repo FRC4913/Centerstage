@@ -37,6 +37,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.teamcode.huskyteers.hardware.DroneLauncher;
 import org.firstinspires.ftc.teamcode.huskyteers.hardware.Intake;
 import org.firstinspires.ftc.teamcode.huskyteers.hardware.Outtake;
 import org.firstinspires.ftc.teamcode.huskyteers.utils.TelemetryUtils;
@@ -74,7 +75,7 @@ public class HuskyBot {
     // Define hardware objects.
 
     public MecanumDrive drive;
-    //    public DroneLauncher droneLauncher;
+    public DroneLauncher droneLauncher;
     public Intake intake;
     public Outtake outtake;
     public HuskyVision huskyVision;
@@ -104,7 +105,7 @@ public class HuskyBot {
     public void init() {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
         drive = new MecanumDrive(myOpMode.hardwareMap, new Pose2d(0, 0, 0));
-//        droneLauncher = new DroneLauncher(myOpMode.hardwareMap);
+        droneLauncher = new DroneLauncher(myOpMode.hardwareMap);
         intake = new Intake(myOpMode.hardwareMap);
         outtake = new Outtake(myOpMode.hardwareMap);
         huskyVision = new HuskyVision(myOpMode.hardwareMap);

@@ -34,6 +34,7 @@ public class HuskyTeleOpMode extends LinearOpMode {
         HuskyBot huskyBot = new HuskyBot(this);
         huskyBot.init();
 
+
 //        huskyBot.outtake.outtakeServo.setDirection(Servo.Direction.REVERSE);
 //
 //        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
