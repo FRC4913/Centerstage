@@ -12,31 +12,54 @@ public class Paths {
      * @param actionBuilder Starting from 0, 0, 0
      * @return Action to navigate to the team prop
      */
-    public static TrajectoryActionBuilder pathToTeamProp(TrajectoryActionBuilder actionBuilder, TeamPropLocation teamPropLocation) {
+    public static TrajectoryActionBuilder pathToTeamProp(TrajectoryActionBuilder actionBuilder, TeamPropLocation teamPropLocation, Action openClawAction, Action extendArmAction, Action dumpAction, Action retractArmAction) {
         switch (teamPropLocation) {
             case LEFT:
                 return actionBuilder
-                        .setTangent(Math.toRadians(180))
-                        .strafeTo(new Vector2d(28, 0))
-                        .turnTo(Math.toRadians(90))
-                        .waitSeconds(1)
-                        .turnTo(Math.toRadians(0))
-                        .strafeTo(new Vector2d(0, 0));
+                        .strafeTo(new Vector2d(44, 0))
+                        .waitSeconds(2)
+                        .turnTo(Math.toRadians(-90))
+                        .waitSeconds(2)
+                        .strafeTo(new Vector2d(44, 30))
+                        .stopAndAdd(openClawAction)
+                        .strafeTo(new Vector2d(44, 56))
+                        .waitSeconds(2)
+                        .strafeTo(new Vector2d(26, 60))
+                        .stopAndAdd(extendArmAction)
+                        .stopAndAdd(dumpAction)
+                        .stopAndAdd(retractArmAction);
             // Ends at 28, -3
             case CENTER:
                 return actionBuilder
+                        .strafeTo(new Vector2d(46, 0))
+                        .waitSeconds(2)
+                        .stopAndAdd(openClawAction)
+                        .waitSeconds(2)
                         .strafeTo(new Vector2d(33, 0))
-                        .waitSeconds(1)
-                        .strafeTo(new Vector2d(0, 0));
+                        .waitSeconds(2)
+                        .turnTo(Math.toRadians(-90))
+                        .waitSeconds(2)
+                        .strafeTo(new Vector2d(44, 55))
+                        .waitSeconds(2)
+                        .strafeTo(new Vector2d(48, 59))
+                        .stopAndAdd(extendArmAction)
+                        .stopAndAdd(dumpAction)
+                        .stopAndAdd(retractArmAction);
             // Ends at 30, 0
             case RIGHT:
                 return actionBuilder
-                        .setTangent(Math.toRadians(180))
-                        .strafeTo(new Vector2d(28, 0))
+                        .strafeTo(new Vector2d(44, 0))
+                        .waitSeconds(2)
                         .turnTo(Math.toRadians(-90))
-                        .waitSeconds(1)
-                        .turnTo(Math.toRadians(0))
-                        .strafeTo(new Vector2d(0, 0));
+                        .waitSeconds(2)
+                        .strafeTo(new Vector2d(44, -10))
+                        .stopAndAdd(openClawAction)
+                        .strafeTo(new Vector2d(54, 60))
+                        .waitSeconds(2)
+                        .strafeTo(new Vector2d(58, 60))
+                        .stopAndAdd(extendArmAction)
+                        .stopAndAdd(dumpAction)
+                        .stopAndAdd(retractArmAction);
             // Ends at 28, 3
         }
         return actionBuilder;

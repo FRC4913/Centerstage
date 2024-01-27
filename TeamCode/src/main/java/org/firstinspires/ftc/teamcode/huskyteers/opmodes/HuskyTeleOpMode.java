@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.huskyteers.HuskyBot;
 import org.firstinspires.ftc.teamcode.huskyteers.utils.GamepadUtils;
@@ -85,12 +86,16 @@ public class HuskyTeleOpMode extends LinearOpMode {
             switch (currentOuttakeState) {
                 case IDLE:
                     if (gamepad1.dpad_up) {
-                        huskyBot.outtake.armToExtended();
+                        huskyBot.outtake.outtakeMotor.setPower(1);
+                        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                        huskyBot.outtake.outtakeMotor.setTargetPosition(2800);
 
                         finiteTimer.reset();
                         currentOuttakeState = OuttakeState.MOVING_UP;
                     } else if (gamepad1.dpad_down) {
-                        huskyBot.outtake.armToRest();
+                        huskyBot.outtake.outtakeMotor.setPower(1);
+                        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                        huskyBot.outtake.outtakeMotor.setTargetPosition(50);
 
                         finiteTimer.reset();
                         currentOuttakeState = OuttakeState.MOVING_DOWN;
@@ -99,7 +104,8 @@ public class HuskyTeleOpMode extends LinearOpMode {
                     break;
                 case MOVING_UP:
                     if(!huskyBot.outtake.outtakeMotor.isBusy() || finiteTimer.seconds() > 5) {
-                        huskyBot.outtake.armStop();
+                        huskyBot.outtake.outtakeMotor.setPower(0);
+                        huskyBot.outtake.outtakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
                         currentOuttakeState = OuttakeState.IDLE;
                         break;
@@ -109,7 +115,8 @@ public class HuskyTeleOpMode extends LinearOpMode {
                     break;
                 case MOVING_DOWN:
                     if(!huskyBot.outtake.outtakeMotor.isBusy() || finiteTimer.seconds() > 5) {
-                        huskyBot.outtake.armStop();
+                        huskyBot.outtake.outtakeMotor.setPower(0);
+                        huskyBot.outtake.outtakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
                         currentOuttakeState = OuttakeState.IDLE;
                         break;
