@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-    @TeleOp(name = "Basic TeleOp", group = "Iterative Opmode")
+    @TeleOp(name = "LoadDrone", group = "Huskyteers")
     public class LoadDrone extends LinearOpMode {
         @SuppressLint("DefaultLocale")
         @Override
