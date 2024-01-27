@@ -25,7 +25,7 @@ public class Paths {
             // Ends at 28, -3
             case CENTER:
                 return actionBuilder
-                        .strafeTo(new Vector2d(30, 0))
+                        .strafeTo(new Vector2d(33, 0))
                         .waitSeconds(1)
                         .strafeTo(new Vector2d(0, 0));
             // Ends at 30, 0

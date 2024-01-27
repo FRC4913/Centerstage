@@ -12,6 +12,7 @@ import com.example.huskyteers.TeamPropLocation;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.huskyteers.HuskyBot;
+import com.example.huskyteers.TeamPropLocation;
 
 @Config
 public class HuskyAuto extends LinearOpMode {
@@ -46,16 +47,18 @@ public class HuskyAuto extends LinearOpMode {
 
         // At initial location
         TeamPropLocation teamPropLocation = getPropLocation();
-        navigateToTeamPropLocation(teamPropLocation);
+
+        //TODO: Change the team prop location with the actual one
+        navigateToTeamPropLocation(TeamPropLocation.CENTER);
         huskyBot.drive.pose = FieldInfo.getStartPose(position, RobotInfo.HEIGHT);
         // At initial location, in actual coordinates
-        if (FieldInfo.isBackstage(position)) {
-            navigateToBackdrop(teamPropLocation);
-            placePixelOnBackdrop();
-            navigateToParkingFromBackstage();
-        } else {
-            navigateToParkingFromFrontstage();
-        }
+//        if (FieldInfo.isBackstage(position)) {
+//            navigateToBackdrop(teamPropLocation);
+//            placePixelOnBackdrop();
+//            navigateToParkingFromBackstage();
+//        } else {
+//            navigateToParkingFromFrontstage();
+//        }
     }
 
     public TrajectoryActionBuilder getActionBuilder() {
@@ -66,7 +69,7 @@ public class HuskyAuto extends LinearOpMode {
     }
 
     public void navigateToTeamPropLocation(TeamPropLocation location) {
-        Actions.runBlocking(Paths.pathToTeamProp(huskyBot.drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(180))), location).build());
+        Actions.runBlocking(Paths.pathToTeamProp(huskyBot.drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(0))), location).build());
     }
 
     private void navigateToBackdrop(TeamPropLocation teamPropLocation) {

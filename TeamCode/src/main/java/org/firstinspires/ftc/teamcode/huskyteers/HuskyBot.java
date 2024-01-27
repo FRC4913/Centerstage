@@ -106,7 +106,7 @@ public class HuskyBot {
         drive = new MecanumDrive(myOpMode.hardwareMap, new Pose2d(0, 0, 0));
 //        droneLauncher = new DroneLauncher(myOpMode.hardwareMap);
         intake = new Intake(myOpMode.hardwareMap);
-//        outtake = new Outtake(myOpMode.hardwareMap);
+        outtake = new Outtake(myOpMode.hardwareMap);
         huskyVision = new HuskyVision(myOpMode.hardwareMap);
         huskyVision.setExposure();
 
