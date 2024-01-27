@@ -72,12 +72,12 @@ public class OpenCv implements VisionProcessor {
         val3 = blueSaturation3;
 
         this.redPropLocation = (redSaturation1 > redSaturation2) ?
-                ((redSaturation1 > redSaturation3) ? TeamPropLocation.LEFT : TeamPropLocation.RIGHT) :
-                ((redSaturation2 > redSaturation3) ? TeamPropLocation.CENTER : TeamPropLocation.RIGHT);
+                ((redSaturation1 > redSaturation3) ? TeamPropLocation.RIGHT : TeamPropLocation.LEFT) :
+                ((redSaturation2 > redSaturation3) ? TeamPropLocation.CENTER : TeamPropLocation.LEFT);
 
         this.bluePropLocation = (blueSaturation1 > blueSaturation2) ?
-                ((blueSaturation1 > blueSaturation3) ? TeamPropLocation.LEFT : TeamPropLocation.RIGHT) :
-                ((blueSaturation2 > blueSaturation3) ? TeamPropLocation.CENTER : TeamPropLocation.RIGHT);
+                ((blueSaturation1 > blueSaturation3) ? TeamPropLocation.RIGHT : TeamPropLocation.LEFT) :
+                ((blueSaturation2 > blueSaturation3) ? TeamPropLocation.CENTER : TeamPropLocation.LEFT);
 
 
         hsvFrame.release();
