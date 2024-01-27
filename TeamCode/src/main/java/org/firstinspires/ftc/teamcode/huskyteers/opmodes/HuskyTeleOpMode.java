@@ -18,15 +18,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Config
 @TeleOp(name = "Husky TeleOp Mode", group = "Huskyteers")
 public class HuskyTeleOpMode extends LinearOpMode {
-    private ElapsedTime finiteTimer = new ElapsedTime();
+//    private ElapsedTime finiteTimer = new ElapsedTime();
 
-    private enum OuttakeState {
-        IDLE,
-        MOVING_UP,
-        MOVING_DOWN
-    }
+//    private enum OuttakeState {
+//        IDLE,
+//        MOVING_UP,
+//        MOVING_DOWN
+//    }
 
-    private OuttakeState currentOuttakeState = OuttakeState.IDLE;
+//    private OuttakeState currentOuttakeState = OuttakeState.IDLE;
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -35,13 +35,14 @@ public class HuskyTeleOpMode extends LinearOpMode {
         HuskyBot huskyBot = new HuskyBot(this);
         huskyBot.init();
 
-        huskyBot.outtake.outtakeServo.setDirection(Servo.Direction.REVERSE);
 
-        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-
-        huskyBot.outtake.outtakeMotor.setDirection(DcMotorEx.Direction.REVERSE);
-        huskyBot.outtake.outtakeMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        huskyBot.outtake.outtakeServo.setDirection(Servo.Direction.REVERSE);
+//
+//        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+//        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//
+//        huskyBot.outtake.outtakeMotor.setDirection(DcMotorEx.Direction.REVERSE);
+//        huskyBot.outtake.outtakeMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         GamepadUtils gamepad1Utils = new GamepadUtils();
         GamepadUtils gamepad2Utils = new GamepadUtils();
@@ -54,13 +55,13 @@ public class HuskyTeleOpMode extends LinearOpMode {
             gamepad1.runRumbleEffect(new Gamepad.RumbleEffect.Builder().addStep(1, 1, 200).build());
         });
 
-        gamepad1Utils.addRisingEdge("x", d -> {
-            huskyBot.outtake.dump();
-        });
-
-        gamepad1Utils.addRisingEdge("b", d -> {
-            huskyBot.outtake.dumpToRest();
-        });
+//        gamepad1Utils.addRisingEdge("x", d -> {
+//            huskyBot.outtake.dump();
+//        });
+//
+//        gamepad1Utils.addRisingEdge("b", d -> {
+//            huskyBot.outtake.dumpToRest();
+//        });
         // endregion
 
         waitForStart();
@@ -76,57 +77,52 @@ public class HuskyTeleOpMode extends LinearOpMode {
             gamepad1Utils.processUpdates(currentGamepad1);
             gamepad2Utils.processUpdates(currentGamepad2);
 
-            telemetry.addData("Servo Pos: ", huskyBot.outtake.outtakeServo.getPosition());
-            telemetry.addData("Servo Direc: ", huskyBot.outtake.outtakeServo.getDirection());
+//            telemetry.addData("Servo Pos: ", huskyBot.outtake.outtakeServo.getPosition());
+//            telemetry.addData("Servo Direc: ", huskyBot.outtake.outtakeServo.getDirection());
             // endregion
-            if (currentGamepad1.start) {
-                huskyBot.setCurrentHeadingAsForward();
-            }
 
-            switch (currentOuttakeState) {
-                case IDLE:
-                    if (gamepad1.dpad_up) {
-                        huskyBot.outtake.outtakeMotor.setPower(1);
-                        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-                        huskyBot.outtake.outtakeMotor.setTargetPosition(2800);
+//            if (currentGamepad1.start) {
+//                huskyBot.setCurrentHeadingAsForward();
+//            }
 
-                        finiteTimer.reset();
-                        currentOuttakeState = OuttakeState.MOVING_UP;
-                    } else if (gamepad1.dpad_down) {
-                        huskyBot.outtake.outtakeMotor.setPower(1);
-                        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-                        huskyBot.outtake.outtakeMotor.setTargetPosition(50);
+//            switch (currentOuttakeState) {
+//                case IDLE:
+//                    if (gamepad1.dpad_up) {
+//                        huskyBot.outtake.armToExtended();
+//
+//                        finiteTimer.reset();
+//                        currentOuttakeState = OuttakeState.MOVING_UP;
+//                    } else if (gamepad1.dpad_down) {
+//                        huskyBot.outtake.armToRest();
+//
+//                        finiteTimer.reset();
+//                        currentOuttakeState = OuttakeState.MOVING_DOWN;
+//                    }
+//
+//                    break;
+//                case MOVING_UP:
+//                    if(!huskyBot.outtake.outtakeMotor.isBusy() || finiteTimer.seconds() > 5) {
+//                        huskyBot.outtake.armStop();
+//
+//                        currentOuttakeState = OuttakeState.IDLE;
+//                        break;
+//                    }
+//
+//                    telemetry.addData("Outtake Status: ", "MOVING UP");
+//                    break;
+//                case MOVING_DOWN:
+//                    if(!huskyBot.outtake.outtakeMotor.isBusy() || finiteTimer.seconds() > 5) {
+//                        huskyBot.outtake.armStop();
+//
+//                        currentOuttakeState = OuttakeState.IDLE;
+//                        break;
+//                    }
+//
+//                    telemetry.addData("Outtake Status: ", "MOVING DOWN");
+//                    break;
+//            }
 
-                        finiteTimer.reset();
-                        currentOuttakeState = OuttakeState.MOVING_DOWN;
-                    }
-
-                    break;
-                case MOVING_UP:
-                    if(!huskyBot.outtake.outtakeMotor.isBusy() || finiteTimer.seconds() > 5) {
-                        huskyBot.outtake.outtakeMotor.setPower(0);
-                        huskyBot.outtake.outtakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-                        currentOuttakeState = OuttakeState.IDLE;
-                        break;
-                    }
-
-                    telemetry.addData("Outtake Status: ", "MOVING UP");
-                    break;
-                case MOVING_DOWN:
-                    if(!huskyBot.outtake.outtakeMotor.isBusy() || finiteTimer.seconds() > 5) {
-                        huskyBot.outtake.outtakeMotor.setPower(0);
-                        huskyBot.outtake.outtakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-                        currentOuttakeState = OuttakeState.IDLE;
-                        break;
-                    }
-
-                    telemetry.addData("Outtake Status: ", "MOVING DOWN");
-                    break;
-            }
-
-            telemetry.addData("Outtake Pos: ", huskyBot.outtake.outtakeMotor.getCurrentPosition());
+//            telemetry.addData("Outtake Pos: ", huskyBot.outtake.outtakeMotor.getCurrentPosition());
 
             // region DRIVE CONTROL
 
@@ -149,14 +145,14 @@ public class HuskyTeleOpMode extends LinearOpMode {
                             currentGamepad1.left_stick_y,
                             -currentGamepad1.left_stick_x,
                             -currentGamepad1.right_stick_x,
-                            (0.85 - 0.5 * currentGamepad1.left_trigger));
+                            (0.35 + 0.5 * currentGamepad1.left_trigger));
                 } else {
                     telemetry.addLine("Currently using tank drive");
                     huskyBot.driveRobot(
                             currentGamepad1.left_stick_y,
                             -currentGamepad1.left_stick_x,
                             -currentGamepad1.right_stick_x,
-                            (0.85 - 0.5 * currentGamepad1.left_trigger));
+                            (0.35 + 0.5 * currentGamepad1.left_trigger));
                 }
             }
 
@@ -164,6 +160,9 @@ public class HuskyTeleOpMode extends LinearOpMode {
                 huskyBot.intake.closeClaw();
             } else if(currentGamepad1.right_bumper) {
                 huskyBot.intake.openClaw();
+            }
+            if(currentGamepad2.x){
+                huskyBot.droneLauncher.shootDrone();
             }
             // endregion
 
