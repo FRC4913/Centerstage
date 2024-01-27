@@ -82,44 +82,44 @@ public class HuskyTeleOpMode extends LinearOpMode {
                 huskyBot.setCurrentHeadingAsForward();
             }
 
-            switch (currentOuttakeState) {
-                case IDLE:
-                    if (gamepad1.dpad_up) {
-                        huskyBot.outtake.armToExtended();
+//            switch (currentOuttakeState) {
+//                case IDLE:
+//                    if (gamepad1.dpad_up) {
+//                        huskyBot.outtake.armToExtended();
+//
+//                        finiteTimer.reset();
+//                        currentOuttakeState = OuttakeState.MOVING_UP;
+//                    } else if (gamepad1.dpad_down) {
+//                        huskyBot.outtake.armToRest();
+//
+//                        finiteTimer.reset();
+//                        currentOuttakeState = OuttakeState.MOVING_DOWN;
+//                    }
+//
+//                    break;
+//                case MOVING_UP:
+//                    if(!huskyBot.outtake.outtakeMotor.isBusy() || finiteTimer.seconds() > 5) {
+//                        huskyBot.outtake.armStop();
+//
+//                        currentOuttakeState = OuttakeState.IDLE;
+//                        break;
+//                    }
+//
+//                    telemetry.addData("Outtake Status: ", "MOVING UP");
+//                    break;
+//                case MOVING_DOWN:
+//                    if(!huskyBot.outtake.outtakeMotor.isBusy() || finiteTimer.seconds() > 5) {
+//                        huskyBot.outtake.armStop();
+//
+//                        currentOuttakeState = OuttakeState.IDLE;
+//                        break;
+//                    }
+//
+//                    telemetry.addData("Outtake Status: ", "MOVING DOWN");
+//                    break;
+//            }
 
-                        finiteTimer.reset();
-                        currentOuttakeState = OuttakeState.MOVING_UP;
-                    } else if (gamepad1.dpad_down) {
-                        huskyBot.outtake.armToRest();
-
-                        finiteTimer.reset();
-                        currentOuttakeState = OuttakeState.MOVING_DOWN;
-                    }
-
-                    break;
-                case MOVING_UP:
-                    if(!huskyBot.outtake.outtakeMotor.isBusy() || finiteTimer.seconds() > 5) {
-                        huskyBot.outtake.armStop();
-
-                        currentOuttakeState = OuttakeState.IDLE;
-                        break;
-                    }
-
-                    telemetry.addData("Outtake Status: ", "MOVING UP");
-                    break;
-                case MOVING_DOWN:
-                    if(!huskyBot.outtake.outtakeMotor.isBusy() || finiteTimer.seconds() > 5) {
-                        huskyBot.outtake.armStop();
-
-                        currentOuttakeState = OuttakeState.IDLE;
-                        break;
-                    }
-
-                    telemetry.addData("Outtake Status: ", "MOVING DOWN");
-                    break;
-            }
-
-            telemetry.addData("Outtake Pos: ", huskyBot.outtake.outtakeMotor.getCurrentPosition());
+//            telemetry.addData("Outtake Pos: ", huskyBot.outtake.outtakeMotor.getCurrentPosition());
 
             // region DRIVE CONTROL
 
