@@ -13,6 +13,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.huskyteers.HuskyBot;
 import com.example.huskyteers.TeamPropLocation;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @Config
 public class HuskyAuto extends LinearOpMode {
@@ -40,17 +42,26 @@ public class HuskyAuto extends LinearOpMode {
         huskyBot = new HuskyBot(this);
         huskyBot.init();
 
+        huskyBot.outtake.outtakeServo.setDirection(Servo.Direction.REVERSE);
+
+        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        huskyBot.outtake.outtakeMotor.setDirection(DcMotorEx.Direction.REVERSE);
+        huskyBot.outtake.outtakeMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         waitForStart();
         if (isStopRequested()) return;
+
+        huskyBot.intake.closeClaw();
+
         sleep(1000);
 
         // At initial location
         TeamPropLocation teamPropLocation = getPropLocation();
 
         //TODO: Change the team prop location with the actual one
-        navigateToTeamPropLocation(TeamPropLocation.CENTER);
-        huskyBot.drive.pose = FieldInfo.getStartPose(position, RobotInfo.HEIGHT);
+        navigateToTeamPropLocation(teamPropLocation);
+//        huskyBot.drive.pose = FieldInfo.getStartPose(position, RobotInfo.HEIGHT);
         // At initial location, in actual coordinates
 //        if (FieldInfo.isBackstage(position)) {
 //            navigateToBackdrop(teamPropLocation);
@@ -69,7 +80,10 @@ public class HuskyAuto extends LinearOpMode {
     }
 
     public void navigateToTeamPropLocation(TeamPropLocation location) {
-        Actions.runBlocking(Paths.pathToTeamProp(huskyBot.drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(0))), location).build());
+        Actions.runBlocking(Paths.pathToTeamProp(huskyBot.drive.actionBuilder(new Pose2d(0, 0,
+                Math.toRadians(0))), location, huskyBot.intake.openClawAction(),
+                huskyBot.outtake.extendArmAction(), huskyBot.outtake.dumpAction(),
+                huskyBot.outtake.retractArmAction()).build());
     }
 
     private void navigateToBackdrop(TeamPropLocation teamPropLocation) {

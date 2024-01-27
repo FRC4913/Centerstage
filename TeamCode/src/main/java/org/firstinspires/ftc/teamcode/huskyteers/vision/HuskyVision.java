@@ -17,8 +17,8 @@ public class HuskyVision {
     public OpenCv openCv;
     public VisionPortal visionPortal;
 
-    public final static int WIDTH = 640;
-    public final static int HEIGHT = 480;
+    public final static int WIDTH = 1280;
+    public final static int HEIGHT = 720;
 
 
     public HuskyVision(HardwareMap hwMap) {

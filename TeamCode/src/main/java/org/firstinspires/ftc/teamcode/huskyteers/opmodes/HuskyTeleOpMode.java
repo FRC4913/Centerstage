@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.huskyteers.HuskyBot;
 import org.firstinspires.ftc.teamcode.huskyteers.utils.GamepadUtils;
@@ -79,6 +80,7 @@ public class HuskyTeleOpMode extends LinearOpMode {
 //            telemetry.addData("Servo Pos: ", huskyBot.outtake.outtakeServo.getPosition());
 //            telemetry.addData("Servo Direc: ", huskyBot.outtake.outtakeServo.getDirection());
             // endregion
+
 //            if (currentGamepad1.start) {
 //                huskyBot.setCurrentHeadingAsForward();
 //            }
