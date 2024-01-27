@@ -17,15 +17,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Config
 @TeleOp(name = "Husky TeleOp Mode", group = "Huskyteers")
 public class HuskyTeleOpMode extends LinearOpMode {
-    private ElapsedTime finiteTimer = new ElapsedTime();
+//    private ElapsedTime finiteTimer = new ElapsedTime();
 
-    private enum OuttakeState {
-        IDLE,
-        MOVING_UP,
-        MOVING_DOWN
-    }
+//    private enum OuttakeState {
+//        IDLE,
+//        MOVING_UP,
+//        MOVING_DOWN
+//    }
 
-    private OuttakeState currentOuttakeState = OuttakeState.IDLE;
+//    private OuttakeState currentOuttakeState = OuttakeState.IDLE;
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -34,13 +34,13 @@ public class HuskyTeleOpMode extends LinearOpMode {
         HuskyBot huskyBot = new HuskyBot(this);
         huskyBot.init();
 
-        huskyBot.outtake.outtakeServo.setDirection(Servo.Direction.REVERSE);
-
-        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-
-        huskyBot.outtake.outtakeMotor.setDirection(DcMotorEx.Direction.REVERSE);
-        huskyBot.outtake.outtakeMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        huskyBot.outtake.outtakeServo.setDirection(Servo.Direction.REVERSE);
+//
+//        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+//        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//
+//        huskyBot.outtake.outtakeMotor.setDirection(DcMotorEx.Direction.REVERSE);
+//        huskyBot.outtake.outtakeMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         GamepadUtils gamepad1Utils = new GamepadUtils();
         GamepadUtils gamepad2Utils = new GamepadUtils();
@@ -53,13 +53,13 @@ public class HuskyTeleOpMode extends LinearOpMode {
             gamepad1.runRumbleEffect(new Gamepad.RumbleEffect.Builder().addStep(1, 1, 200).build());
         });
 
-        gamepad1Utils.addRisingEdge("x", d -> {
-            huskyBot.outtake.dump();
-        });
-
-        gamepad1Utils.addRisingEdge("b", d -> {
-            huskyBot.outtake.dumpToRest();
-        });
+//        gamepad1Utils.addRisingEdge("x", d -> {
+//            huskyBot.outtake.dump();
+//        });
+//
+//        gamepad1Utils.addRisingEdge("b", d -> {
+//            huskyBot.outtake.dumpToRest();
+//        });
         // endregion
 
         waitForStart();
@@ -75,12 +75,12 @@ public class HuskyTeleOpMode extends LinearOpMode {
             gamepad1Utils.processUpdates(currentGamepad1);
             gamepad2Utils.processUpdates(currentGamepad2);
 
-            telemetry.addData("Servo Pos: ", huskyBot.outtake.outtakeServo.getPosition());
-            telemetry.addData("Servo Direc: ", huskyBot.outtake.outtakeServo.getDirection());
+//            telemetry.addData("Servo Pos: ", huskyBot.outtake.outtakeServo.getPosition());
+//            telemetry.addData("Servo Direc: ", huskyBot.outtake.outtakeServo.getDirection());
             // endregion
-            if (currentGamepad1.start) {
-                huskyBot.setCurrentHeadingAsForward();
-            }
+//            if (currentGamepad1.start) {
+//                huskyBot.setCurrentHeadingAsForward();
+//            }
 
 //            switch (currentOuttakeState) {
 //                case IDLE:
