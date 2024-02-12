@@ -6,7 +6,8 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
-
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.huskyteers.HuskyBot;
 import org.firstinspires.ftc.teamcode.huskyteers.utils.GamepadUtils;
 import org.firstinspires.ftc.teamcode.huskyteers.utils.TelemetryUtils;
@@ -36,13 +37,13 @@ public class HuskyTeleOpMode extends LinearOpMode {
         huskyBot.init();
 
 
-//        huskyBot.outtake.outtakeServo.setDirection(Servo.Direction.REVERSE);
-//
-//        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-//        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-//
-//        huskyBot.outtake.outtakeMotor.setDirection(DcMotorEx.Direction.REVERSE);
-//        huskyBot.outtake.outtakeMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        huskyBot.outtake.outtakeServo.setDirection(Servo.Direction.REVERSE);
+
+        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        huskyBot.outtake.outtakeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+
+        huskyBot.outtake.outtakeMotor.setDirection(DcMotorEx.Direction.REVERSE);
+        huskyBot.outtake.outtakeMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         GamepadUtils gamepad1Utils = new GamepadUtils();
         GamepadUtils gamepad2Utils = new GamepadUtils();
