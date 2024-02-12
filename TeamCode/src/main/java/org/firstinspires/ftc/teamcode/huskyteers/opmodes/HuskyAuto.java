@@ -50,7 +50,7 @@ public class HuskyAuto extends LinearOpMode {
         waitForStart();
         if (isStopRequested()) return;
 
-        huskyBot.intake.closeClaw();
+        huskyBot.claw.closeClaw();
 
         sleep(1000);
 
@@ -76,7 +76,7 @@ public class HuskyAuto extends LinearOpMode {
 
     private void navigateToReversed(TeamPropLocation location) {
         Actions.runBlocking(Paths.reversedPath(huskyBot.drive.actionBuilder(new Pose2d(0, 0,
-                        Math.toRadians(0))), location, huskyBot.intake.openClawAction(),
+                        Math.toRadians(0))), location, huskyBot.claw.openClawAction(),
                 huskyBot.outtake.extendArmAction(), huskyBot.outtake.dumpAction(),
                 huskyBot.outtake.retractArmAction()).build());
     }
@@ -90,7 +90,7 @@ public class HuskyAuto extends LinearOpMode {
 
     public void navigateToTeamPropLocation(TeamPropLocation location) {
         Actions.runBlocking(Paths.pathToTeamProp(huskyBot.drive.actionBuilder(new Pose2d(0, 0,
-                        Math.toRadians(0))), location, huskyBot.intake.openClawAction(),
+                        Math.toRadians(0))), location, huskyBot.claw.openClawAction(),
                 huskyBot.outtake.extendArmAction(), huskyBot.outtake.dumpAction(),
                 huskyBot.outtake.retractArmAction()).build());
     }
