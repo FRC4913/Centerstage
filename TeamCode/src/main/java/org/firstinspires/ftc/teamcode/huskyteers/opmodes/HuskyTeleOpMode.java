@@ -155,9 +155,9 @@ public class HuskyTeleOpMode extends LinearOpMode {
             }
 
             if (currentGamepad1.right_bumper) {
-                huskyBot.intake.closeClaw();
+                huskyBot.claw.closeClaw();
             } else if (currentGamepad1.left_bumper) {
-                huskyBot.intake.openClaw();
+                huskyBot.claw.openClaw();
             }
             if (currentGamepad2.x) {
                 huskyBot.droneLauncher.shootDrone();
