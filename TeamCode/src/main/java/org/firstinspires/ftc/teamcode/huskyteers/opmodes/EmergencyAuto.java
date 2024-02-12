@@ -23,7 +23,7 @@ public class EmergencyAuto extends LinearOpMode {
         waitForStart();
         if (isStopRequested()) return;
 
-        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, 0)).strafeTo(new Vector2d(24, 0)).build());
+        Actions.runBlocking(huskyBot.drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(0))).strafeTo(new Vector2d(24, 0)).build());
     }
 }
 

@@ -7,14 +7,12 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.example.huskyteers.FieldInfo;
 import com.example.huskyteers.Paths;
 import com.example.huskyteers.Position;
-import com.example.huskyteers.RobotInfo;
 import com.example.huskyteers.TeamPropLocation;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
-import org.firstinspires.ftc.teamcode.huskyteers.HuskyBot;
-import com.example.huskyteers.TeamPropLocation;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.teamcode.huskyteers.HuskyBot;
 
 @Config
 public class HuskyAuto extends LinearOpMode {
@@ -60,7 +58,11 @@ public class HuskyAuto extends LinearOpMode {
         TeamPropLocation teamPropLocation = getPropLocation();
 
         //TODO: Change the team prop location with the actual one
-        navigateToTeamPropLocation(teamPropLocation);
+        if (!FieldInfo.isRed(position)) {
+            navigateToTeamPropLocation(teamPropLocation);
+        } else {
+            navigateToReversed(teamPropLocation);
+        }
 //        huskyBot.drive.pose = FieldInfo.getStartPose(position, RobotInfo.HEIGHT);
         // At initial location, in actual coordinates
 //        if (FieldInfo.isBackstage(position)) {
@@ -72,6 +74,13 @@ public class HuskyAuto extends LinearOpMode {
 //        }
     }
 
+    private void navigateToReversed(TeamPropLocation location) {
+        Actions.runBlocking(Paths.reversedPath(huskyBot.drive.actionBuilder(new Pose2d(0, 0,
+                        Math.toRadians(0))), location, huskyBot.intake.openClawAction(),
+                huskyBot.outtake.extendArmAction(), huskyBot.outtake.dumpAction(),
+                huskyBot.outtake.retractArmAction()).build());
+    }
+
     public TrajectoryActionBuilder getActionBuilder() {
         if (!FieldInfo.isRed(position)) {
             return huskyBot.drive.actionBuilder(huskyBot.getDrivePoseEstimate());
@@ -81,7 +90,7 @@ public class HuskyAuto extends LinearOpMode {
 
     public void navigateToTeamPropLocation(TeamPropLocation location) {
         Actions.runBlocking(Paths.pathToTeamProp(huskyBot.drive.actionBuilder(new Pose2d(0, 0,
-                Math.toRadians(0))), location, huskyBot.intake.openClawAction(),
+                        Math.toRadians(0))), location, huskyBot.intake.openClawAction(),
                 huskyBot.outtake.extendArmAction(), huskyBot.outtake.dumpAction(),
                 huskyBot.outtake.retractArmAction()).build());
     }

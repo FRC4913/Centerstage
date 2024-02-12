@@ -16,15 +16,94 @@ public class Paths {
         switch (teamPropLocation) {
             case LEFT:
                 return actionBuilder
-                        .strafeTo(new Vector2d(44, 0))
+                        .strafeTo(new Vector2d(2, 0))
+                        .waitSeconds(1)
+                        .strafeTo(new Vector2d(2, 24))
+                        .waitSeconds(1)
+                        .strafeTo(new Vector2d(36, 24))
+                        .waitSeconds(1)
+                        .stopAndAdd(openClawAction)
+                        .waitSeconds(1)
+                        .strafeTo(new Vector2d(10, 24))
+                        .waitSeconds(1)
+                        .turnTo(Math.toRadians(-90))
+                        .waitSeconds(1)
+                        .strafeTo(new Vector2d(10, 56))
+                        .waitSeconds(1)
+                        .strafeTo(new Vector2d(36, 56))
+                        .waitSeconds(1)
+                        .strafeTo(new Vector2d(36, 75))
+                        .stopAndAdd(extendArmAction)
+                        .stopAndAdd(dumpAction)
+                        .stopAndAdd(retractArmAction);
+//                        .strafeTo(new Vector2d(2, 0))
+//                        .strafeTo(new Vector2d(2, 24))
+//                        .waitSeconds(1)
+//                        .strafeTo(new Vector2d(44, 24))
+//                        .waitSeconds(1)
+//                        .turnTo(Math.toRadians(-90))
+//                        .waitSeconds(1)
+//                        .strafeTo(new Vector2d(44, 28))
+//                        .stopAndAdd(openClawAction)
+//                        .strafeTo(new Vector2d(44, 56))
+//                        .waitSeconds(1)
+//                        .strafeTo(new Vector2d(22, 75))
+//                        .stopAndAdd(extendArmAction)
+//                        .stopAndAdd(dumpAction)
+//                        .stopAndAdd(retractArmAction);
+            // Ends at 28, -3
+            case CENTER:
+                return actionBuilder
+                        .strafeTo(new Vector2d(46, 0))
+                        .waitSeconds(2)
+                        .stopAndAdd(openClawAction)
+                        .waitSeconds(2)
+                        .strafeTo(new Vector2d(34, 0))
                         .waitSeconds(2)
                         .turnTo(Math.toRadians(-90))
                         .waitSeconds(2)
-                        .strafeTo(new Vector2d(44, 30))
-                        .stopAndAdd(openClawAction)
-                        .strafeTo(new Vector2d(44, 56))
+                        .strafeTo(new Vector2d(40, 58))
                         .waitSeconds(2)
-                        .strafeTo(new Vector2d(26, 60))
+                        .strafeTo(new Vector2d(40, 65))
+                        .stopAndAdd(extendArmAction)
+                        .stopAndAdd(dumpAction)
+                        .stopAndAdd(retractArmAction);
+            // Ends at 30, 0
+            case RIGHT:
+                return actionBuilder
+                        .strafeTo(new Vector2d(42, 0))
+                        .waitSeconds(2)
+                        .turnTo(Math.toRadians(-90))
+                        .waitSeconds(2)
+                        .strafeTo(new Vector2d(44, -9))
+                        .stopAndAdd(openClawAction)
+                        .strafeTo(new Vector2d(46, 60))
+                        .waitSeconds(2)
+                        .strafeTo(new Vector2d(46, 75))
+                        .stopAndAdd(extendArmAction)
+                        .stopAndAdd(dumpAction)
+                        .stopAndAdd(retractArmAction);
+            // Ends at 28, 3
+        }
+        return actionBuilder;
+    }
+
+    public static TrajectoryActionBuilder reversedPath(TrajectoryActionBuilder actionBuilder, TeamPropLocation teamPropLocation, Action openClawAction, Action extendArmAction, Action dumpAction, Action retractArmAction) {
+        switch (teamPropLocation) {
+            case RIGHT:
+                return actionBuilder
+                        .strafeTo(new Vector2d(2, 0))
+                        .strafeTo(new Vector2d(2, -24))
+                        .waitSeconds(1)
+                        .strafeTo(new Vector2d(44, -24))
+                        .waitSeconds(1)
+                        .turnTo(Math.toRadians(90))
+                        .waitSeconds(1)
+                        .strafeTo(new Vector2d(44, -31))
+                        .stopAndAdd(openClawAction)
+                        .strafeTo(new Vector2d(44, -58))
+                        .waitSeconds(1)
+                        .strafeTo(new Vector2d(22, -75))
                         .stopAndAdd(extendArmAction)
                         .stopAndAdd(dumpAction)
                         .stopAndAdd(retractArmAction);
@@ -35,28 +114,28 @@ public class Paths {
                         .waitSeconds(2)
                         .stopAndAdd(openClawAction)
                         .waitSeconds(2)
-                        .strafeTo(new Vector2d(33, 0))
+                        .strafeTo(new Vector2d(34, 0))
                         .waitSeconds(2)
-                        .turnTo(Math.toRadians(-90))
+                        .turnTo(Math.toRadians(90))
                         .waitSeconds(2)
-                        .strafeTo(new Vector2d(44, 55))
+                        .strafeTo(new Vector2d(40, -58))
                         .waitSeconds(2)
-                        .strafeTo(new Vector2d(48, 59))
+                        .strafeTo(new Vector2d(40, -65))
                         .stopAndAdd(extendArmAction)
                         .stopAndAdd(dumpAction)
                         .stopAndAdd(retractArmAction);
             // Ends at 30, 0
-            case RIGHT:
+            case LEFT:
                 return actionBuilder
-                        .strafeTo(new Vector2d(44, 0))
+                        .strafeTo(new Vector2d(42, 0))
                         .waitSeconds(2)
-                        .turnTo(Math.toRadians(-90))
+                        .turnTo(Math.toRadians(90))
                         .waitSeconds(2)
-                        .strafeTo(new Vector2d(44, -10))
+                        .strafeTo(new Vector2d(44, 9))
                         .stopAndAdd(openClawAction)
-                        .strafeTo(new Vector2d(54, 60))
+                        .strafeTo(new Vector2d(55, -60))
                         .waitSeconds(2)
-                        .strafeTo(new Vector2d(58, 60))
+                        .strafeTo(new Vector2d(55, -65))
                         .stopAndAdd(extendArmAction)
                         .stopAndAdd(dumpAction)
                         .stopAndAdd(retractArmAction);
@@ -64,6 +143,7 @@ public class Paths {
         }
         return actionBuilder;
     }
+
 
     public static Action pathToParkingFromFrontstage(TrajectoryActionBuilder actionBuilder) {
         return actionBuilder

@@ -1,17 +1,14 @@
 package org.firstinspires.ftc.teamcode.huskyteers.hardware;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.firstinspires.ftc.teamcode.huskyteers.utils.TelemetryUtils;
 
 @Config
 public class Outtake {
@@ -21,6 +18,7 @@ public class Outtake {
     // POWER CONSTANTS
     public static double OUTTAKE_RUN_POWER = 1;
     public static double OUTTAKE_STOP_POWER = 0;
+    private double SERVO_POS = 0;
 
 
     // DUMP (SERVO) POSITION CONSTANTS
@@ -29,8 +27,8 @@ public class Outtake {
     public static double DUMP_INTAKE_POSITION = 0.087;
 
     // ARM (MOTOR) POSITION CONSTANTS
-    public static int OUTTAKE_MOTOR_EXTENDED = 2500;
-    public static int OUTTTAKE_MOTOR_RETRACTED = 50;
+    public static int OUTTAKE_MOTOR_EXTENDED = 2400;
+    public static int OUTTTAKE_MOTOR_RETRACTED = 0;
 
     public Outtake(HardwareMap hardwareMap) {
         outtakeMotor = hardwareMap.get(DcMotorEx.class, "outtake_motor");
@@ -50,26 +48,34 @@ public class Outtake {
         outtakeServo.setPosition(DUMP_INTAKE_POSITION);
     }
 
-    public void armToRest(){
+    public void armToRest() {
         outtakeMotor.setPower(OUTTAKE_RUN_POWER);
         outtakeMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         outtakeMotor.setTargetPosition(OUTTTAKE_MOTOR_RETRACTED);
     }
 
-    public void armToExtended(){
+    public void armToExtended() {
         outtakeMotor.setPower(OUTTAKE_RUN_POWER);
         outtakeMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         outtakeMotor.setTargetPosition(OUTTAKE_MOTOR_EXTENDED);
     }
 
-    public void armStop(){
+    public void armStop() {
         outtakeMotor.setPower(OUTTAKE_STOP_POWER);
         outtakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public Action extendArmAction() {return new ExtendArmAction();}
-    public Action retractArmAction() {return new RetractArmAction();}
-    public Action dumpAction() {return new DumpAction();}
+    public Action extendArmAction() {
+        return new ExtendArmAction();
+    }
+
+    public Action retractArmAction() {
+        return new RetractArmAction();
+    }
+
+    public Action dumpAction() {
+        return new DumpAction();
+    }
 
     public class ExtendArmAction implements Action {
         private boolean initialized = false;
@@ -120,43 +126,24 @@ public class Outtake {
     }
 
     public class DumpAction implements Action {
+        private double inc = 0.05;
+        private int count = 0;
+
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            // okay, I know this is the WORST code in the world.
-            // However, hear me out! I wrote this part at 4:00am right before ILT.
-            // AND I AM SLEEPY
-            // This worked, so I left it like it...
+            for (int i = 0; i <= 15; i++) {
+                outtakeServo.setPosition(SERVO_POS);
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException ignored) {
+                }
 
+                SERVO_POS += inc;
+                count++;
+            }
 
-            outtakeServo.setPosition(0.3);
+            outtakeServo.setPosition(0);
 
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ignored) {}
-
-            outtakeServo.setPosition( 0.4 );
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ignored) {}
-
-            outtakeServo.setPosition( 0.5 );
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ignored) {}
-
-            outtakeServo.setPosition( 0.6 );
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ignored) {}
-
-            outtakeServo.setPosition( 0 );
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ignored) {}
             return false;
         }
     }

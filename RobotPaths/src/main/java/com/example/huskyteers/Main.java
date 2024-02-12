@@ -1,6 +1,5 @@
 package com.example.huskyteers;
 
-import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.NullAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.noahbres.meepmeep.MeepMeep;
@@ -25,8 +24,8 @@ public class Main {
         TeamPropLocation teamPropLocation = TeamPropLocation.LEFT;
         RoadRunnerBotEntity backstageBot = createRobot(new ColorSchemeBlueDark());
         backstageBot.runAction(
-                Paths.pathToTeamProp(
-                        backstageBot.getDrive().actionBuilder(new Pose2d(0, 0, Math.toRadians(-180))),
+                Paths.reversedPath(
+                        backstageBot.getDrive().actionBuilder(new Pose2d(0, 0, Math.toRadians(180))),
                         teamPropLocation, new NullAction(), new NullAction(), new NullAction(), new NullAction()).build()
 
 //                        .stopAndAdd(Paths.pathToBackdrop(
